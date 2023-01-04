@@ -1,6 +1,6 @@
 package ip2.game;
 
-public class Acount {private int balance;
+public class Account {private int balance;
 
     // Constructor with a start balance set to any input.
 
