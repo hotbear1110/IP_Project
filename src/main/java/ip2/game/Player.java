@@ -1,5 +1,5 @@
 package ip2.game;
-
+import ip2.gameboard.Token;
 public class Player {
     private String playerName; //The players name
 
