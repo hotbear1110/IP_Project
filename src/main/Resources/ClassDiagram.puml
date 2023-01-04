@@ -84,6 +84,8 @@ package GameBoard {
         - owner : Player
         - isOwned : bool
         - isPledged : bool
+        - hasHouse : bool
+        - hasHotel : bool
 
         + getPrice() : int
         + getPledge() : int
@@ -92,6 +94,8 @@ package GameBoard {
         + getOwner() : player
         + isOwned() bool
         + isPledged() bool
+        + buildHouse() : void
+        + buildHotel() : void
 
     }
 
@@ -182,9 +186,9 @@ package GameLogic {
     }
 
     Game -l- GameController
-    GameController -u- ActionController
-    GameController -u- Bank
-    GameController -u- PositionController
+    GameController o-u- ActionController
+    GameController o-u- Bank
+    GameController o-u- PositionController
 }
 
 package GameUI {
@@ -211,10 +215,10 @@ package GameUI {
     }
 
     class PlayerIO {}
-    GameController -d- UI
-    UI -d- PlayerAPI
-    UI -d- BoardAPI
-    UI -d- PlayerIO
+    GameController -d-> UI
+    UI o-d- PlayerAPI
+    UI o-d- BoardAPI
+    UI o-d- PlayerIO
 }
 
 
