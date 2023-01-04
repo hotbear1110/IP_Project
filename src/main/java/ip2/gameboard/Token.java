@@ -1,5 +1,5 @@
 package ip2.gameboard;
-
+import ip2.game.Player;
 public class Token {private final Player player; //The player assigned to the token
     private int position; //The token position
 
@@ -18,7 +18,7 @@ public class Token {private final Player player; //The player assigned to the to
      * @return (boolean) True if the player passes start
      */
     public boolean moveToken(int dice) {
-        //If the new position is greater than 24, the player has lapped the board and the position goes back to 0
+        //If the new position is greater than 40, the player has lapped the board and the position goes back to 0
         //Else the dice sum is just added to the current position
         if (position + dice >= 40) {
             position = position + dice - 40;
