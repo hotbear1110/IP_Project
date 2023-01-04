@@ -1,0 +1,230 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+package Game {
+
+    class Game {
+    players : Player[]
+    gameOver : bool
+
+    -startGame() : void
+    -createPlayers : ArrayList<Players>
+    -decideFirstPlayer : Player[]
+    -takeTurn() : void
+    -endTurn() : void
+    -announceWinner() : void
+
+    }
+
+
+
+    class Player {
+        - name : str
+        - isInJail : bool
+        - hasJailCard : bool
+
+        + setPlayerName(str name) : void
+        + getPlayerName() : str
+    }
+
+    class Account {
+        - balance : int
+
+        + setBalance(value int) : void
+        + getBalance() : int
+        + balanceCheck() : bool
+    }
+
+    class Dice {
+        - diceCup : int[]
+        - NUM_OF_DICE : int
+
+        +roll() : void
+        +getDice(index int): int
+        +getTotal() : int
+        +getDouble() : bool
+    }
+
+    class Deck {
+    - cards : cards[]
+    }
+
+    class Cards {
+    - name : str
+    }
+
+Game *-u- Dice
+Game *-r- Player
+Game *-l- Deck
+Deck o-l- Cards
+Player o-r- Account
+
+}
+
+package GameBoard {
+
+    class Board {
+        - NUM_OF_SQUARES : int
+        - fields : Squares[]
+    }
+
+    class Token {
+        - position : int
+    }
+
+    abstract class Squares {
+        - name : str
+
+        + getSquareName() : str
+    }
+
+    abstract class Property {
+        - price : int
+        - pledge : int
+        - owner : Player
+        - isOwned : bool
+        - isPledged : bool
+        - hasHouse : bool
+        - hasHotel : bool
+
+        + getPrice() : int
+        + getPledge() : int
+        + pledgeProperty() : void
+        + setOwner(Player name) : void
+        + getOwner() : player
+        + isOwned() bool
+        + isPledged() bool
+        + buildHouse() : void
+        + buildHotel() : void
+
+    }
+
+    class Lot {
+        - rent : int
+
+        +getRent() : int
+        +getColor() : ColorGroup
+    }
+
+    class Ship {
+        - rent : int
+
+        +getRent() int
+    }
+
+    class Brewery {
+        - rent : int
+
+        +getRent() int
+    }
+
+    class Start {
+        - START_AMOUNT : int
+    }
+
+    class Jail {
+        - JAIL_FEE : int
+    }
+
+    class Tax {
+        - BASIS_TAX : int
+    }
+
+    class Parking {
+    }
+
+    class ColorGroup {
+        - name : str
+        - properties : Property<>
+    }
+
+    enum SquareNames {
+    }
+Game -d- Board
+Board -d- Squares
+Board -l- SquareNames
+Board -r- Token
+Squares -r- Start
+Squares -r- Parking
+Squares -l- Tax
+Squares -l- Jail
+Squares -d- Property
+Property -r- Lot
+Property -- Ship
+Property -- Brewery
+Property -l- ColorGroup
+}
+
+package GameLogic {
+
+    class GameController {
+        - currentPlayer : Player
+        +takeTurn(Player currentPlayer)
+        +endTurn() : void
+    }
+    class Bank {
+        +balanceCheck(Player) : boolean
+        +payToBank(fromPlayer, int) : void
+        +payToPlayer(fromPlayer, toPlayer int)
+    }
+    class PositionController {
+        -currentPlayer : Player
+
+
+        +movePlayer() : void
+        +passedStart() : bool
+        +isInJail() : bool
+
+    }
+    class ActionController {
+        currentPlayer : Player
+
+        +landsOnSquare() :
+        +landsOnChance() :
+        +buyProperty() :
+        +payRent() :
+    }
+
+    Game -l- GameController
+    GameController o-u- ActionController
+    GameController o-u- Bank
+    GameController o-u- PositionController
+}
+
+package GameUI {
+
+    class UI {
+    gui : GUI
+
+    startUI() : void
+    updateUI() : void
+    }
+    class PlayerAPI {
+    players : HashMap<>
+
+    createGUIPlayer() : void
+    getGUIPlayer() : GUI_Player
+    }
+
+    class BoardAPI {
+    guiBoard : GUI_Field[]
+
+    makeGUIBoard() : GUI_Field[]
+    designGUIBoard(GUI_Field[]) : void
+
+    }
+
+    class PlayerIO {}
+    GameController -d-> UI
+    UI o-d- PlayerAPI
+    UI o-d- BoardAPI
+    UI o-d- PlayerIO
+}
+
+
+
+
+
+
+
+@enduml
