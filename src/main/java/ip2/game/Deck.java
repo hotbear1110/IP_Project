@@ -1,6 +1,6 @@
 package ip2.game;
 
-public class Deck {
+private class Deck {
 
-    private Cards cards[];
+    String[] cards = ;
 }
