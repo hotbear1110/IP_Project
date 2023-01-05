@@ -17,4 +17,10 @@ public class Deck {
     public static void shuffle() {
         Collections.shuffle(cards);
     }
+
+    public static void pullCard() {
+        Cards card = cards.get(0);
+        cards.remove(0);
+        cards.add(card);
+    }
 }
