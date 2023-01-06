@@ -1,0 +1,216 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+package Model{
+
+    class FixedValues {
+        + START_MONEY: int
+        + PASSED_START : int
+        + NUM_OF_SQUARES : int
+        + MIN_PLAYERS : int
+        + MAX_PLAYERS : int
+        + NUM_OF_DICE : int
+        + TAX_PRICE : int
+    }
+
+    class Game {
+        - PASSED_START : int
+        - START_MONEY : int
+        - players : Player[]
+        - currentPlayer : Player
+        - winner : Player
+        - dice : Dice
+        - board : Board
+        - rules : Rules
+        - gameOver : boolean
+
+        +createPlayers(String[] names) :
+        +setPlayers(Player[] players) :
+        +getPlayers() : Player[]
+        +setCurrentPlayer(Player player) :
+        +getCurrentPlayer() : Player
+    }
+
+    class Player {
+        - name : str
+        - account : Account
+        - token : Token
+    }
+
+    class Token {
+        - position : int
+    }
+
+    class Account {
+        - balance : int
+        - properties : ArrayList<>
+    }
+
+    class Board {
+        - squares : Square[]
+        - chanceCards : ChanceCards[]
+    }
+
+    class Dice {
+        - NUM_OF_DICE : int
+        - dicePair : int[]
+        - diceResult : int
+
+        +throwDice() :
+        +getTotal() : int
+        +getDice(int index) : int
+        +isDouble() : boolean
+    }
+
+    class Rules {
+        - game : Game
+        - players : Player[]
+        - numOfBankrupt : int
+
+        +startTurn() :
+        +endTurn() :
+        +throwDice() :
+        +passedStart() :
+        +addStartMoney() :
+        +roundCheck() :
+        +findWinner() : Player
+
+    }
+
+    package Squares {
+
+        class BoardFactory {
+
+        + makeSquares() : Square[]
+        }
+
+        abstract class Square {
+            - name : str
+            - subText : str
+            - description : str
+
+            + getName() : str
+            + getSubText () : str
+            + getDescription () str
+        }
+
+        abstract class Property {
+            - price : int
+            - mortgage : int
+            - owner : Player
+            - isOwned : boolean
+            - isMortgaged : boolean
+
+            + getPrice() : int
+            + getMortgage() : int
+            + getOwner() : Player
+            + setOwner() : Player
+            + isOwned() : boolean
+            + isMortgaged() : boolean
+        }
+
+        class Lot {
+            - rent : int[]
+            - currentRent : int
+            - color : Color
+
+            + getRent() : int
+            + getColor() : color
+        }
+
+        class StartSquare {
+        }
+    }
+    package ChanceCards{
+
+        class CardFactory {
+        }
+    }
+}
+
+package Controller {
+    abstract class Controller {
+    - menu : str[]
+
+    + getMenu() : str[]
+    + setMenu(str[]) :
+    }
+
+    class GameController {
+    - game : Game
+    - board : Board
+    - ui : UI
+
+    - startGame() :
+    - playTurn() :
+    - updateDice() :
+    - updateUI() :
+    - updateUIPlayer() :
+    - setBoard() :
+    - getBoard() : Board
+    - setGame() :
+    - getGame() : Game
+    }
+
+    class DiceController {
+    + default : str[]
+    }
+
+    class PropertyController {
+    + lotActions : str[]
+    }
+
+    class JailController {
+    + default : str[]
+    }
+
+    class TaxController {
+    + default : str[]
+
+    }
+
+    class EndTurnController {
+    + default : str[]
+    }
+}
+
+package View {
+    class UI {
+        - ui : GUI
+        - fields : GUI_Fields
+        - players : Players[]
+        - guiPlayers : GUI_Players[]
+
+        + getPlayerCount() : int
+        + getPlayerName() : str
+        + createPlayers() :
+        + setDice(int[] diceCup) :
+        + getUserChoice() : str
+
+    }
+}
+Square o-l- StartSquare
+Square o-- Property
+Property o-- Lot
+
+GameController *-- Controller
+Controller o-- DiceController
+Controller o-- TaxController
+Controller o-- PropertyController
+Controller o-- JailController
+Controller o-- EndTurnController
+
+GameController -r- UI
+GameController -r-> Game
+
+Game *-- Player
+Player *-- Account
+Player *-l- Token
+Game *-l- Dice
+Game *-- Board
+Game -u- FixedValues
+Game -l- Rules
+Game -u- ChanceCards
+Board *-d- Square
+
+@enduml
