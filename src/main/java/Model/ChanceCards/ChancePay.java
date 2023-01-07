@@ -14,10 +14,10 @@ public class ChancePay {
 
     public ChancePay(String Name, String Description, boolean Regular, boolean PerPlayer, boolean PropertyBonus) {
         name = Name;
-        Description = description;
-        Regular = regular;
-        PerPlayer = perPlayer;
-        PropertyBonus = propertyBonus;
+        description = Description;
+        regular = Regular;
+        perPlayer = PerPlayer;
+        propertyBonus = PropertyBonus;
     }
 
 
