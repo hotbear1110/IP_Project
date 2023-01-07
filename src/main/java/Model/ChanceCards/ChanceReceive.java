@@ -31,4 +31,8 @@ public class ChanceReceive {
         }
     }
 
+    /**
+     * Metode der checker om playeren har værdier for mere end 15000kr. Hvis ikke, så modtager de 40000kr
+     */
+
 }
