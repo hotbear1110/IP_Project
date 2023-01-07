@@ -1,6 +1,4 @@
-package Model;
-
-import Model.Cards;
+package Model.ChanceCards;
 
 import java.util.Collections;
 import java.util.ArrayList;

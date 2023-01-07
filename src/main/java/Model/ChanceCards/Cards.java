@@ -1,4 +1,4 @@
-package Model;
+package Model.ChanceCards;
 
 public class Cards {
 
