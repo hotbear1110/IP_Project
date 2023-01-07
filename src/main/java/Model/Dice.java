@@ -1,4 +1,4 @@
-package ip2.game;
+package Model;
 
 import java.util.Random;
 
