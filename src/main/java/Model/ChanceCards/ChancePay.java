@@ -1,5 +1,7 @@
 package Model.ChanceCards;
 
+import Model.Player;
+
 public class ChancePay {
 
     private String name;
@@ -20,6 +22,8 @@ public class ChancePay {
         propertyBonus = PropertyBonus;
     }
 
-
+public static void recieve(Player player, int amount) {
+player.setPlayerBalance(amount);
+    }
 
 }
