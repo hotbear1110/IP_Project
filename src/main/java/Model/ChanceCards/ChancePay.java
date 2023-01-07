@@ -6,20 +6,25 @@ public class ChancePay {
 
     private String name;
 
+    private String type;
+
     private String description;
 
-    private boolean regular;
+    private int amount;
 
-    private boolean perHouse;
-
-    private boolean perHouseHotel;
-
-    public ChancePay(String Name, String Description, boolean Regular, boolean PerHouse, boolean PerHouseHotel) {
+    public ChancePay(String Name, String Type, String Description, int Amount) {
         name = Name;
+        type = Type;
         description = Description;
-        regular = Regular;
-        perHouse = PerHouse;
-        perHouseHotel = PerHouseHotel;
+        amount = Amount;
+    }
+
+    public void payAmount(Player player) {
+        player.setPlayerBalance(-amount);
+    }
+
+    public void payPerHouse(Player player) {
+
     }
 
 }
