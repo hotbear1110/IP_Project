@@ -22,8 +22,16 @@ public class ChanceReceive {
         propertyBonus = PropertyBonus;
     }
 
-    public static void recieve(Player player, int amount) {
+    public static void recieve(Player player) {
         player.setPlayerBalance(amount);
+    }
+
+    public static void steal(Player player, int amountOfPlayers) {
+    player.setPlayerBalance(amount*amountOfPlayers+200);
+    Player[] players = Game.getPlayers();
+    for (Player player1: players){
+        player1.setPlayersBalance(amount)
+    }
     }
 
 }
