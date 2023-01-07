@@ -6,20 +6,17 @@ public class ChanceReceive {
 
     private String name;
 
+    private String type;
+
     private String description;
 
-    private boolean regular;
+    private static int amount;
 
-    private boolean perPlayer;
-
-    private boolean propertyBonus;
-
-    public ChanceReceive(String Name, String Description, boolean Regular, boolean PerPlayer, boolean PropertyBonus) {
+    public ChanceReceive(String Name, String Type,String Description, int Amount) {
         name = Name;
+        type = Type;
         description = Description;
-        regular = Regular;
-        perPlayer = PerPlayer;
-        propertyBonus = PropertyBonus;
+        amount = Amount;
     }
 
     public static void recieve(Player player) {
@@ -27,11 +24,11 @@ public class ChanceReceive {
     }
 
     public static void steal(Player player, int amountOfPlayers) {
-    player.setPlayerBalance(amount*amountOfPlayers+200);
-    Player[] players = Game.getPlayers();
-    for (Player player1: players){
-        player1.setPlayersBalance(amount)
-    }
+        player.setPlayerBalance(amount*amountOfPlayers+200);
+        Player[] players = Game.getPlayers();
+        for (Player player1: players){
+            player1.setPlayersBalance(amount)
+        }
     }
 
 }
