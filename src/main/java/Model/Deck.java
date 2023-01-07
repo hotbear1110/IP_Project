@@ -1,4 +1,6 @@
-package ip2.game;
+package Model;
+
+import Model.Cards;
 
 import java.util.Collections;
 import java.util.ArrayList;
