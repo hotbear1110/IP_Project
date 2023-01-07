@@ -10,20 +10,16 @@ public class ChancePay {
 
     private boolean regular;
 
-    private boolean perPlayer;
+    private boolean perHouse;
 
-    private boolean propertyBonus;
+    private boolean perHouseHotel;
 
-    public ChancePay(String Name, String Description, boolean Regular, boolean PerPlayer, boolean PropertyBonus) {
+    public ChancePay(String Name, String Description, boolean Regular, boolean PerHouse, boolean PerHouseHotel) {
         name = Name;
         description = Description;
         regular = Regular;
-        perPlayer = PerPlayer;
-        propertyBonus = PropertyBonus;
-    }
-
-public static void recieve(Player player, int amount) {
-player.setPlayerBalance(amount);
+        perHouse = PerHouse;
+        perHouseHotel = PerHouseHotel;
     }
 
 }
