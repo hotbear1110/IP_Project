@@ -1,4 +1,4 @@
-package ip2.gamelogic;
+package Control;
 
 public class GameControl {
 }

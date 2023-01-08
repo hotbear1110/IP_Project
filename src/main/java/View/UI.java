@@ -1,4 +1,4 @@
-package ip2.ui;
+package View;
 
 public class UI {
 }
