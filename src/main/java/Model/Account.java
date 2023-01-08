@@ -4,11 +4,8 @@ public class Account {private int balance;
 
     // Constructor with a start balance set to any input.
 
-    /**
-     * @param START_AMOUNT (int) The balance the players will start with.
-     */
-    public Account(int START_AMOUNT) {
-        balance = START_AMOUNT;
+    public Account(int StartMoney) {
+        balance = StartMoney;
     }
 
     /**
