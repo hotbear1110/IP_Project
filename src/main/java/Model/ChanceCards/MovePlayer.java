@@ -23,11 +23,12 @@ public class MovePlayer {
     }
 
     public static void specific(Player player) {
-        Player.moveCurrentPlayerPosition(fields);
+        Player.setCurrentPlayerPosition(fields);
     }
 
     public static void jail(Player player) {
-        Player.moveCurrentPlayerPosition(jail)
+        //Vi skal lige finde ud af en måde spilleren ikke får penge på
+        Player.setCurrentPlayerPosition(fields);
     }
 
 }
