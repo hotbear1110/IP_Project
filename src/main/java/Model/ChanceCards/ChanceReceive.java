@@ -27,7 +27,7 @@ public class ChanceReceive {
         player.setPlayerBalance(amount*amountOfPlayers+200);
         Player[] players = Game.getPlayers();
         for (Player player1: players){
-            player1.setPlayersBalance(amount)
+            player1.setPlayersBalance(amount);
         }
     }
 
