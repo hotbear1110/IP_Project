@@ -1,5 +1,5 @@
-package ip2.gameboard;
-import ip2.game.Player;
+package Model;
+import Model.Player;
 public class Token {private final Player player; //The player assigned to the token
     private int position; //The token position
 
