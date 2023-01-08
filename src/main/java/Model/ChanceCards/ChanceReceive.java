@@ -36,10 +36,14 @@ public class ChanceReceive {
      */
 
     public static void  rarecieve(Player player){
-        if (balance > 15000);
-        return
-        else if (balance < 15000)
+        int balance = Player.getPlayerBalance();
+
+        if (balance > 15000) {
+            return;
+        }
+        else {
             player.setPlayerBalance(40000);
+        }
     }
 
 }
