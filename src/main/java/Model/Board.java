@@ -1,4 +1,4 @@
-package ip2.gameboard;
+package Model;
 
 public class Board {
 }
