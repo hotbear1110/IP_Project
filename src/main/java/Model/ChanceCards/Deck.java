@@ -1,5 +1,7 @@
 package Model.ChanceCards;
 
+import Model.Player;
+
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -42,9 +44,29 @@ public class Deck {
         Collections.shuffle(cards);
     }
 
-    public static void pullCard() {
+    public static void pullCard(Player player) {
         Cards card = cards.get(0);
         cards.remove(0);
         cards.add(card);
+
+        String cardType = card.getType();
+
+        switch (cardType) {
+            case "payAmount": {
+                card.payAmount(player);
+            }
+            case "payPerHouse": {
+                card.payPerHouse(player);
+            }
+            case "recieve": {
+                card.recieve(player);
+            }
+            case "steal": {
+                card.steal(player);
+            }
+            case "rarecieve": {
+                card.rarecieve(player);
+            }
+        }
     }
 }
