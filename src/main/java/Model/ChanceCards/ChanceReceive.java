@@ -35,4 +35,11 @@ public class ChanceReceive {
      * Metode der checker om playeren har værdier for mere end 15000kr. Hvis ikke, så modtager de 40000kr
      */
 
+    public static void  rarecieve(Player player){
+        if (balance > 15000);
+        return
+        else if (balance < 15000)
+            player.setPlayerBalance(40000);
+    }
+
 }
