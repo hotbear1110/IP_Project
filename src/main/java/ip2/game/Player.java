@@ -7,14 +7,16 @@ public class Player {
 
     private Token token; //The token associated with the player
 
+    private FixedValues fixedValues;
+
     /**
      * The constructor for the player
      * @param Name (String) The player name
      * @param START_AMOUNT (int) The player start balance
      */
-    public Player(String Name, int START_AMOUNT) {
+    public Player(String Name, int FixedValues) {
         playerName = Name;
-        account = new Account(START_AMOUNT);
+        account = new Account(FixedValues);
         token = new Token(this);
     }
 
