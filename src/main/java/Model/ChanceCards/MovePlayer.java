@@ -22,4 +22,12 @@ public class MovePlayer {
         Player.moveCurrentPlayerPosition(fields);
     }
 
+    public static void specific(Player player) {
+        Player.moveCurrentPlayerPosition(fields);
+    }
+
+    public static void jail(Player player) {
+        Player.moveCurrentPlayerPosition(jail)
+    }
+
 }
