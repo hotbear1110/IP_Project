@@ -76,5 +76,7 @@ public class Deck {
  * Account should have a method that returns an arraylist of properties
  * i then have to iterate thru all the properties that are lots.
  * on each lot there will be a method for: boolean has house, boolean has hotel, and int of houses
- *
+ * Make default language danish and change the capitalization in deck where chance cards are generated.
+ * Look at token, if the new position is passed start, then return some true boolean. Remake the current one to not return, but chance a private boolean.
+ * The method that returns that boolean should be available both in token and in player. Call it hasPassedStart.
  */
