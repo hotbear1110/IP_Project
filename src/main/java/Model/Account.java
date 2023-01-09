@@ -24,7 +24,12 @@ public class Account {
         //so that balance is never negative
         balance = Math.max(balance + Int, 0);
     }
-
+    public void addProperty(Property property){
+        properties.add(property);
+    }
+    public ArrayList<Property> getProperty(){
+        return properties;
+    }
     /**
      * @return current balance
      */
