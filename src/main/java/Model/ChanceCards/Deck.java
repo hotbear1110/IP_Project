@@ -89,10 +89,10 @@ public class Deck {
                 ChancePay payAmountCard = (ChancePay) card;
                 payAmountCard.payAmount(player);
             }
-            case "payPerHouse" -> {
+            /*case "payPerHouse" -> {
                 ChancePay payPerHouseCard = (ChancePay) card;
                 payPerHouseCard.payPerHouse(player);
-            }
+            }*/
             case "recieve" -> {
                 ChanceReceive recieveCard = (ChanceReceive) card;
                 recieveCard.recieve(player);

@@ -13,14 +13,15 @@ public class Board {
     public Board(){
         this.squares = demoBoard();
         //this.squares = makeBoard();
-        this.cardDeck = Deck.demoCards();
+        this.cardDeck = new Deck();
+        cardDeck.demoCards();
     }
     public Square[] demoBoard(){
         return BoardFactory.makeDemoBoard();
     }
 
-    public void drawCard(){
-        cardDeck.pullCard();
+    public String drawCard(Player currentPlayer, Player[] players){
+        return cardDeck.pullCard(currentPlayer, players);
     }
     private Square[] makeBoard(){
         return BoardFactory.makeBoard();

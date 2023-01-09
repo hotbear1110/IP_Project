@@ -52,7 +52,7 @@ public class Game {
 
 
     public String drawChanceCard(){
-        return board.drawCard();
+        return board.drawCard(currentPlayer, players);
     }
     public int getDiceSum(){
         return dice.getSum();
