@@ -1,5 +1,9 @@
 package Model;
 
+import Model.Squares.Property;
+
+import java.util.ArrayList;
+
 public class Player {
     private String playerName; //The players name
 
@@ -7,7 +11,11 @@ public class Player {
 
     private Token token; //The token associated with the player
 
-
+//metode der retunere arraylist og propeties
+    public void playerPropeties(Property property){
+        account.getProperty();
+        account.addProperty(property);
+    }
     /**
      * The constructor for the player
      * @param Name (String) The player name
