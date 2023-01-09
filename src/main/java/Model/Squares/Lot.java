@@ -1,5 +1,7 @@
 package Model.Squares;
 
+import Global.Utility;
+
 import java.awt.*;
 
 public class Lot extends Property {
@@ -24,5 +26,9 @@ public class Lot extends Property {
 
     public Color getColor(){
         return color;
+    }
+
+    public String[] getSquareInfo(){
+        return new String[]{name, subText, description};
     }
 }

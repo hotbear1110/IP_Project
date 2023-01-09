@@ -48,7 +48,7 @@ public class GameControl {
         getGame().setCurrentPlayer();
     }
     private void setUpDemoGame(){
-        ui.showMessage(""); // Shows start-up message
+        ui.showMessage(Translator.getString("START_MESSAGE")); // Shows start-up message
 
         setUpPlayers(getNumberOfPlayers()); //Gets number of players, and gets the game model to create the player objects
 
@@ -58,7 +58,7 @@ public class GameControl {
     }
 
     public void playDemoTurn(Player player){
-            ui.getUserButton(game.getCurrentPlayer().getPlayerName() + "", diceControl.getControlMenu());
+            ui.getUserButton(game.getCurrentPlayer().getPlayerName() + Translator.getString("START_TURN") + " ", diceControl.getControlMenu());
 
             diceControl.controlAction(); //Makes the game model roll dice and updates the UI.
 
@@ -74,7 +74,7 @@ public class GameControl {
     public void setUpPlayers (int number){
         String[] players = new String[number]; //Creates a new string with an index number based on number of players
         for (int i = 0 ; i < players.length ; i++){
-            players[i] = ui.getPlayerName(""); //User inputs a string for each index in the array
+            players[i] = ui.getPlayerName(Translator.getString("PLAYER_NAMES")); //User inputs a string for each index in the array
         }
         //--------- MIGHT BE REDUNDANT --------\\
         String[] playersInOrder = decideFirstPlayer(players); //Creates a new String array based on the users choice of first player
@@ -89,22 +89,22 @@ public class GameControl {
         List<String> list = Arrays.asList(names);
             switch (names.length){
                 case 3 -> {
-                    String s = ui.getUserButton("", "1. " + names[0], "2. " + names[1], "3. " + names[2]);
+                    String s = ui.getUserButton(Translator.getString("CHOOSE_FIRST_PLAYER"), "1. " + names[0], "2. " + names[1], "3. " + names[2]);
                     int n = Utility.parseFirstInt(s) - 1;
                     Utility.moveToFront(list, n);
                 }
                 case 4 -> {
-                   String s = ui.getUserButton("", "1. " + names[0], "2. " + names[1], "3. " + names[2], "4. " + names [3]);
+                   String s = ui.getUserButton(Translator.getString("CHOOSE_FIRST_PLAYER"), "1. " + names[0], "2. " + names[1], "3. " + names[2], "4. " + names [3]);
                     int n = Utility.parseFirstInt(s) - 1;
                     Utility.moveToFront(list, n);
                 }
                 case 5 -> {
-                    String s = ui.getUserButton("", "1. " + names[0], "2. " + names[1], "3. " + names[2], "4. " + names [3], "5. " + names [4]);
+                    String s = ui.getUserButton(Translator.getString("CHOOSE_FIRST_PLAYER"), "1. " + names[0], "2. " + names[1], "3. " + names[2], "4. " + names [3], "5. " + names [4]);
                     int n = Utility.parseFirstInt(s) - 1;
                     Utility.moveToFront(list, n);
                 }
                 case 6 -> {
-                    String s = ui.getUserButton("", "1. " + names[0], "2. " + names[1], "3. " + names[2], "4. " + names [3], "5. " + names [4], "6. " + names [5]);
+                    String s = ui.getUserButton(Translator.getString("CHOOSE_FIRST_PLAYER"), "1. " + names[0], "2. " + names[1], "3. " + names[2], "4. " + names [3], "5. " + names [4], "6. " + names [5]);
                     int n = Utility.parseFirstInt(s) - 1;
                     Utility.moveToFront(list, n);
                 }

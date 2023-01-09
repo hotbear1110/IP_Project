@@ -1,9 +1,9 @@
 package Model.Squares;
 
 public abstract class Square {
-    private final String name;
-    private final String subText;
-    private final String description;
+    final String name;
+    final String subText;
+    final String description;
 
     public Square(String name, String subText, String description){
         this.name = name;
@@ -21,5 +21,9 @@ public abstract class Square {
 
     public String getDescription(){
         return description;
+    }
+
+    public String[] getSquareInfo(){
+        return new String[]{name, subText, description};
     }
 }

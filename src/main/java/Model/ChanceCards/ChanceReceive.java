@@ -14,19 +14,19 @@ public class ChanceReceive extends Cards {
         player.setPlayerBalance(amount);
     }
 
-    public void steal(Player player, int amountOfPlayers) {
+    /*public void steal(Player player, int amountOfPlayers) {
         player.setPlayerBalance(amount*amountOfPlayers+200);
         Player[] players = Game.getPlayers();
         for (Player player1: players){
             player1.setPlayersBalance(amount);
         }
-    }
+    }*/
 
     /**
      * Metode der checker om playeren har værdier for mere end 15000kr. Hvis ikke, så modtager de 40000kr
      */
 
-    public void  rarecieve(Player player){
+    /*public void  rarecieve(Player player){
         int balance = Player.getPlayerBalance();
 
         if (balance > 15000) {
@@ -35,6 +35,6 @@ public class ChanceReceive extends Cards {
         else {
             player.setPlayerBalance(40000);
         }
-    }
+    }*/
 
 }

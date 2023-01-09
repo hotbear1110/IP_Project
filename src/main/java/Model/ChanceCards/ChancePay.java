@@ -18,7 +18,7 @@ public class ChancePay extends Cards{
         player.setPlayerBalance(-amount);
     }
 
-    public void payPerHouse(Player player) {
+    /*public void payPerHouse(Player player) {
         Property[] properties = player.getProperties();
 
         int houseCount = 0;
@@ -32,6 +32,6 @@ public class ChancePay extends Cards{
         }
 
         player.setPlayerBalance((amount * houseCount) + (hotelAmount * hotelCount));
-    }
+    }*/
 
 }
