@@ -88,4 +88,8 @@ public class Player {
     public String toString() {
         return playerName + " " + account.getBalance();
     }
+
+    public boolean hasPassedStart() {
+        return token.hasPassedStart();
+    }
 }

@@ -2,6 +2,7 @@ package Model;
 import Model.Player;
 public class Token {
     private int position; //The token position
+    private boolean hasPassedStart = false;
 
     public Token() {
         this.position = FixedValues.START_SQUARE;
@@ -12,10 +13,10 @@ public class Token {
         //Else the dice sum is just added to the current position
         if (position + dice > 40) {
             position = position + dice - 40;
-            return true;
+            hasPassedStart = true;
         } else {
             position += dice;
-            return false;
+            hasPassedStart = false;
         }
     }
 
@@ -31,5 +32,9 @@ public class Token {
 
     public int getPosition() {
         return position;
+    }
+
+    public boolean hasPassedStart() {
+        return hasPassedStart;
     }
 }
