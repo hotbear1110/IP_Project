@@ -53,51 +53,51 @@ public class PricesFactory {
 
     public static int[][] upgradeTable(){
         int[][] upgradeTable = new int[][]{
-                //Pris hus
+                //Pris hus , pris hotel
                 //Rødovrevej
-                {1000},
+                {1000, 5000},
                 //Hvidovrevej
-                {1000},
+                {1000, 5000},
                 //Roskildevej
-                {1000},
+                {1000, 5000},
                 //Valby Langgade
-                {1000},
+                {1000, 5000},
                 //Allégade
-                {1000},
+                {1000, 5000},
                 //Frederiksberg Alle
-                {2000},
+                {2000, 10000},
                 //Bülowsvej
-                {2000},
+                {2000, 10000},
                 //Gl. Kongevej
-                {2000},
+                {2000, 10000},
                 //Bernstoffsvej
-                {2000},
+                {2000, 10000},
                 //Hellerupvej
-                {2000},
+                {2000, 10000},
                 //Strandvejen
-                {2000},
+                {2000, 10000},
                 //Trianglen
-                {3000},
+                {3000, 15000},
                 //Østerbrogade
-                {3000},
+                {3000, 15000},
                 //Grønningen
-                {3000},
+                {3000, 15000},
                 //Bredgade
-                {3000},
+                {3000, 15000},
                 //Kgs. Nytorv
-                {3000},
+                {3000, 15000},
                 //Østergade
-                {3000},
+                {3000, 15000},
                 //Amagertorv
-                {4000},
+                {4000, 20000},
                 //Vimmelskaftet
-                {4000},
+                {4000, 20000},
                 //Nygade
-                {4000},
+                {4000, 20000},
                 //Frederiksberggade
-                {4000},
+                {4000, 20000},
                 //Rådhuspladsen
-                {4000}
+                {4000, 20000}
         };
         return upgradeTable;
     }
