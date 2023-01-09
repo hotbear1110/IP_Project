@@ -1,15 +1,16 @@
 package Model.ChanceCards;
 
-import Model.Player;
-
 public class Cards {
 
     private String name;
     private String type;
 
-    public Cards(String Name, String Type) {
+    private String description;
+
+    public Cards(String Name, String Type, String Description) {
         name = Name;
         type = Type;
+        description = Description;
     }
 
     public String getType() {

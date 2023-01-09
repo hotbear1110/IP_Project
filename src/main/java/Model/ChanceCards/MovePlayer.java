@@ -8,8 +8,7 @@ public class MovePlayer extends Cards {
 
     private int fields;
     public MovePlayer(String Name, String Type, String Description, int Fields){
-        super(Name, Type);
-        description = Description;
+        super(Name, Type, Description);
         fields = Fields;
     }
 

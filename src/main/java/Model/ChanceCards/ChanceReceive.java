@@ -3,13 +3,10 @@ package Model.ChanceCards;
 import Model.Player;
 
 public class ChanceReceive extends Cards {
-    private String description;
-
     private int amount;
 
     public ChanceReceive(String Name, String Type,String Description, int Amount) {
-        super(Name, Type);
-        description = Description;
+        super(Name, Type, Description);
         amount = Amount;
     }
 

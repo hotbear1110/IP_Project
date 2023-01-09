@@ -4,15 +4,12 @@ import Model.Player;
 import org.apache.velocity.tools.config.Property;
 
 public class ChancePay extends Cards{
-    private String description;
-
     private int amount;
 
     private int hotelAmount;
 
     public ChancePay(String Name, String Type, String Description, int Amount, int HotelAmount) {
-        super(Name, Type);
-        description = Description;
+        super(Name, Type, Description);
         amount = Amount;
         hotelAmount = HotelAmount;
     }
