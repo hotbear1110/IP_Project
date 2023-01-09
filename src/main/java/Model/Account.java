@@ -1,11 +1,18 @@
 package Model;
 
-public class Account {private int balance;
+import Model.Squares.Property;
+
+import java.util.ArrayList;
+
+public class Account {
+    private int balance;
+    private ArrayList<Property> properties;
 
     // Constructor with a start balance set to any input.
 
     public Account(int StartMoney) {
         balance = StartMoney;
+        properties = new ArrayList<>();
     }
 
     /**
