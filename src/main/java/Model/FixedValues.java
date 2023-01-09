@@ -5,7 +5,7 @@ import java.awt.*;
 public class FixedValues {
 
     public static final Color BOARD_COLOR = Color.blue;
-    public static final int START_MONEY = 30000;
+    public static final int START_AMOUNT = 30000;
     public static final int PASSED_START = 40000;
 
     public static final int INCOME_TAX = 4000;

@@ -14,7 +14,7 @@ public class Player {
      */
     public Player(String Name) {
         playerName = Name;
-        account = new Account();
+        account = new Account(FixedValues.START_AMOUNT);
         token = new Token();
     }
 
