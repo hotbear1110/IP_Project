@@ -68,3 +68,13 @@ public class Deck {
         return cards;
     }
 }
+
+/**
+ * To do:
+ * Make demo cards, just one card that we can show works. Made actioncontroll call demoCards() or something like that. Something easy like move or getmoney.
+ * Everywhere with houses remake it so it matches with the account method.
+ * Account should have a method that returns an arraylist of properties
+ * i then have to iterate thru all the properties that are lots.
+ * on each lot there will be a method for: boolean has house, boolean has hotel, and int of houses
+ *
+ */
