@@ -1,5 +1,6 @@
 package View;
 
+import Control.Translator;
 import Model.Board;
 import Model.FixedValues;
 import Model.Player;
@@ -45,7 +46,7 @@ public class UI {
 
     //---------- GUI-Player methods ---------\\
     public int getNumOfPlayers(){
-        return getNumber("", FixedValues.MIN_PLAYERS, FixedValues.MAX_PLAYERS);
+        return getNumber(Translator.getString("NUMBER_OF_PLAYERS"), FixedValues.MIN_PLAYERS, FixedValues.MAX_PLAYERS);
     }
 
     public String getPlayerName(String text){

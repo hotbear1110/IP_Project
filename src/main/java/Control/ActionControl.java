@@ -36,7 +36,7 @@ public class ActionControl {
                 cards.add(card);
 
                 String cardType = card.getType();
-                int playerCount = gameControl.getGame().getPlayers().length; //Vi skal have en metode der retunerer playercount
+                int playerCount = gameControl.getGame().getPlayers().length;
 
                 switch (cardType) {
                     case "payAmount" -> {

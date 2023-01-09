@@ -5,7 +5,7 @@ public class DiceControl{
     private GameControl gameControl;
     public DiceControl(GameControl gameControl){
         this.gameControl = gameControl;
-        this.menu = new String[]{""};
+        this.menu = new String[]{Translator.getString("ROLL_DICE")};
 
     }
 
