@@ -73,17 +73,16 @@ public class Deck {
         return cards;
     }
 
-    public void pullCard() {
-        Player player = gameControl.getGame().getCurrentPlayer();
+    public String pullCard(Player player, Player[] players) {
 
-        ArrayList<Cards> cards = Deck.getCards();
+        ArrayList<Cards> cards = getCards();
 
         Cards card = cards.get(0);
         cards.remove(0);
         cards.add(card);
 
         String cardType = card.getType();
-        int playerCount = gameControl.getGame().getPlayers().length;
+        String cardDescription = card.getDescription();
 
         switch (cardType) {
             case "payAmount" -> {
@@ -100,19 +99,19 @@ public class Deck {
             }
             case "steal" -> {
                 ChanceReceive stealCard = (ChanceReceive) card;
-                stealCard.steal(player, playerCount);
+                stealCard.steal(player, players);
             }
             case "rarecieve" -> {
                 ChanceReceive rarecieveCard = (ChanceReceive) card;
                 rarecieveCard.rarecieve(player);
             }
         }
+        return cardDescription;
     }
 
-    public ArrayList<Cards> demoCards() {
+    public void demoCards() {
         Cards newCard = new ChanceReceive("CHANCE12", "recieve", Translator.getString("CHANCE12"), 500);
         cards.add(newCard);
-        return cards;
     }
 }
 
