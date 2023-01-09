@@ -50,11 +50,10 @@ public class Game {
         dice.rollDice();
     }
 
-    //---------- ONLY FOR DEMO --------\\
-    public void setDice(int[] pair){
-        dice.setDice(pair);
-    }
 
+    public String drawChanceCard(){
+        return board.drawCard();
+    }
     public int getDiceSum(){
         return dice.getSum();
     }
@@ -73,5 +72,10 @@ public class Game {
 
     public boolean isGameOver(){
         return gameOver;
+    }
+
+    //---------- ONLY FOR DEMO --------\\
+    public void setDice(int[] pair){
+        dice.setDice(pair);
     }
 }

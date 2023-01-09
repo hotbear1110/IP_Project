@@ -6,8 +6,12 @@ import Model.Player;
 import java.util.*;
 
 public class Deck {
-
-    private static ArrayList<Cards> cards = new ArrayList<Cards>();
+    private final ArrayList<Cards> cards;
+    public Deck(){
+        this.cards = new ArrayList<Cards>();
+        createCards();
+        shuffle();
+    }
 
     public void createCards() {
         for (int i = 0; i < 36; i++) {
@@ -65,7 +69,7 @@ public class Deck {
         Collections.shuffle(cards);
     }
 
-    public static ArrayList<Cards> getCards() {
+    public ArrayList<Cards> getCards() {
         return cards;
     }
 
@@ -104,9 +108,8 @@ public class Deck {
             }
         }
     }
-    }
 
-    public static ArrayList<Cards> demoCards() {
+    public ArrayList<Cards> demoCards() {
         Cards newCard = new ChanceReceive("CHANCE12", "recieve", Translator.getString("CHANCE12"), 500);
         cards.add(newCard);
         return cards;

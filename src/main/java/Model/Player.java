@@ -53,8 +53,8 @@ public class Player {
      * @param dice (int) the die sum
      * @return (boolean) True if the player passes start
      */
-    public boolean movePlayerPosition(int dice) {
-        return token.moveToken(dice);
+    public void movePlayerPosition(int dice) {
+        token.moveToken(dice);
     }
 
     /**

@@ -6,9 +6,14 @@ public class PositionControl {
         this.gameControl = gameControl;
     }
 
-    public int controlAction(int sum){
+    public boolean controlAction(int sum){
         gameControl.getGame().getCurrentPlayer().movePlayerPosition(sum);
-        //update ui
-        return gameControl.getGame().getCurrentPlayer().getPlayerPosition();
+
+        if (gameControl.getGame().getCurrentPlayer().hasPassedStart()){
+            return true;
+        } else {
+            return false;
+        }
+
     }
 }
