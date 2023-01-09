@@ -28,6 +28,7 @@ public class ActionControl {
         }
         if (gameControl.getGame().getBoard().getSquare(position) instanceof Chance) {
 
+        }
         if (gameControl.getGame().getBoard().getSquare(position) instanceof DemoSquare) {
 
         }
