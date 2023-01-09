@@ -12,10 +12,10 @@ public class Player {
      * The constructor for the player
      * @param Name (String) The player name
      */
-    public Player(String Name, int SetBalance) {
+    public Player(String Name) {
         playerName = Name;
-        account = new Account(SetBalance);
-        token = new Token(this);
+        account = new Account();
+        token = new Token();
     }
 
     /**
