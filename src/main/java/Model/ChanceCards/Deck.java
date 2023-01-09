@@ -10,49 +10,49 @@ public class Deck {
 
     public void createCards() {
         for (int i = 0; i < 36; i++) {
-            String card = "chance" + (i + 1);
+            String card = "CHANCE" + (i + 1);
             Cards newCard = null;
             switch (card) {
-                case "chance1" -> {
+                case "CHANCE1" -> {
                     newCard = new ChancePay(card, "payPerHouse", Translator.getString(card), 500, 2000);
                 }
-                case "chance2" -> {
+                case "CHANCE2" -> {
                     newCard = new ChancePay(card, "payPerHouse", Translator.getString(card), 800, 2300);
                 }
-                case "chance3", "chance7", "chance9" -> {
+                case "CHANCE3", "CHANCE7", "CHANCE9" -> {
                     newCard = new ChancePay(card, "payAmount", Translator.getString(card), 1000, 0);
                 }
-                case "chance4" -> {
+                case "CHANCE4" -> {
                     newCard = new ChancePay(card, "payAmount", Translator.getString(card), 300, 0);
                 }
-                case "chance5", "chance8", "chance10" -> {
+                case "CHANCE5", "CHANCE8", "CHANCE10" -> {
                     newCard = new ChancePay(card, "payAmount", Translator.getString(card), 200, 0);
                 }
-                case "chance6" -> {
+                case "CHANCE6" -> {
                     newCard = new ChancePay(card, "payAmount", Translator.getString(card), 3000, 0);
                 }
-                case "chance11" -> {
+                case "CHANCE11" -> {
                     newCard = new ChancePay(card, "payAmount", Translator.getString(card), 2000, 0);
                 }
-                case "chance12" -> {
+                case "CHANCE12" -> {
                     newCard = new ChanceReceive(card, "recieve", Translator.getString(card), 500);
                 }
-                case "chance13", "chance15", "chance16", "chance17", "chance18" -> {
+                case "CHANCE13", "CHANCE15", "CHANCE16", "CHANCE17", "CHANCE18" -> {
                     newCard = new ChanceReceive(card, "recieve", Translator.getString(card), 1000);
                 }
-                case "chance14" -> {
+                case "CHANCE14" -> {
                     newCard = new ChanceReceive(card, "recieve", Translator.getString(card), 3000);
                 }
-                case "chance19" -> {
+                case "CHANCE19" -> {
                     newCard = new ChanceReceive(card, "recieve", Translator.getString(card), 200);
                 }
-                case "chance20" -> {
+                case "CHANCE20" -> {
                     newCard = new ChanceReceive(card, "rarecieve", Translator.getString(card), 0);
                 }
-                case "chance21" -> {
+                case "CHANCE21" -> {
                     newCard = new ChanceReceive(card, "steal", Translator.getString(card), 200);
                 }
-                case "chance22", "chance23" -> {
+                case "CHANCE22", "CHANCE23" -> {
                     newCard = new ChanceReceive(card, "steal", Translator.getString(card), 500);
                 }
             }
@@ -66,6 +66,14 @@ public class Deck {
 
     public static ArrayList<Cards> getCards() {
         return cards;
+    }
+
+    public static ArrayList<Cards> demoCards() {
+        ArrayList<Cards> democards = new ArrayList<Cards>();
+
+        Cards newCard = new ChanceReceive("CHANCE12", "recieve", Translator.getString("CHANCE12"), 500);
+        democards.add(newCard);
+        return democards;
     }
 }
 
