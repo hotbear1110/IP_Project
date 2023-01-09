@@ -86,7 +86,7 @@ public class Deck {
         Collections.shuffle(cards);
     }
 
-    public void pullCard(Player player) {
+    /*public void pullCard(Player player) {
         Cards card = cards.get(0);
         cards.remove(0);
         cards.add(card);
@@ -116,5 +116,5 @@ public class Deck {
                 rarecieveCard.rarecieve(player);
             }
         }
-    }
+    }*/
 }

@@ -12,7 +12,7 @@ public class MovePlayer extends Cards {
         fields = Fields;
     }
 
-    public void move(Player player) {
+    /*public void move(Player player) {
         Player.moveCurrentPlayerPosition(fields);
     }
 
@@ -23,6 +23,6 @@ public class MovePlayer extends Cards {
     public void jail(Player player) {
         //Vi skal lige finde ud af en måde spilleren ikke får penge på
         Player.setCurrentPlayerPosition(fields);
-    }
+    }*/
 
 }
