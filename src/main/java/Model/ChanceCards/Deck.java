@@ -104,7 +104,6 @@ public class Deck {
             }
         }
     }
-    }
 
     public static ArrayList<Cards> demoCards() {
         Cards newCard = new ChanceReceive("CHANCE12", "recieve", Translator.getString("CHANCE12"), 500);
