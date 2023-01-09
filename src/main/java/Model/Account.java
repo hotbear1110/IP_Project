@@ -1,37 +1,31 @@
 package Model;
 
-public class Account {private int balance;
+import Model.Squares.Property;
 
-    // Constructor with a start balance set to any input.
+import java.util.ArrayList;
 
-    /**
-     * @param START_AMOUNT (int) The balance the players will start with.
-     */
+public class Account {
+    private int balance;
+    private final ArrayList<Property> properties;
+
     public Account(int START_AMOUNT) {
         balance = START_AMOUNT;
+        properties = new ArrayList<>();
     }
-
-    /**
-     * Adds an integer to the balance
-     * @param Int (int) added to the current balance
-     */
     public void setBalance(int Int) {
         //Sets balance to the highest value of 0 and balance + Int
         //so that balance is never negative
         balance = Math.max(balance + Int, 0);
     }
 
-    /**
-     * @return current balance
-     */
     public int getBalance() {
         return balance;
     }
 
-    /**
-     * @param amount (int) the amount to check against
-     * @return (boolean) - True if balance is equal or greater than the amount.
-     */
+    public void addProperty(Property property){
+        properties.add(property);
+    }
+
     public boolean balanceCheck(int amount) {
         return balance >= amount;
     }
