@@ -43,7 +43,7 @@ public class PricesFactory {
                 {550, 1100, 2600, 7800, 18000, 22000, 25000},
                 //Nygade
                 {600, 1200, 3000, 9000, 20000, 24000, 28000},
-                //Frederiksbergade
+                //Frederiksberggade
                 {700, 1400, 3500, 10000, 22000, 26000, 30000},
                 //Rådhuspladsen
                 {1000, 2000, 4000, 12000, 28000, 34000, 40000}
@@ -53,9 +53,51 @@ public class PricesFactory {
 
     public static int[][] upgradeTable(){
         int[][] upgradeTable = new int[][]{
-                //hus pris, hotel pris
-                {},
-                {},
+                //Pris hus
+                //Rødovrevej
+                {1000},
+                //Hvidovrevej
+                {1000},
+                //Roskildevej
+                {1000},
+                //Valby Langgade
+                {1000},
+                //Allégade
+                {1000},
+                //Frederiksberg Alle
+                {2000},
+                //Bülowsvej
+                {2000},
+                //Gl. Kongevej
+                {2000},
+                //Bernstoffsvej
+                {2000},
+                //Hellerupvej
+                {2000},
+                //Strandvejen
+                {2000},
+                //Trianglen
+                {3000},
+                //Østerbrogade
+                {3000},
+                //Grønningen
+                {3000},
+                //Bredgade
+                {3000},
+                //Kgs. Nytorv
+                {3000},
+                //Østergade
+                {3000},
+                //Amagertorv
+                {4000},
+                //Vimmelskaftet
+                {4000},
+                //Nygade
+                {4000},
+                //Frederiksberggade
+                {4000},
+                //Rådhuspladsen
+                {4000}
         };
         return upgradeTable;
     }
