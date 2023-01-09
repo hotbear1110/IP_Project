@@ -1,7 +1,10 @@
 package Model.ChanceCards;
 
 import Model.Player;
-import org.apache.velocity.tools.config.Property;
+import Model.Squares.Lot;
+import Model.Squares.Property;
+
+import java.util.ArrayList;
 
 public class ChancePay extends Cards{
     private int amount;
@@ -19,12 +22,13 @@ public class ChancePay extends Cards{
     }
 
     /*public void payPerHouse(Player player) {
-        Property[] properties = player.getProperties();
+        ArrayList<Model.Squares.Property> properties = player.playerProperties();
 
         int houseCount = 0;
         int hotelCount = 0;
 
         for (Property property : properties) {
+            if (gameControl.getGame().getBoard().getSquare(position) instanceof Lot)
             int propertyHouses = property.getHouses().length;
             int propertyHotels = property.getHotels().length;
             houseCount += propertyHouses;

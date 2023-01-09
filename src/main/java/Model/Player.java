@@ -12,9 +12,8 @@ public class Player {
     private Token token; //The token associated with the player
 
 //metode der retunere arraylist og propeties
-    public void playerPropeties(Property property){
-        account.getProperty();
-        account.addProperty(property);
+    public ArrayList<Property> playerProperties(){
+        return account.getProperty();
     }
     /**
      * The constructor for the player
