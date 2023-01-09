@@ -1,6 +1,7 @@
 package Model.ChanceCards;
 
 import Control.Translator;
+import Model.Player;
 
 import java.util.*;
 
@@ -68,12 +69,47 @@ public class Deck {
         return cards;
     }
 
-    public static ArrayList<Cards> demoCards() {
-        ArrayList<Cards> democards = new ArrayList<Cards>();
+    public void pullCard() {
+        Player player = gameControl.getGame().getCurrentPlayer();
 
+        ArrayList<Cards> cards = Deck.getCards();
+
+        Cards card = cards.get(0);
+        cards.remove(0);
+        cards.add(card);
+
+        String cardType = card.getType();
+        int playerCount = gameControl.getGame().getPlayers().length;
+
+        switch (cardType) {
+            case "payAmount" -> {
+                ChancePay payAmountCard = (ChancePay) card;
+                payAmountCard.payAmount(player);
+            }
+            case "payPerHouse" -> {
+                ChancePay payPerHouseCard = (ChancePay) card;
+                payPerHouseCard.payPerHouse(player);
+            }
+            case "recieve" -> {
+                ChanceReceive recieveCard = (ChanceReceive) card;
+                recieveCard.recieve(player);
+            }
+            case "steal" -> {
+                ChanceReceive stealCard = (ChanceReceive) card;
+                stealCard.steal(player, playerCount);
+            }
+            case "rarecieve" -> {
+                ChanceReceive rarecieveCard = (ChanceReceive) card;
+                rarecieveCard.rarecieve(player);
+            }
+        }
+    }
+    }
+
+    public static ArrayList<Cards> demoCards() {
         Cards newCard = new ChanceReceive("CHANCE12", "recieve", Translator.getString("CHANCE12"), 500);
-        democards.add(newCard);
-        return democards;
+        cards.add(newCard);
+        return cards;
     }
 }
 
