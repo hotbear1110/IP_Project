@@ -30,7 +30,7 @@ public class GameControl {
         this.chanceControl = new ChanceControl(this);
         this.ui = new UI(board);
 
-        runDemoGame();
+        //Select accepts to run:
     }
 
     public Game getGame(){
@@ -38,6 +38,7 @@ public class GameControl {
     }
     //--------- DEMO GAME --------\\
     private void runDemoGame(){
+        //switch case - take a string as argument.
         setUpDemoGame();
         while(!game.isGameOver()){
             playDemoTurn(game.getCurrentPlayer());
