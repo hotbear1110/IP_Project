@@ -1,17 +1,12 @@
 package Model.ChanceCards;
 
 import Control.Translator;
-import Model.Player;
 
-import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLClassLoader;
 import java.util.*;
 
 public class Deck {
 
-    private ArrayList<Cards> cards = new ArrayList<Cards>();
+    private static ArrayList<Cards> cards = new ArrayList<Cards>();
 
     public void createCards() {
         for (int i = 0; i < 36; i++) {
@@ -69,35 +64,7 @@ public class Deck {
         Collections.shuffle(cards);
     }
 
-    public void pullCard(Player player) {
-        Cards card = cards.get(0);
-        cards.remove(0);
-        cards.add(card);
-
-        String cardType = card.getType();
-        int playerCount = Game.getPlayers(); //Vi skal have en metode der retunerer playercount
-
-        switch (cardType) {
-            case "payAmount" -> {
-                ChancePay payAmountCard = (ChancePay) card;
-                payAmountCard.payAmount(player);
-            }
-            case "payPerHouse" -> {
-                ChancePay payPerHouseCard = (ChancePay) card;
-                payPerHouseCard.payPerHouse(player);
-            }
-            case "recieve" -> {
-                ChanceReceive recieveCard = (ChanceReceive) card;
-                recieveCard.recieve(player);
-            }
-            case "steal" -> {
-                ChanceReceive stealCard = (ChanceReceive) card;
-                stealCard.steal(player, playerCount);
-            }
-            case "rarecieve" -> {
-                ChanceReceive rarecieveCard = (ChanceReceive) card;
-                rarecieveCard.rarecieve(player);
-            }
-        }
+    public static ArrayList<Cards> getCards() {
+        return cards;
     }
 }
