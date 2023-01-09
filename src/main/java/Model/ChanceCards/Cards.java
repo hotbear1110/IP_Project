@@ -17,4 +17,7 @@ public class Cards {
         return this.type;
     }
 
+    public String getDescription() {
+        return description;
+    }
 }
