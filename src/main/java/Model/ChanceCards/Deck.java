@@ -73,9 +73,13 @@ public class Deck {
         return cards;
     }
 
-    public String pullCard(Player player, Player[] players) {
+    public String getNextCard() {
+        Cards card = cards.get(0);
 
-        ArrayList<Cards> cards = getCards();
+        return card.getDescription();
+    }
+
+    public String pullCard(Player player, Player[] players) {
 
         Cards card = cards.get(0);
         cards.remove(0);
