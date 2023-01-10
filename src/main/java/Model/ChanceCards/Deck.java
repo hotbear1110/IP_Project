@@ -6,10 +6,10 @@ import Model.Player;
 import java.util.*;
 
 public class Deck {
-    private final ArrayList<Cards> cards;
+    private ArrayList<Cards> cards;
     public Deck(){
         this.cards = new ArrayList<Cards>();
-        createCards();
+        demoCards();
         shuffle();
     }
 
@@ -33,7 +33,7 @@ public class Deck {
                 case "CHANCE5", "CHANCE8", "CHANCE10" -> {
                     newCard = new ChancePay(card, "payAmount", Translator.getString(card), 200, 0);
                 }
-                case "CHANCE6" -> {
+               case "CHANCE6" -> {
                     newCard = new ChancePay(card, "payAmount", Translator.getString(card), 3000, 0);
                 }
                 case "CHANCE11" -> {
@@ -82,8 +82,16 @@ public class Deck {
     public String pullCard(Player player, Player[] players) {
 
         Cards card = cards.get(0);
-        cards.remove(0);
-        cards.add(card);
+        ArrayList<Cards> tempCards = new ArrayList<Cards>();
+
+
+        for (int i = 1; i < cards.size(); i++) {
+            tempCards.add(cards.get(i));
+        }
+
+        tempCards.add(card);
+
+        cards = tempCards;
 
         String cardType = card.getType();
         String cardDescription = card.getDescription();

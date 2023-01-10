@@ -13,7 +13,6 @@ public class Board {
         this.squares = demoBoard();
         //this.squares = makeBoard();
         this.cardDeck = new Deck();
-        cardDeck.demoCards();
     }
     private Square[] makeBoard(){
         return BoardFactory.makeBoard();
