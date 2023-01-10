@@ -1,11 +1,4 @@
 package Control;
-
-import Model.ChanceCards.Cards;
-import Model.ChanceCards.ChancePay;
-import Model.ChanceCards.ChanceReceive;
-import Model.ChanceCards.Deck;
-import Model.Game;
-import Model.Player;
 import Model.Squares.*;
 
 import java.util.ArrayList;
@@ -24,9 +17,10 @@ public class ActionControl {
         if (gameControl.getGame().getBoard().getSquare(position) instanceof Start){
             //gameControl.getUI().showMessage(Translator.getString("LAND_ON_START"));
         }
-        if (gameControl.getGame().getBoard().getSquare(position) instanceof Lot lot){
+        if (gameControl.getGame().getBoard().getSquare(position) instanceof Property){
             if (!disableBuy){
-                landedOnProperty(lot);
+
+                landedOnProperty((Property) gameControl.getGame().getBoard().getSquare(position));
             }
         }
         if (gameControl.getGame().getBoard().getSquare(position) instanceof Chance) {
@@ -38,34 +32,34 @@ public class ActionControl {
         }
     }
 
-    public void landedOnProperty(Lot lot){
-        if (!lot.isOwned()){
-            buyProperty(lot);
-        } else if (!lot.getOwner().equals(gameControl.getGame().getCurrentPlayer())){
-            payRent(lot);
+    public void landedOnProperty(Property property){
+        if (!property.isOwned()){
+            buyProperty(property);
+        } else if (!property.getOwner().equals(gameControl.getGame().getCurrentPlayer())){
+            payRent(property);
         } else if (!disableUpgrade){
-            upgradeProperty(lot);
+            upgradeProperty((Lot) property);
         }
 
     }
 
-    public void buyProperty(Lot lot){
-        String s = gameControl.getUI().getUserButton(Translator.getString("LAND_ON_UNOWNED") + "\nPrisen er " + lot.getPrice(), "Ja" , "Nej");
+    public void buyProperty(Property property){
+        String s = gameControl.getUI().getUserButton(Translator.getString("LAND_ON_UNOWNED") + "\nPrisen er " + property.getPrice(), "Ja" , "Nej");
         if (s.equals("Ja")){
-            gameControl.getGame().getCurrentPlayer().setPlayerBalance(-lot.getPrice());
-            lot.setOwner(gameControl.getGame().getCurrentPlayer());
+            gameControl.getGame().getCurrentPlayer().setPlayerBalance(-property.getPrice());
+            property.setOwner(gameControl.getGame().getCurrentPlayer());
         }
     }
 
-    public void payRent(Lot lot){
-        gameControl.getUI().showMessage(Translator.getString("LAND_ON_OWNED") + lot.getRent());
-        if (gameControl.getGame().getCurrentPlayer().getPlayerBalance() < lot.getRent()){
-            gameControl.getGame().getCurrentPlayer().setPlayerBalance(-lot.getRent());
-            int n = gameControl.getGame().getCurrentPlayer().getPlayerBalance() % lot.getRent();
-            lot.getOwner().setPlayerBalance(n);
+    public void payRent(Property property){
+        gameControl.getUI().showMessage(Translator.getString("LAND_ON_OWNED") + property.getRent());
+        if (gameControl.getGame().getCurrentPlayer().getPlayerBalance() < property.getRent()){
+            gameControl.getGame().getCurrentPlayer().setPlayerBalance(-property.getRent());
+            int n = gameControl.getGame().getCurrentPlayer().getPlayerBalance() % property.getRent();
+            property.getOwner().setPlayerBalance(n);
         } else {
-            gameControl.getGame().getCurrentPlayer().setPlayerBalance(-lot.getRent());
-            lot.getOwner().setPlayerBalance(lot.getRent());
+            gameControl.getGame().getCurrentPlayer().setPlayerBalance(-property.getRent());
+            property.getOwner().setPlayerBalance(property.getRent());
         }
     }
 

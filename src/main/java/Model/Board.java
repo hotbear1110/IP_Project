@@ -1,6 +1,8 @@
 package Model;
 
 import Model.ChanceCards.Deck;
+import Model.Squares.Lot;
+import Model.Squares.Property;
 import Model.Squares.Square;
 
 public class Board {
@@ -22,7 +24,6 @@ public class Board {
     public Square getSquare(int index){
         return squares[index];
     }
-
 
     public String drawCard(Player currentPlayer, Player[] players){
         return cardDeck.pullCard(currentPlayer, players);
