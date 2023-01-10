@@ -6,6 +6,7 @@ import java.util.Arrays;
 public class Game {
     private Player[] players;
     private Player currentPlayer;
+    private boolean someoneIsBankrupt = false;
     private int bankruptPlayers = 0;
     private Player winner;
     private final Dice dice;
@@ -72,11 +73,19 @@ public class Game {
         players = temp;
         bankruptPlayers++;
     }
+
+    public boolean isAnyBankrupt(){
+        for (Player player : players) {
+            if (player.isBankrupt()) {
+                removePlayer(player);
+            }
+        } return someoneIsBankrupt;
+    }
     public boolean isThereAWinner() {
         if(bankruptPlayers == players.length - 1){
             winner = players[0];
-            return true;
+            gameOver = true;
         }
-       return false;
+       return gameOver;
     }
 }

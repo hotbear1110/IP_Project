@@ -38,6 +38,8 @@ public class DemoControl {
             case "Accepttest 6" -> {
                 //Accepttest six : Get a player bankrupt and declare a winner : manipulate with player account
                 gameControl.bankControl.enabledManupulation();
+                gameControl.actionControl.disableBuy();
+                gameControl.actionControl.disableChance();
             }
             case "Afslut" -> {
                 gameControl.forceEndGame();{

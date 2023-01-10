@@ -142,6 +142,7 @@ public class GameControl {
             } else if (s.equals(game.getSpecificPlayer(1).getPlayerName())){
                 bankControl.removeMoney(game.getSpecificPlayer(1), game.getSpecificPlayer(1).getPlayerBalance());
             }
+            endTurn();
         } else {
             diceControl.controlAction(null);
             updateDice(game.getDice().getSingleDice(0), game.getDice().getSingleDice(1));
@@ -157,7 +158,11 @@ public class GameControl {
         }
     }
     private void endTurn() {
-        getGame().setCurrentPlayer();
+        if (!game.isAnyBankrupt()){
+            getGame().setCurrentPlayer();
+        } else if (game.isThereAWinner()){
+            endGame();
+        }
     }
 
     private void endGame(){
