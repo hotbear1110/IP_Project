@@ -31,6 +31,9 @@ public class Game {
     public Player[] getPlayers(){
         return players;
     }
+    public Player getSpecificPlayer(int i){
+        return players[i];
+    }
 
     public Board getBoard(){
         return this.board;

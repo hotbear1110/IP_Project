@@ -125,6 +125,23 @@ public class GameControl {
                 actionControl.controlAction(diceSum);
             }
             endTurn();
+        } else if (bankControl.getManipulationStatus()){
+            diceControl.controlAction(null);
+            updateDice(game.getDice().getSingleDice(0), game.getDice().getSingleDice(1));
+            positionControl.controlAction(game.getDice().getSum());
+            updatePlayerInfo(game.getPlayers());
+            if (positionControl.hasPassedStart()){
+                bankControl.getPassedStart();
+                actionControl.controlAction(game.getDice().getSum());
+            } else {
+                actionControl.controlAction(game.getDice().getSum());
+            }
+            String s = ui.getUserButton(bankControl.getMenu(), game.getSpecificPlayer(0).getPlayerName(), game.getSpecificPlayer(1).getPlayerName(), "Ingen i denne omgang");
+            if (s.equals(game.getSpecificPlayer(0).getPlayerName())){
+                bankControl.removeMoney(game.getSpecificPlayer(0), game.getSpecificPlayer(0).getPlayerBalance());
+            } else if (s.equals(game.getSpecificPlayer(1).getPlayerName())){
+                bankControl.removeMoney(game.getSpecificPlayer(1), game.getSpecificPlayer(1).getPlayerBalance());
+            }
         } else {
             diceControl.controlAction(null);
             updateDice(game.getDice().getSingleDice(0), game.getDice().getSingleDice(1));
