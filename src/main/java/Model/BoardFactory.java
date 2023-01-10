@@ -49,11 +49,6 @@ public class BoardFactory {
         demoBoard[37] = new Lot(Translator.getString("SQUARE_37"),"","", 7000, 0, PricesFactory.rentTable()[20], Color.magenta);
         demoBoard[38] = new DemoSquare("38\n","","");
         demoBoard[39] = new Lot(Translator.getString("SQUARE_39"),"","", 8000, 0, PricesFactory.rentTable()[21], Color.magenta);
-
-        for (int i = 4; i < FixedValues.NUM_OF_SQUARES; i++){
-            demoBoard[i] = new DemoSquare("" + i,"",""); {
-            }
-        }
         return demoBoard;
     }
     public static Square[] makeBoard(){
