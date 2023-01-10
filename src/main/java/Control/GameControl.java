@@ -167,6 +167,7 @@ public class GameControl {
             } else {
                 actionControl.controlAction(game.getDice().getSum());
             }
+            updatePlayerInfo(game.getPlayers());
             endTurn();
         }
     }

@@ -6,8 +6,6 @@ public abstract class Property extends Square{
     private final int price;
 
     private final int mortgage;
-    private Player owner;
-    private boolean isOwned = false;
     private boolean isMortgaged = false;
 
     public Property(String name, String subText, String description, int price, int mortgage){
@@ -26,18 +24,6 @@ public abstract class Property extends Square{
 
     public abstract int getRent();
 
-    public void setOwner(Player player){
-        owner = player;
-        isOwned = true;
-    }
-
-    public Player getOwner(){
-        return owner;
-    }
-
-    public boolean isOwned(){
-        return isOwned;
-    }
 
     public boolean isMortgaged(){
         return isMortgaged;
