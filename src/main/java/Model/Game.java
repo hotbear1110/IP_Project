@@ -8,11 +8,12 @@ public class Game {
     private final Dice dice;
     private final Board board;
 
-    private boolean gameOver = false;
+    private boolean gameOver;
 
     public Game(){
         this.dice = new Dice();
         this.board = new Board();
+        this.gameOver = false;
     }
 
     public void setPlayers(String[] names){
@@ -54,28 +55,13 @@ public class Game {
     public String drawChanceCard(){
         return board.drawCard(currentPlayer, players);
     }
-    public int getDiceSum(){
-        return dice.getSum();
+
+    public Dice getDice(){
+        return this.dice;
     }
 
-    public int[] getDicePair(){
-        return dice.getPair();
-    }
 
-    public int getSingleDice(int index){
-        return dice.getDice(index);
-    }
-
-    public boolean isDiceDouble(){
-        return dice.isDouble();
-    }
-
-    public boolean isGameOver(){
+    public boolean isGameOver() {
         return gameOver;
-    }
-
-    //---------- ONLY FOR DEMO --------\\
-    public void setDice(int[] pair){
-        dice.setDice(pair);
     }
 }

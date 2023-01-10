@@ -1,10 +1,7 @@
 package Model;
 
-import Model.ChanceCards.Cards;
 import Model.ChanceCards.Deck;
 import Model.Squares.Square;
-
-import java.util.ArrayList;
 
 public class Board {
     private final Square[] squares;
@@ -16,13 +13,6 @@ public class Board {
         this.cardDeck = new Deck();
         cardDeck.demoCards();
     }
-    public Square[] demoBoard(){
-        return BoardFactory.makeDemoBoard();
-    }
-
-    public String drawCard(Player currentPlayer, Player[] players){
-        return cardDeck.pullCard(currentPlayer, players);
-    }
     private Square[] makeBoard(){
         return BoardFactory.makeBoard();
     }
@@ -31,6 +21,16 @@ public class Board {
     }
     public Square getSquare(int index){
         return squares[index];
+    }
+
+
+    public String drawCard(Player currentPlayer, Player[] players){
+        return cardDeck.pullCard(currentPlayer, players);
+    }
+
+    //------------- DEMO ------------\\
+    public Square[] demoBoard(){
+        return BoardFactory.makeDemoBoard();
     }
 
 }

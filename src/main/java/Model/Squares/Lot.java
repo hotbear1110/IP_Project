@@ -22,7 +22,7 @@ public class Lot extends Property {
     public void setCurrentRent(int index){
         currentRent = rentTable[index];
     }
-    public int getCurrentRent(){
+    public int getRent(){
         return currentRent;
     }
 

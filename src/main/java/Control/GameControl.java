@@ -19,62 +19,50 @@ public class GameControl {
     DiceControl diceControl;
     PositionControl positionControl;
     ActionControl actionControl;
-
     ChanceControl chanceControl;
+    DemoControl demoControl;
 
-    public GameControl(Board board){
+    boolean[] enabledFunctions;
+
+    public GameControl(Board board) {
         this.board = board;
         this.diceControl = new DiceControl(this);
         this.positionControl = new PositionControl(this);
         this.actionControl = new ActionControl(this);
         this.chanceControl = new ChanceControl(this);
+        this.demoControl = new DemoControl(this);
         this.ui = new UI(board);
 
-        //Select accepts to run:
     }
 
-    public Game getGame(){
+    public Game getGame() {
         return this.game;
     }
-    //--------- DEMO GAME --------\\
-    private void runDemoGame(){
-        //switch case - take a string as argument.
-        setUpDemoGame();
-        while(!game.isGameOver()){
-            playDemoTurn(game.getCurrentPlayer());
-            endTurn();
-        }
-    }
-    private void endTurn(){
-        getGame().setCurrentPlayer();
-    }
-    private void setUpDemoGame(){
+
+    private void gameStart() {
         ui.showMessage(Translator.getString("START_MESSAGE")); // Shows start-up message
 
+        String start = ui.getUserButton(Translator.getString("START_MESSAGE"), "Start spil", "Start demo");
+
+        if (start.equals("Start demo")) {
+            setUpDemoGame();
+        } else {
+            setUpGame();
+        }
+    }
+
+    private void setUpGame() {
         setUpPlayers(getNumberOfPlayers()); //Gets number of players, and gets the game model to create the player objects
-
         ui.setGUIPlayers(game.getPlayers()); //Gets the UI to create GUI-players based on the game models player array
-
-        playDemoTurn(game.getCurrentPlayer());
     }
 
-    public void playDemoTurn(Player player){
-            ui.getUserButton(game.getCurrentPlayer().getPlayerName() + Translator.getString("START_TURN") + " ", diceControl.getControlMenu());
-
-            diceControl.controlAction(); //Makes the game model roll dice and updates the UI.
-
-            positionControl.controlAction(getGame().getDiceSum()); //Changes the models player objects position and updates the UI.
-
-            actionControl.controlAction(getGame().getCurrentPlayer().getPlayerPosition()); //Handles appropriate action based on the player objects position and the models board layout.
-
-    }
-    //----------------------------\\
-    public int getNumberOfPlayers(){
+    private int getNumberOfPlayers() {
         return ui.getNumOfPlayers();
     }
-    public void setUpPlayers (int number){
+
+    private void setUpPlayers(int number) {
         String[] players = new String[number]; //Creates a new string with an index number based on number of players
-        for (int i = 0 ; i < players.length ; i++){
+        for (int i = 0; i < players.length; i++) {
             players[i] = ui.getPlayerName(Translator.getString("PLAYER_NAMES")); //User inputs a string for each index in the array
         }
         //--------- MIGHT BE REDUNDANT --------\\
@@ -86,30 +74,69 @@ public class GameControl {
 
 
     // ------------- MIGHT BE REDUNDANT --------- \\
-    public String[] decideFirstPlayer(String[] names){
+    private String[] decideFirstPlayer(String[] names) {
         List<String> list = Arrays.asList(names);
-            switch (names.length){
-                case 3 -> {
-                    String s = ui.getUserButton(Translator.getString("CHOOSE_FIRST_PLAYER"), "1. " + names[0], "2. " + names[1], "3. " + names[2]);
-                    int n = Utility.parseFirstInt(s) - 1;
-                    Utility.moveToFront(list, n);
-                }
-                case 4 -> {
-                   String s = ui.getUserButton(Translator.getString("CHOOSE_FIRST_PLAYER"), "1. " + names[0], "2. " + names[1], "3. " + names[2], "4. " + names [3]);
-                    int n = Utility.parseFirstInt(s) - 1;
-                    Utility.moveToFront(list, n);
-                }
-                case 5 -> {
-                    String s = ui.getUserButton(Translator.getString("CHOOSE_FIRST_PLAYER"), "1. " + names[0], "2. " + names[1], "3. " + names[2], "4. " + names [3], "5. " + names [4]);
-                    int n = Utility.parseFirstInt(s) - 1;
-                    Utility.moveToFront(list, n);
-                }
-                case 6 -> {
-                    String s = ui.getUserButton(Translator.getString("CHOOSE_FIRST_PLAYER"), "1. " + names[0], "2. " + names[1], "3. " + names[2], "4. " + names [3], "5. " + names [4], "6. " + names [5]);
-                    int n = Utility.parseFirstInt(s) - 1;
-                    Utility.moveToFront(list, n);
-                }
+        switch (names.length) {
+            case 3 -> {
+                String s = ui.getUserButton(Translator.getString("CHOOSE_FIRST_PLAYER"), "1. " + names[0], "2. " + names[1], "3. " + names[2]);
+                int n = Utility.parseFirstInt(s) - 1;
+                Utility.moveToFront(list, n);
             }
+            case 4 -> {
+                String s = ui.getUserButton(Translator.getString("CHOOSE_FIRST_PLAYER"), "1. " + names[0], "2. " + names[1], "3. " + names[2], "4. " + names[3]);
+                int n = Utility.parseFirstInt(s) - 1;
+                Utility.moveToFront(list, n);
+            }
+            case 5 -> {
+                String s = ui.getUserButton(Translator.getString("CHOOSE_FIRST_PLAYER"), "1. " + names[0], "2. " + names[1], "3. " + names[2], "4. " + names[3], "5. " + names[4]);
+                int n = Utility.parseFirstInt(s) - 1;
+                Utility.moveToFront(list, n);
+            }
+            case 6 -> {
+                String s = ui.getUserButton(Translator.getString("CHOOSE_FIRST_PLAYER"), "1. " + names[0], "2. " + names[1], "3. " + names[2], "4. " + names[3], "5. " + names[4], "6. " + names[5]);
+                int n = Utility.parseFirstInt(s) - 1;
+                Utility.moveToFront(list, n);
+            }
+        }
         return list.toArray(new String[0]);
+    }
+
+    private void endTurn() {
+        getGame().setCurrentPlayer();
+    }
+
+    private void endGame(){
+
+    }
+
+    //--------- DEMO GAME --------\\
+
+    private void setUpDemoGame(int numOfPlayers) {
+        setDemoPlayers(numOfPlayers); //MAYBE JUST CHOOSE ONE OR TWO PLAYERS
+        int n = ui.getNumOfPlayers();
+        while (true) {
+            String testType = ui.getDropDown("Vælg en accepttest", demoControl.getMenu());
+            demoControl.setUpTest(testType);
+        }
+    }
+    private void runDemoGame(){
+
+    }
+
+    private void setDemoPlayers(int number){
+        String[] players = new String[number];
+        for (int i = 0; i < players.length; i++){
+            players[i] = "Player" + i;
+        }
+        game.setPlayers(players);
+        ui.setGUIPlayers(game.getPlayers());
+    }
+    //----------------------------\\
+    UI getUI(){
+        return ui;
+    }
+
+    public void updateUI(Player[] players, int x, int y) {
+        ui.updateUI(players, x, y);
     }
 }

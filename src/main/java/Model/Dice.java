@@ -18,10 +18,10 @@ public class Dice {
             dice[i] = randomObj.nextInt(6) + 1;
         }
     }
-    public void setDice(int[] pair){
+    public void setDicePair(int[] pair){
         dice = pair;
     }
-    public int getDice(int index) {
+    public int getSingleDice(int index) {
         return dice[index];
     }
     public int getSum() {
