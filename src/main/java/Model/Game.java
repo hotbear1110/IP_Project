@@ -63,15 +63,17 @@ public class Game {
     }
 
     public void removePlayer(Player player){
-        Player[] temp = new Player[players.length];
-        for (int i = 0; i < temp.length; i++){
-            if(players[i] == player){
-                i++;
+        Player[] temp = new Player[players.length-1];
+        int tempIndex = 0;
+        for (int i = 0; i < players.length; i++){
+            if(!players[i].equals(player)){
+                temp[tempIndex] = players[i];
+                tempIndex++;
             }
-            temp[i] = players[i];
         }
         players = temp;
         bankruptPlayers++;
+        someoneIsBankrupt = true;
     }
 
     public boolean isAnyBankrupt(){
@@ -82,7 +84,7 @@ public class Game {
         } return someoneIsBankrupt;
     }
     public boolean isThereAWinner() {
-        if(bankruptPlayers == players.length - 1){
+        if(players.length == 1){
             winner = players[0];
             gameOver = true;
         }

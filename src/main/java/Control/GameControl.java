@@ -136,7 +136,20 @@ public class GameControl {
             } else {
                 actionControl.controlAction(game.getDice().getSum());
             }
-            String s = ui.getUserButton(bankControl.getMenu(), game.getSpecificPlayer(0).getPlayerName(), game.getSpecificPlayer(1).getPlayerName(), "Ingen i denne omgang");
+            String s = "";
+
+            switch (game.getPlayers().length) {
+                case 0 -> {
+                    s = ui.getUserButton(bankControl.getMenu(), "Ingen i denne omgang");
+                }
+                case 1 -> {
+                    s = ui.getUserButton(bankControl.getMenu(), game.getSpecificPlayer(0).getPlayerName(), "Ingen i denne omgang");
+                }
+                case 2 -> {
+                    s = ui.getUserButton(bankControl.getMenu(), game.getSpecificPlayer(0).getPlayerName(), game.getSpecificPlayer(1).getPlayerName(), "Ingen i denne omgang");
+                }
+            }
+
             if (s.equals(game.getSpecificPlayer(0).getPlayerName())){
                 bankControl.removeMoney(game.getSpecificPlayer(0), game.getSpecificPlayer(0).getPlayerBalance());
             } else if (s.equals(game.getSpecificPlayer(1).getPlayerName())){
@@ -168,8 +181,10 @@ public class GameControl {
     private void endGame(){
         ui.showMessage(game.getWinner().getPlayerName() + " \n" + Translator.getString("WIN_GAME"));
         String s = ui.getUserButton("Spillet er slut, vil I spille igen?", "Ja", "Nej");
-        if (s.equals("Nej")){
-            gameOver = true;
+        gameOver = true;
+        if (s.equals("Ja")){
+            gameOver = false;
+            setUpDemoGame();
         }
     }
 
