@@ -111,7 +111,12 @@ public class Deck {
 
     public void demoCards() {
         Cards newCard = new ChanceReceive("CHANCE12", "recieve", Translator.getString("CHANCE12"), 500);
+        Cards newCard2 = new ChancePay("CHANCE11", "payAmount", Translator.getString("CHANCE11"), 2000, 0);
+        Cards newCard3 = new ChanceReceive("CHANCE14", "recieve", Translator.getString("CHANCE14"), 3000);
+
         cards.add(newCard);
+        cards.add(newCard2);
+        cards.add(newCard3);
     }
 }
 
