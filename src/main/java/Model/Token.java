@@ -11,8 +11,8 @@ public class Token {
     public void moveToken(int dice) {
         //If the new position is greater than 40, the player has lapped the board and the position goes back to 0
         //Else the dice sum is just added to the current position
-        if (position + dice > 40) {
-            position = position + dice - 40;
+        if (position + dice > FixedValues.NUM_OF_SQUARES - 1) {
+            position = position + dice - (FixedValues.NUM_OF_SQUARES - 1);
             hasPassedStart = true;
         } else {
             position += dice;

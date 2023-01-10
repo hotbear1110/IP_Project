@@ -4,6 +4,7 @@ import Model.Player;
 
 public abstract class Property extends Square{
     private final int price;
+
     private final int mortgage;
     private Player owner;
     private boolean isOwned = false;
@@ -23,8 +24,11 @@ public abstract class Property extends Square{
         return mortgage;
     }
 
+    public abstract int getRent();
+
     public void setOwner(Player player){
         owner = player;
+        isOwned = true;
     }
 
     public Player getOwner(){

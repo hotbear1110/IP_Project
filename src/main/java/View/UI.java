@@ -2,6 +2,7 @@ package View;
 
 import Control.Translator;
 import Model.Board;
+import Model.Dice;
 import Model.FixedValues;
 import Model.Player;
 import gui_fields.GUI_Car;
@@ -23,6 +24,17 @@ public class UI {
         this.players = new HashMap<>();
         this.ui = createDemoBoard(board);
         //this.ui = createBoard(board);
+    }
+
+    public void updateDice(int x, int y){
+        ui.setDice(x, y);
+    }
+
+    public void updatePlayers(Player[] players){
+        for (Player player : players) {
+            getGUIPlayer(player).getCar().setPosition(ui.getFields()[player.getPlayerPosition()]);
+            getGUIPlayer(player).setBalance(player.getPlayerBalance());
+        }
     }
 
     //----------- GUI-Board methods --------\\
@@ -61,6 +73,7 @@ public class UI {
             GUI_Player guiPlayer = new GUI_Player(players[i].getPlayerName(), players[i].getPlayerBalance(), guiCar);
             this.players.put(players[i], guiPlayer);
             ui.addPlayer(guiPlayer);
+            getGUIPlayer(players[i]).getCar().setPosition(guiBoard[0]);
         }
     }
 
@@ -86,5 +99,13 @@ public class UI {
 
     public String getDropDown(String message, String ... choice){
         return ui.getUserSelection(message, choice);
+    }
+
+    public void setChanceCard(String description){
+        ui.setChanceCard(description);
+    }
+
+    public void getChanceCard(String description){
+        ui.displayChanceCard(description);
     }
 }

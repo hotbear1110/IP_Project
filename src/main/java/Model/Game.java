@@ -1,18 +1,22 @@
 package Model;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class Game {
-    private int PASSED_START;
     private Player[] players;
     private Player currentPlayer;
+    private int bankruptPlayers = 0;
     private Player winner;
     private final Dice dice;
     private final Board board;
 
-    private boolean gameOver = false;
+    private boolean gameOver;
 
     public Game(){
         this.dice = new Dice();
         this.board = new Board();
+        this.gameOver = false;
     }
 
     public void setPlayers(String[] names){
@@ -26,6 +30,9 @@ public class Game {
 
     public Player[] getPlayers(){
         return players;
+    }
+    public Player getSpecificPlayer(int i){
+        return players[i];
     }
 
     public Board getBoard(){
@@ -46,36 +53,30 @@ public class Game {
         return currentPlayer;
     }
 
-    public void rollDice(){
-        dice.rollDice();
+    public Player getWinner(){
+        return winner;
     }
 
-
-    public String drawChanceCard(){
-        return board.drawCard(currentPlayer, players);
-    }
-    public int getDiceSum(){
-        return dice.getSum();
+    public Dice getDice(){
+        return this.dice;
     }
 
-    public int[] getDicePair(){
-        return dice.getPair();
+    public void removePlayer(Player player){
+        Player[] temp = new Player[players.length];
+        for (int i = 0; i < temp.length; i++){
+            if(players[i] == player){
+                i++;
+            }
+            temp[i] = players[i];
+        }
+        players = temp;
+        bankruptPlayers++;
     }
-
-    public int getSingleDice(int index){
-        return dice.getDice(index);
-    }
-
-    public boolean isDiceDouble(){
-        return dice.isDouble();
-    }
-
-    public boolean isGameOver(){
-        return gameOver;
-    }
-
-    //---------- ONLY FOR DEMO --------\\
-    public void setDice(int[] pair){
-        dice.setDice(pair);
+    public boolean isThereAWinner() {
+        if(bankruptPlayers == players.length - 1){
+            winner = players[0];
+            return true;
+        }
+       return false;
     }
 }
