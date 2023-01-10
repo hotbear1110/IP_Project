@@ -26,13 +26,15 @@ public class UI {
         //this.ui = createBoard(board);
     }
 
-    public void updateUI(Player[] players, int x, int y){
+    public void updateDice(int x, int y){
         ui.setDice(x, y);
+    }
+
+    public void updatePlayers(Player[] players){
         for (Player player : players) {
             getGUIPlayer(player).getCar().setPosition(ui.getFields()[player.getPlayerPosition()]);
             getGUIPlayer(player).setBalance(player.getPlayerBalance());
         }
-
     }
 
     //----------- GUI-Board methods --------\\
@@ -71,6 +73,7 @@ public class UI {
             GUI_Player guiPlayer = new GUI_Player(players[i].getPlayerName(), players[i].getPlayerBalance(), guiCar);
             this.players.put(players[i], guiPlayer);
             ui.addPlayer(guiPlayer);
+            getGUIPlayer(players[i]).getCar().setPosition(guiBoard[0]);
         }
     }
 

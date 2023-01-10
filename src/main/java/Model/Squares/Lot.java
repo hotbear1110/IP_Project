@@ -31,6 +31,7 @@ public class Lot extends Property {
     }
     public void setOwner(Player player){
         owner = player;
+        isOwned = true;
     }
 
     public Player getOwner(){

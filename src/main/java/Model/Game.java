@@ -1,9 +1,12 @@
 package Model;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class Game {
-    private int PASSED_START;
     private Player[] players;
     private Player currentPlayer;
+    private int bankruptPlayers = 0;
     private Player winner;
     private final Dice dice;
     private final Board board;
@@ -47,21 +50,30 @@ public class Game {
         return currentPlayer;
     }
 
-    public void rollDice(){
-        dice.rollDice();
-    }
-
-
-    public String drawChanceCard(){
-        return board.drawCard(currentPlayer, players);
+    public Player getWinner(){
+        return winner;
     }
 
     public Dice getDice(){
         return this.dice;
     }
 
-
-    public boolean isGameOver() {
-        return gameOver;
+    public void removePlayer(Player player){
+        Player[] temp = new Player[players.length];
+        for (int i = 0; i < temp.length; i++){
+            if(players[i] == player){
+                i++;
+            }
+            temp[i] = players[i];
+        }
+        players = temp;
+        bankruptPlayers++;
+    }
+    public boolean isThereAWinner() {
+        if(bankruptPlayers == players.length - 1){
+            winner = players[0];
+            return true;
+        }
+       return false;
     }
 }

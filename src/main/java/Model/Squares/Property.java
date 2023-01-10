@@ -28,6 +28,7 @@ public abstract class Property extends Square{
 
     public void setOwner(Player player){
         owner = player;
+        isOwned = true;
     }
 
     public Player getOwner(){

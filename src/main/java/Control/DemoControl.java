@@ -13,7 +13,7 @@ public class DemoControl {
 
     public DemoControl(GameControl gameControl){
         this.gameControl = gameControl;
-        this.menu = new String[]{"Accepttest 1 & 2", "Accepttest 3", "Accepttest 4 & 5", "Accepttest 6", "Afslut demo"};
+        this.menu = new String[]{"Accepttest 1 & 2", "Accepttest 3", "Accepttest 4 & 5", "Accepttest 6", "Afslut"};
     }
 
     public void setUpTest(String test){
@@ -38,62 +38,9 @@ public class DemoControl {
             case "Accepttest 6" -> {
                 //Accepttest six : Get a player bankrupt and declare a winner : manipulate with player account
             }
-            case "Afslut demo" -> {
-                gameControl.endGame(){
-
+            case "Afslut" -> {
+                gameControl.forceEndGame();{
                 }
-            }
-        }
-    }
-
-    public void runTestOneAndTwo(){
-        //Acceptest one & two : Move around board clockwise with dice, recieve start money when passing start - MISSING START MONEY!!!!!!
-        while(true){
-            gameControl.getGame().getDice().rollDice();
-            gameControl.getGame().getCurrentPlayer().movePlayerPosition(gameControl.getGame().getDice().getSum());
-            gameControl.updateUI(gameControl.getGame().getPlayers(), gameControl.getGame().getDice().getSingleDice(0), gameControl.getGame().getDice().getSingleDice(1));
-            if(gameControl.getGame().getCurrentPlayer().hasPassedStart()){
-                String s = gameControl.getUI().getUserButton("Vil du forsætte?", "Ja", "Nej");
-                if(s.equals("Nej")){
-                    break;
-                }
-            }
-        }
-    }
-
-    public void runTestThree(){
-        //Acceptest three : Land on chance and receive an effect : manipulate with dice.
-        while (true) {
-            int n = gameControl.getUI().getNumber("Indtast terningesum", 2, 12);
-            int[] pair = new int[]{n - 1, 1};
-            gameControl.getGame().getDice().setDicePair(pair);
-            gameControl.getGame().getCurrentPlayer().movePlayerPosition(gameControl.getGame().getDice().getSum());
-            gameControl.updateUI(gameControl.getGame().getPlayers(), gameControl.getGame().getDice().getSingleDice(0), gameControl.getGame().getDice().getSingleDice(1));
-            if (gameControl.getGame().getBoard().getSquare(gameControl.getGame().getCurrentPlayer().getPlayerPosition()) instanceof
-                    Chance) {
-                String chanceCard = gameControl.getGame().getBoard().drawCard(gameControl.getGame().getCurrentPlayer(), gameControl.getGame().getPlayers());
-                gameControl.getUI().getChanceCard(chanceCard);
-                gameControl.getUI().updateUI(gameControl.getGame().getPlayers(), n - 1, 1);
-            }
-            String s = gameControl.getUI().getUserButton("Vil du forsætte?", "Ja", "Nej");
-            if (s.equals("Nej")) {
-                break;
-            }
-        }
-    }
-
-    public void runTestFourAndFive(){
-        //Acceptest four & five : Buy property and get rent : manipulate with dice.
-        while (true){
-            int n = gameControl.getUI().getNumber("Indtast terningesum", 2, 12);
-            int[] pair = new int[]{n - 1, 1};
-            gameControl.getGame().getDice().setDicePair(pair);
-            gameControl.getGame().getCurrentPlayer().movePlayerPosition(gameControl.getGame().getDice().getSum());
-            gameControl.updateUI(gameControl.getGame().getPlayers(), gameControl.getGame().getDice().getSingleDice(0), gameControl.getGame().getDice().getSingleDice(1));
-            if (gameControl.getGame().getBoard().getSquare(gameControl.getGame().getCurrentPlayer().getPlayerPosition()) instanceof
-                    Lot) {
-                int position = gameControl.getGame().getCurrentPlayer().getPlayerPosition();
-                gameControl.actionControl.controlAction(position);
             }
         }
     }

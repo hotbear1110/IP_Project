@@ -22,16 +22,19 @@ public class ActionControl {
 
     public void controlAction(int position){
         if (gameControl.getGame().getBoard().getSquare(position) instanceof Start){
-
+            //gameControl.getUI().showMessage(Translator.getString("LAND_ON_START"));
         }
         if (gameControl.getGame().getBoard().getSquare(position) instanceof Property property){
-            landedOnProperty(property);
+            if (!disableBuy){
+                landedOnProperty(property);
+            }
         }
         if (gameControl.getGame().getBoard().getSquare(position) instanceof Chance) {
-
+            if (!disableChance){
+                landedOnChance();
+            }
         }
         if (gameControl.getGame().getBoard().getSquare(position) instanceof DemoSquare) {
-
         }
     }
 
@@ -56,9 +59,10 @@ public class ActionControl {
 
     public void payRent(Property property){
         gameControl.getUI().showMessage(Translator.getString("LAND_ON_OWNED") + property.getRent());
-        gameControl.getGame().getCurrentPlayer().setPlayerBalance(-property.getRent());
-        if (gameControl.getGame().getCurrentPlayer().isBankrupt()){
-            //set player as bankrupt
+        if (gameControl.getGame().getCurrentPlayer().getPlayerBalance() < property.getRent()){
+            gameControl.getGame().getCurrentPlayer().setPlayerBalance(-property.getRent());
+            int n = gameControl.getGame().getCurrentPlayer().getPlayerBalance() % property.getRent();
+            property.getOwner().setPlayerBalance(n);
         } else {
             property.getOwner().setPlayerBalance(property.getRent());
         }
@@ -71,7 +75,6 @@ public class ActionControl {
     public void landedOnChance(){
         String chanceCard = gameControl.getGame().getBoard().drawCard(gameControl.getGame().getCurrentPlayer(), gameControl.getGame().getPlayers());
         gameControl.getUI().getChanceCard(chanceCard);
-        gameControl.getUI().updateUI(gameControl.getGame().getPlayers(), gameControl.getGame().getDice().getSingleDice(0), gameControl.getGame().getDice().getSingleDice(1));
     }
     public void disableBuy(){
         disableBuy = true;

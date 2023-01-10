@@ -12,12 +12,14 @@ public class FixedValues {
     public static final int EXTRA_TAX = 2000;
 
     public static final int NUM_OF_DICE = 2;
+    public static final int MIN_DICE_SUM = 2;
+    public static final int MAX_DICE_SUM = 12;
 
     public static final int MIN_PLAYERS = 3;
     public static final int MAX_PLAYERS = 6;
 
     public static final int NUM_OF_SQUARES = 40;
-    public static final int START_SQUARE = 1;
+    public static final int START_SQUARE = 0;
     public static final int PARKING_SQUARE = 21;
     public static final int VISIT_JAIL = 11;
     public static final int GO_TO_JAIL = 31;
