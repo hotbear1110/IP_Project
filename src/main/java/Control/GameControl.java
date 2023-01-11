@@ -117,7 +117,6 @@ public class GameControl {
             diceControl.controlAction(dicePair);
             updateDice(game.getDice().getSingleDice(0), game.getDice().getSingleDice(1));
             positionControl.controlAction(diceSum);
-            updatePlayerInfo(game.getPlayers());
             if (positionControl.hasPassedStart()){
                 bankControl.getPassedStart();
                 actionControl.controlAction(diceSum);
@@ -129,7 +128,6 @@ public class GameControl {
             diceControl.controlAction(null);
             updateDice(game.getDice().getSingleDice(0), game.getDice().getSingleDice(1));
             positionControl.controlAction(game.getDice().getSum());
-            updatePlayerInfo(game.getPlayers());
             if (positionControl.hasPassedStart()){
                 bankControl.getPassedStart();
                 actionControl.controlAction(game.getDice().getSum());
@@ -160,7 +158,6 @@ public class GameControl {
             diceControl.controlAction(null);
             updateDice(game.getDice().getSingleDice(0), game.getDice().getSingleDice(1));
             positionControl.controlAction(game.getDice().getSum());
-            updatePlayerInfo(game.getPlayers());
             if (positionControl.hasPassedStart()){
                 bankControl.getPassedStart();
                 actionControl.controlAction(game.getDice().getSum());
@@ -225,7 +222,7 @@ public class GameControl {
     private void updateDice(int x, int y) {
         ui.updateDice(x, y);
     }
-    private void updatePlayerInfo(Player[] players){
+    void updatePlayerInfo(Player[] players){
         ui.updatePlayers(players);
     }
 

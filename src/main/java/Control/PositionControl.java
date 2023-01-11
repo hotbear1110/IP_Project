@@ -7,7 +7,15 @@ public class PositionControl {
     }
 
     public void controlAction(int sum){
-        gameControl.getGame().getCurrentPlayer().movePlayerPosition(sum);
+        for (int i = 0; i < sum; i++) {
+            gameControl.getGame().getCurrentPlayer().movePlayerPosition(1);
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            gameControl.updatePlayerInfo(gameControl.getGame().getPlayers());
+        }
     }
 
     public boolean hasPassedStart(){
