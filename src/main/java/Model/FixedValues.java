@@ -18,7 +18,7 @@ public class FixedValues {
     public static final int MIN_PLAYERS = 3;
     public static final int MAX_PLAYERS = 6;
 
-    public static final int NUM_OF_SQUARES = 40;
+    public static final int NUM_OF_SQUARES = 44;
     public static final int START_SQUARE = 0;
     public static final int PARKING_SQUARE = 21;
     public static final int VISIT_JAIL = 11;

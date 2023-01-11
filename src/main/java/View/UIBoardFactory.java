@@ -15,6 +15,8 @@ public class UIBoardFactory {
             return new GUI_Chance("?", "", "", Color.BLACK, Color.GREEN);
         } else if (square instanceof DemoSquare){
             return new GUI_Street(square.getName(), "", "" , "", Color.WHITE, Color.BLACK);
+        } else if (square instanceof Metro) {
+            return new GUI_Start(square.getName(), "", "", Color.blue, Color.black);
         }
         return null;
     }
@@ -27,6 +29,8 @@ public class UIBoardFactory {
         } else if (square instanceof Chance){
 
         } else if (square instanceof DemoSquare){
+
+        } else if (square instanceof Metro) {
 
         }
         return null;

@@ -30,6 +30,9 @@ public class ActionControl {
         }
         if (gameControl.getGame().getBoard().getSquare(position) instanceof DemoSquare) {
         }
+        if (gameControl.getGame().getBoard().getSquare(position) instanceof Metro) {
+
+        }
     }
 
     public void landedOnProperty(Property property){
@@ -70,6 +73,10 @@ public class ActionControl {
     public void landedOnChance(){
         String chanceCard = gameControl.getGame().getBoard().drawCard(gameControl.getGame().getCurrentPlayer(), gameControl.getGame().getPlayers());
         gameControl.getUI().getChanceCard(chanceCard);
+    }
+
+    public void landonMetro(){
+        gameControl.getGame().getCurrentPlayer().movePlayerPosition(11);
     }
     public void disableBuy(){
         disableBuy = true;
