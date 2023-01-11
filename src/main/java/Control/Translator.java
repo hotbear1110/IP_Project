@@ -22,11 +22,17 @@ public class Translator {
 
     private static ClassLoader loader = new URLClassLoader(urls);
     private static Locale bLocale = new Locale.Builder().setLanguage("da").setRegion("DK").build();
-    private static ResourceBundle i18n = ResourceBundle.getBundle("MessagesBundle",  bLocale, loader);
+    private static ResourceBundle i18n = ResourceBundle.getBundle("MessagesBundle",  bLocale, loader);;
 
     public static String getString(String name) {
         String response = i18n.getString(name);
         return response;
+    }
+
+    public static void initLanguage(String Language, String Country) {
+        bLocale = new Locale.Builder().setLanguage(Language).setRegion(Country).build();
+
+        i18n = ResourceBundle.getBundle("MessagesBundle",  bLocale, loader);
     }
 
 }
