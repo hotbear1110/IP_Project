@@ -60,6 +60,47 @@ public class Deck {
                 case "CHANCE22", "CHANCE23" -> {
                     newCard = new ChanceReceive(card, "steal", Translator.getString(card), 500);
                 }
+                case "CHANCE24" -> {
+                    newCard = new MovePlayer(card, "specific", Translator.getString(card), 0);
+                }
+                case "CHANCE25" -> {
+                    newCard = new MovePlayer(card, "move", Translator.getString(card), 3);
+                }
+                case "CHANCE26" -> {
+                    newCard = new MovePlayer(card, "move", Translator.getString(card), -3);
+                }
+                case "CHANCE27" -> {
+                    newCard = new MovePlayer(card, "specific", Translator.getString(card), 11);
+                }
+                case "CHANCE28" -> {
+                    //Ikke færdigt
+                    newCard = new MovePlayer(card, "moveToNext", Translator.getString(card), 0);
+                }
+                case "CHANCE29" -> {
+                    //Ikke færdigt
+                    newCard = new MovePlayer(card, "moveToNext", Translator.getString(card), 1);
+                }
+                case "CHANCE30" -> {
+                    newCard = new MovePlayer(card, "specific", Translator.getString(card), 24);
+                }
+                case "CHANCE31" -> {
+                    newCard = new MovePlayer(card, "specific", Translator.getString(card), 32);
+                }
+                case "CHANCE32" -> {
+                    newCard = new MovePlayer(card, "moveToNext", Translator.getString(card), 3);
+                }
+                case "CHANCE33" -> {
+                    newCard = new MovePlayer(card, "specific", Translator.getString(card), 19);
+                }
+                case "CHANCE34" -> {
+                    newCard = new MovePlayer(card, "specific", Translator.getString(card), 39);
+                }
+                case "CHANCE35" -> {
+                    newCard = new JailCard(card, "JailCard", Translator.getString(card));
+                }
+                case "CHANCE36" -> {
+                    newCard = new MovePlayer(card, "jail", Translator.getString(card), 30);
+                }
             }
             cards.add(newCard);
         }
