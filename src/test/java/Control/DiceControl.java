@@ -26,4 +26,13 @@ public class DiceControl{
         }
     }
 
+    public void enableDiceManipulation(){
+        enableDiceManipulation = true;
+        this.activeMenu = 1;
+    }
+
+    public boolean getManipulationStatus(){
+        return enableDiceManipulation;
+    }
+
 }

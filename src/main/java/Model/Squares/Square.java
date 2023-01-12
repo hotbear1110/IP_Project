@@ -1,6 +1,6 @@
 package Model.Squares;
 
-public abstract class Square {
+public class Square {
     final String name;
     final String subText;
     final String description;

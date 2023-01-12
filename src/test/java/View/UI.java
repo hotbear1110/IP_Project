@@ -22,7 +22,7 @@ public class UI {
 
     public UI(Board board){
         this.players = new HashMap<>();
-        this.ui = createBoard(board);
+        this.ui = createDemoBoard(board);
         //this.ui = createBoard(board);
     }
 
@@ -38,6 +38,14 @@ public class UI {
     }
 
     //----------- GUI-Board methods --------\\
+    public GUI createDemoBoard(Board board){
+        this.guiBoard = new GUI_Field[FixedValues.NUM_OF_SQUARES];
+
+        for (int i = 0; i < FixedValues.NUM_OF_SQUARES; i++){
+            guiBoard[i] = UIBoardFactory.demoBoardFactory(board.getSquare(i));
+        }
+        return this.ui = new GUI(guiBoard, FixedValues.BOARD_COLOR);
+    }
 
     public GUI createBoard(Board board){
         this.guiBoard = new GUI_Field[FixedValues.NUM_OF_SQUARES];

@@ -7,7 +7,6 @@ import Model.Game;
 import Model.Player;
 import View.UI;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -21,6 +20,7 @@ public class GameControl {
     PositionControl positionControl;
     ActionControl actionControl;
     ChanceControl chanceControl;
+    DemoControl demoControl;
 
     boolean gameOver = false;
 
@@ -32,6 +32,7 @@ public class GameControl {
         this.positionControl = new PositionControl(this);
         this.actionControl = new ActionControl(this);
         this.chanceControl = new ChanceControl(this);
+        this.demoControl = new DemoControl(this);
         this.ui = new UI(board);
 
         gameStart();
@@ -41,17 +42,20 @@ public class GameControl {
         return this.game;
     }
 
-    public Board getBoard() {
+    public Board getBoard(){
         return this.board;
     }
 
     private void gameStart() {
         ui.showMessage(Translator.getString("START_MESSAGE")); // Shows start-up message
-
-        setUpGame();
+        String start = ui.getUserButton(Translator.getString("START_MESSAGE"), "Start spil", "Start demo");
+        if (start.equals("Start demo")) {
+            setUpDemoGame();
+        } else {
+            setUpGame();
+        }
     }
-
-    private void runGame() {
+    private void runGame(){
 
     }
 
@@ -104,50 +108,124 @@ public class GameControl {
         }
         return list.toArray(new String[0]);
     }
-
-    private void takeTurn() {
+    private void takeTurn(){
         ui.updatePlayers(game.getPlayers());
-        diceControl.controlAction(null);
-        updateDice(game.getDice().getSingleDice(0), game.getDice().getSingleDice(1));
-        positionControl.controlAction(game.getDice().getSum());
-        if (positionControl.hasPassedStart()) {
-            bankControl.getPassedStart();
-            actionControl.controlAction(game.getDice().getSum());
-        } else {
-            actionControl.controlAction(game.getDice().getSum());
-        }
-        updatePlayerInfo(game.getPlayers());
-        endTurn();
-    }
+        if (diceControl.getManipulationStatus()){
+            int diceSum = ui.getNumber(diceControl.getControlMenu(), FixedValues.MIN_DICE_SUM, FixedValues.MAX_DICE_SUM);
+            int[] dicePair = new int[]{diceSum - 1, 1};
+            diceControl.controlAction(dicePair);
+            updateDice(game.getDice().getSingleDice(0), game.getDice().getSingleDice(1));
+            positionControl.controlAction(diceSum);
+            if (positionControl.hasPassedStart()){
+                bankControl.getPassedStart();
+                actionControl.controlAction(diceSum);
+            } else {
+                actionControl.controlAction(diceSum);
+            }
+            endTurn();
+        } else if (bankControl.getManipulationStatus()){
+            diceControl.controlAction(null);
+            updateDice(game.getDice().getSingleDice(0), game.getDice().getSingleDice(1));
+            positionControl.controlAction(game.getDice().getSum());
+            if (positionControl.hasPassedStart()){
+                bankControl.getPassedStart();
+                actionControl.controlAction(game.getDice().getSum());
+            } else {
+                actionControl.controlAction(game.getDice().getSum());
+            }
+            String s = "";
 
+            switch (game.getPlayers().length) {
+                case 0 -> {
+                    s = ui.getUserButton(bankControl.getMenu(), "Ingen i denne omgang");
+                }
+                case 1 -> {
+                    s = ui.getUserButton(bankControl.getMenu(), game.getSpecificPlayer(0).getPlayerName(), "Ingen i denne omgang");
+                }
+                case 2 -> {
+                    s = ui.getUserButton(bankControl.getMenu(), game.getSpecificPlayer(0).getPlayerName(), game.getSpecificPlayer(1).getPlayerName(), "Ingen i denne omgang");
+                }
+            }
+
+            if (s.equals(game.getSpecificPlayer(0).getPlayerName())){
+                bankControl.removeMoney(game.getSpecificPlayer(0), game.getSpecificPlayer(0).getPlayerBalance());
+            } else if (s.equals(game.getSpecificPlayer(1).getPlayerName())){
+                bankControl.removeMoney(game.getSpecificPlayer(1), game.getSpecificPlayer(1).getPlayerBalance());
+            }
+            endTurn();
+        } else {
+            diceControl.controlAction(null);
+            updateDice(game.getDice().getSingleDice(0), game.getDice().getSingleDice(1));
+            positionControl.controlAction(game.getDice().getSum());
+            if (positionControl.hasPassedStart()){
+                bankControl.getPassedStart();
+                actionControl.controlAction(game.getDice().getSum());
+            } else {
+                actionControl.controlAction(game.getDice().getSum());
+            }
+            updatePlayerInfo(game.getPlayers());
+            endTurn();
+        }
+    }
     private void endTurn() {
-        if (!game.isAnyBankrupt()) {
+        if (!game.isAnyBankrupt()){
             getGame().setCurrentPlayer();
-        } else if (game.isThereAWinner()) {
+        } else if (game.isThereAWinner()){
             endGame();
         }
     }
 
-    private void endGame() {
+    private void endGame(){
         ui.showMessage(game.getWinner().getPlayerName() + " \n" + Translator.getString("WIN_GAME"));
         String s = ui.getUserButton("Spillet er slut, vil I spille igen?", "Ja", "Nej");
         gameOver = true;
-        if (s.equals("Ja")) {
+        if (s.equals("Ja")){
             gameOver = false;
-            setUpGame();
+            setUpDemoGame();
         }
     }
 
-    UI getUI() {
+    //--------- DEMO GAME --------\\
+
+    private void setUpDemoGame() {
+        setDemoPlayers(2); //MAYBE JUST CHOOSE ONE OR TWO PLAYERS
+        while (!gameOver) {
+            String testType = ui.getDropDown("Vælg en accepttest", demoControl.getMenu());
+            demoControl.setUpTest(testType);
+            runDemoGame();
+        }
+    }
+    private void runDemoGame(){
+        while(true){
+            takeTurn();
+            String s = ui.getUserButton("Vil du forsætte?", "Ja" , "Nej");
+            if(s.equals("Nej")){
+                break;
+            }
+        }
+    }
+
+    private void setDemoPlayers(int number){
+        String[] players = new String[number];
+        for (int i = 0; i < players.length; i++){
+            players[i] = "Player" + i;
+        }
+        game.setPlayers(players);
+        ui.setGUIPlayers(game.getPlayers());
+    }
+    //----------------------------\\
+    UI getUI(){
         return ui;
     }
 
     private void updateDice(int x, int y) {
         ui.updateDice(x, y);
     }
-
-    void updatePlayerInfo(Player[] players) {
+    void updatePlayerInfo(Player[] players){
         ui.updatePlayers(players);
     }
 
+    public void forceEndGame(){
+        gameOver = true;
+    }
 }
