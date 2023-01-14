@@ -27,8 +27,6 @@ public class ActionControl {
                 landedOnChance();
             }
         }
-        if (gameControl.getGame().getBoard().getSquare(position) instanceof DemoSquare) {
-        }
     }
 
     public void landedOnProperty(Property property) {
