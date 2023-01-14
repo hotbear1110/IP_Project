@@ -3,6 +3,8 @@ package Control;
 import Model.Player;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class JailControl {
 
@@ -10,8 +12,27 @@ public class JailControl {
 
     ArrayList<Player> jailedPlayers;
 
+    Map<Player, Integer> counter = new HashMap<Player, Integer>();
+
     public JailControl(GameControl gameControl) {
         this.gameControl = gameControl;
+
+        Player[] players = gameControl.getGame().getPlayers();
+
+        for (Player player : players) {
+            counter.put(player, 0);
+        }
+
+    }
+
+    public int isJailed() {
+        Player player = gameControl.getGame().getCurrentPlayer();
+
+        int rounds = counter.get(player) + 1;
+        counter.remove(player);
+        counter.put(player, rounds);
+
+        return rounds;
     }
 
     public void jailPlayer() {
@@ -33,12 +54,15 @@ public class JailControl {
 
         player.takeJailCard();
 
-        jailedPlayers.remove(player);
+        leaveJail();
     }
 
     public void leaveJail() {
         Player player = gameControl.getGame().getCurrentPlayer();
 
         jailedPlayers.remove(player);
+
+        counter.remove(player);
+        counter.put(player, 0);
     }
 }
