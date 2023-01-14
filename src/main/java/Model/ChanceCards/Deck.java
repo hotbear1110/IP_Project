@@ -96,7 +96,7 @@ public class Deck {
                     newCard = new MovePlayer(card, "specific", Translator.getString(card), 39);
                 }
                 case "CHANCE35" -> {
-                    newCard = new JailCard(card, "JailCard", Translator.getString(card));
+                    newCard = new JailCard(card, "giveJailCard", Translator.getString(card));
                 }
                 case "CHANCE36" -> {
                     newCard = new MovePlayer(card, "jail", Translator.getString(card), 30);
@@ -157,6 +157,26 @@ public class Deck {
             case "rarecieve" -> {
                 ChanceReceive rarecieveCard = (ChanceReceive) card;
                 rarecieveCard.rarecieve(player);
+            }
+            case "specific" -> {
+                MovePlayer specificCard = (MovePlayer) card;
+                specificCard.specific(player);
+            }
+            case "move" -> {
+                MovePlayer moveCard = (MovePlayer) card;
+                moveCard.move(player);
+            }
+            case "moveToNext" -> {
+                MovePlayer moveToNextCard = (MovePlayer) card;
+                moveToNextCard.moveToNext(player);
+            }
+            case "jail" -> {
+                MovePlayer jailCard = (MovePlayer) card;
+                jailCard.jail(player);
+            }
+            case "giveJailCard" -> {
+                JailCard giveJailCard = (JailCard) card;
+                giveJailCard.giveJailCard(player);
             }
         }
         return cardDescription;
