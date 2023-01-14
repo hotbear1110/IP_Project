@@ -1,5 +1,6 @@
 package Model;
 
+import Model.Squares.Lot;
 import Model.Squares.Property;
 
 import java.util.ArrayList;
@@ -11,11 +12,6 @@ public class Player {
 
     private Token token; //The token associated with the player
 
-
-//metode der retunere arraylist og propeties
-    public ArrayList<Property> playerProperties(){
-        return account.getProperty();
-    }
     /**
      * The constructor for the player
      * @param Name (String) The player name
@@ -24,6 +20,23 @@ public class Player {
         playerName = Name;
         account = new Account(FixedValues.START_AMOUNT);
         token = new Token();
+    }
+
+//metode der retunere arraylist og propeties
+    public ArrayList<Property> playerProperties(){
+        return account.getProperty();
+    }
+
+    public Lot[] getPropertiesWithUpgrades(){
+        return account.getPropertiesWithUpgrades();
+    }
+
+    public Lot[] getUpgradableProperties(){
+        return account.getUpgradableProperties();
+    }
+
+    public void sellProperty(Property property){
+        account.removeProperty(property);
     }
 
     /**

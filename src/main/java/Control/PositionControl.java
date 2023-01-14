@@ -17,7 +17,6 @@ public class PositionControl {
             gameControl.updatePlayerInfo(gameControl.getGame().getPlayers());
         }
     }
-
     public boolean hasPassedStart(){
         return gameControl.getGame().getCurrentPlayer().hasPassedStart();
     }

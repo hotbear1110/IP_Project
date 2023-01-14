@@ -24,6 +24,12 @@ public abstract class Property extends Square{
     public int getMortgage(){
         return this.mortgage;
     }
+    public void setAsMortgaged(){
+        isMortgaged = true;
+    }
+    public void setAsNotMortgaged(){
+        isMortgaged = false;
+    }
 
     public Player getOwner(){
         return this.owner;
@@ -32,19 +38,21 @@ public abstract class Property extends Square{
         this.owner = player;
         this.isOwned = true;
     }
+    public void removeOwner(){
+        this.owner = null;
+        this.isOwned = false;
+    }
 
-    public boolean isOwned(){
+    public boolean isPropertyOwned(){
         return this.isOwned;
     }
 
-    public abstract int getRent();
-
-    public boolean isMortgaged(){
+    public boolean isPropertyMortgaged(){
         return isMortgaged;
     }
 
-
-    public Property getProperty(){
-        return this;
+    @Override
+    public String toString(){
+        return super.name;
     }
 }

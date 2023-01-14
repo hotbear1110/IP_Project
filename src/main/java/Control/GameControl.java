@@ -21,7 +21,6 @@ public class GameControl {
     PositionControl positionControl;
     ActionControl actionControl;
     ChanceControl chanceControl;
-    DemoControl demoControl;
 
     boolean gameOver = false;
 
@@ -33,7 +32,6 @@ public class GameControl {
         this.positionControl = new PositionControl(this);
         this.actionControl = new ActionControl(this);
         this.chanceControl = new ChanceControl(this);
-        this.demoControl = new DemoControl(this);
         this.ui = new UI(board);
 
         gameStart();
@@ -49,16 +47,39 @@ public class GameControl {
 
     private void gameStart() {
         ui.showMessage(Translator.getString("START_MESSAGE")); // Shows start-up message
+        /*
         String start = ui.getUserButton(Translator.getString("START_MESSAGE"), "Start spil", "Start demo");
         if (start.equals("Start demo")) {
             setUpDemoGame();
         } else {
             setUpGame();
         }
+        */
+        setUpGame();
     }
     private void runGame(){
 
     }
+
+    private void startTurn(){
+        Player currentPlayer = game.getCurrentPlayer();
+        boolean turnTaken = false;
+        String action = ui.getUserButton(currentPlayer.getPlayerName() + " " + Translator.getString("START_TURN"), ControlMenus.startMenu);
+        while(!turnTaken){
+            switch (action){
+                case "Rul med terningerne" -> {
+                    takeTurn();
+                    turnTaken = true;
+                }
+                case "Administrer ejede grunde" -> {
+                    bankControl.buySellActions(currentPlayer);
+                }
+            }
+        }
+    }
+    private void takeTurn(){
+    }
+
 
     private void setUpGame() {
         setUpPlayers(getNumberOfPlayers()); //Gets number of players, and gets the game model to create the player objects
@@ -66,7 +87,7 @@ public class GameControl {
     }
 
     private int getNumberOfPlayers() {
-        return ui.getNumOfPlayers();
+        return ui.getNumber(Translator.getString("NUMBER_OF_PLAYERS"), FixedValues.MIN_PLAYERS, FixedValues.MAX_PLAYERS);
     }
 
     private void setUpPlayers(int number) {
@@ -109,112 +130,6 @@ public class GameControl {
         }
         return list.toArray(new String[0]);
     }
-    private void takeTurn(){
-        ui.updatePlayers(game.getPlayers());
-        if (diceControl.getManipulationStatus()){
-            int diceSum = ui.getNumber(diceControl.getControlMenu(), FixedValues.MIN_DICE_SUM, FixedValues.MAX_DICE_SUM);
-            int[] dicePair = new int[]{diceSum - 1, 1};
-            diceControl.controlAction(dicePair);
-            updateDice(game.getDice().getSingleDice(0), game.getDice().getSingleDice(1));
-            positionControl.controlAction(diceSum);
-            if (positionControl.hasPassedStart()){
-                bankControl.getPassedStart();
-                actionControl.controlAction(diceSum);
-            } else {
-                actionControl.controlAction(diceSum);
-            }
-            endTurn();
-        } else if (bankControl.getManipulationStatus()){
-            diceControl.controlAction(null);
-            updateDice(game.getDice().getSingleDice(0), game.getDice().getSingleDice(1));
-            positionControl.controlAction(game.getDice().getSum());
-            if (positionControl.hasPassedStart()){
-                bankControl.getPassedStart();
-                actionControl.controlAction(game.getDice().getSum());
-            } else {
-                actionControl.controlAction(game.getDice().getSum());
-            }
-            String s = "";
-
-            switch (game.getPlayers().length) {
-                case 0 -> {
-                    s = ui.getUserButton(bankControl.getMenu(), "Ingen i denne omgang");
-                }
-                case 1 -> {
-                    s = ui.getUserButton(bankControl.getMenu(), game.getSpecificPlayer(0).getPlayerName(), "Ingen i denne omgang");
-                }
-                case 2 -> {
-                    s = ui.getUserButton(bankControl.getMenu(), game.getSpecificPlayer(0).getPlayerName(), game.getSpecificPlayer(1).getPlayerName(), "Ingen i denne omgang");
-                }
-            }
-
-            if (s.equals(game.getSpecificPlayer(0).getPlayerName())){
-                bankControl.removeMoney(game.getSpecificPlayer(0), game.getSpecificPlayer(0).getPlayerBalance());
-            } else if (s.equals(game.getSpecificPlayer(1).getPlayerName())){
-                bankControl.removeMoney(game.getSpecificPlayer(1), game.getSpecificPlayer(1).getPlayerBalance());
-            }
-            endTurn();
-        } else {
-            diceControl.controlAction(null);
-            updateDice(game.getDice().getSingleDice(0), game.getDice().getSingleDice(1));
-            positionControl.controlAction(game.getDice().getSum());
-            if (positionControl.hasPassedStart()){
-                bankControl.getPassedStart();
-                actionControl.controlAction(game.getDice().getSum());
-            } else {
-                actionControl.controlAction(game.getDice().getSum());
-            }
-            updatePlayerInfo(game.getPlayers());
-            endTurn();
-        }
-    }
-    private void endTurn() {
-        if (!game.isAnyBankrupt()){
-            getGame().setCurrentPlayer();
-        } else if (game.isThereAWinner()){
-            endGame();
-        }
-    }
-
-    private void endGame(){
-        ui.showMessage(game.getWinner().getPlayerName() + " \n" + Translator.getString("WIN_GAME"));
-        String s = ui.getUserButton("Spillet er slut, vil I spille igen?", "Ja", "Nej");
-        gameOver = true;
-        if (s.equals("Ja")){
-            gameOver = false;
-            setUpDemoGame();
-        }
-    }
-
-    //--------- DEMO GAME --------\\
-
-    private void setUpDemoGame() {
-        setDemoPlayers(2); //MAYBE JUST CHOOSE ONE OR TWO PLAYERS
-        while (!gameOver) {
-            String testType = ui.getDropDown("Vælg en accepttest", demoControl.getMenu());
-            demoControl.setUpTest(testType);
-            runDemoGame();
-        }
-    }
-    private void runDemoGame(){
-        while(true){
-            takeTurn();
-            String s = ui.getUserButton("Vil du forsætte?", "Ja" , "Nej");
-            if(s.equals("Nej")){
-                break;
-            }
-        }
-    }
-
-    private void setDemoPlayers(int number){
-        String[] players = new String[number];
-        for (int i = 0; i < players.length; i++){
-            players[i] = "Player" + i;
-        }
-        game.setPlayers(players);
-        ui.setGUIPlayers(game.getPlayers());
-    }
-    //----------------------------\\
     UI getUI(){
         return ui;
     }

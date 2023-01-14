@@ -23,4 +23,6 @@ public class FixedValues {
     public static final int PARKING_SQUARE = 21;
     public static final int VISIT_JAIL = 11;
     public static final int GO_TO_JAIL = 31;
+
+    public static final int MARK_UP_MORTGAGED = 10;
 }

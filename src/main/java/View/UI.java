@@ -22,8 +22,7 @@ public class UI {
 
     public UI(Board board){
         this.players = new HashMap<>();
-        this.ui = createDemoBoard(board);
-        //this.ui = createBoard(board);
+        this.ui = createBoard(board);
     }
 
     public void updateDice(int x, int y){
@@ -38,14 +37,6 @@ public class UI {
     }
 
     //----------- GUI-Board methods --------\\
-    public GUI createDemoBoard(Board board){
-        this.guiBoard = new GUI_Field[FixedValues.NUM_OF_SQUARES];
-
-        for (int i = 0; i < FixedValues.NUM_OF_SQUARES; i++){
-            guiBoard[i] = UIBoardFactory.demoBoardFactory(board.getSquare(i));
-        }
-        return this.ui = new GUI(guiBoard, FixedValues.BOARD_COLOR);
-    }
 
     public GUI createBoard(Board board){
         this.guiBoard = new GUI_Field[FixedValues.NUM_OF_SQUARES];
@@ -84,6 +75,10 @@ public class UI {
     //------------- INPUT & OUTPUT METHODS ------------\\
     public void showMessage(String message){
         ui.showMessage(message);
+    }
+
+    public boolean getYesNoAnswer(String message){
+        return ui.getUserLeftButtonPressed(message, "Ja", "Nej");
     }
     public int getNumber(String message, int min, int max){
         return ui.getUserInteger(message, min , max);

@@ -12,9 +12,45 @@ public class Utility {
         return Integer.toString(n);
     }
 
+    public static String[] parseIntToStringArray(int n){
+        String[] array = new String[n];
+        for (int i = 0; i <= n; i++){
+            array[i] = i + ".";
+        }
+        return array;
+    }
+
+    public static String[] parseListToArray(ArrayList<String> list){
+        String[] array = new String[list.size()];
+        for (int i = 0; i < list.size(); i++){
+            array[i] = list.get(i);
+        }
+        return array;
+    }
+
+    public static String[] addElementToStringArray(String[] array, String element){
+        ArrayList<String> list = new ArrayList<>();
+        for (int i = 0; i < array.length; i++){
+            list.add(i, array[i]);
+        }
+        int n = list.size();
+        list.add(n + 1, element);
+        return parseListToArray(list);
+    }
+
     public static <E> void moveToFront(List<E> list, int index){
         E temp = list.get(0);
         list.set(0, list.get(index));
         list.set(index, temp);
+    }
+
+    public static int addProcentToNumber(int basePrice, int markUp){
+        int finalResult = basePrice + (markUp * basePrice / 100);
+        return finalResult;
+    }
+
+    public static int roundUpToHundred(int number){
+        int rounded = ((number + 99) / 100) * 100;
+        return rounded;
     }
 }
