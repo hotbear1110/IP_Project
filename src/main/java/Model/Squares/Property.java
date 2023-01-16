@@ -26,6 +26,7 @@ public abstract class Property extends Square{
     public int getPrice(){
         return this.price;
     }
+    abstract void setCurrentRent();
 
     public int getMortgage(){
         return this.mortgage;
@@ -59,6 +60,9 @@ public abstract class Property extends Square{
 
     public ArrayList<Property> getMembers(){
         return group.getMembers();
+    }
+    public ColorGroup getGroup(){
+        return this.group;
     }
 
     @Override
