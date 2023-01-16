@@ -57,20 +57,23 @@ public class GameControl {
         }
         */
         setUpGame();
+        runGame();
     }
     private void runGame(){
-
+        while (!gameOver){
+            startTurn();
+        }
     }
 
     private void startTurn(){
         Player currentPlayer = game.getCurrentPlayer();
         boolean turnTaken = false;
-        String action = ui.getUserButton(currentPlayer.getPlayerName() + " " + Translator.getString("START_TURN"), ControlMenus.startMenu);
         while(!turnTaken){
+            String action = ui.getUserButton(currentPlayer.getPlayerName() + " " + Translator.getString("START_TURN"), ControlMenus.startMenu);
             switch (action){
                 case "Start tur" -> {
-                    turnTaken = true;
                     takeTurn(currentPlayer);
+                    turnTaken = true;
                 }
                 case "Administrer ejede grunde" -> {
                     bankControl.buySellActions(currentPlayer);
@@ -87,16 +90,22 @@ public class GameControl {
             diceControl.controlAction();
             diceSum = game.getDice().getSum();
             doubleDice = diceControl.getDoubleDice();
+
+            updateDice();
+
             positionControl.controlAction(diceSum);
             passedStart = positionControl.hasPassedStart();
             if (passedStart){
                 bankControl.getPassedStart();
             }
             playerPosition = game.getCurrentPlayer().getPlayerPosition();
+
+            updatePlayerInfo(game.getPlayers());
+
             String action = actionControl.controlAction(playerPosition);
             switch (action){
                 case "Start":
-                    // DU ER LANDET PÅ START .... HVIS DOUBLE SLÅ IGEN
+                    ui.showMessage("Du er landet på START og vil modtage start-penge i din næste tur");
                 case "Property":
                     boolean hasOwner;
                     String lotName = game.getBoard().getSquare(playerPosition).getName();
@@ -107,16 +116,27 @@ public class GameControl {
                     } else {
                         bankControl.buyProperty(currentPlayer, activeSquare);
                     }
+                case "Chance":
                 case "Metro":
                     positionControl.landsOnMetro(playerPosition);
                 case "Tax":
-                    //bankControl.payTax(int position);
+                    //bankControl.payTax(playerPosition);
+                case "Parking":
+                    //LANDED ON PARKING
             }
+
+            updatePlayerInfo(game.getPlayers());
+
             if (doubleDice && diceControl.getDoubleDiceCounter() != 3){
                 ui.showMessage("Fordi du har slået dobbelt er det din tur igen");
-                continue;
+            } else if (doubleDice && diceControl.doubleDiceCounter == 3){
+                //jail
+                diceControl.resetCounter();
+                endTurn(currentPlayer);
+                break;
             } else {
                 endTurn(currentPlayer);
+                break;
             }
         }
     }
@@ -183,7 +203,9 @@ public class GameControl {
         return ui;
     }
 
-    private void updateDice(int x, int y) {
+    private void updateDice() {
+        int x = game.getDice().getSingleDice(0);
+        int y = game.getDice().getSingleDice(1);
         ui.updateDice(x, y);
     }
     void updatePlayerInfo(Player[] players){

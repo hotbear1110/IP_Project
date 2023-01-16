@@ -14,6 +14,9 @@ public class ActionControl {
         if (squareType instanceof Lot){
             return "Property";
         }
+        if (squareType instanceof Chance){
+            return "Chance";
+        }
         if (squareType instanceof Tax) {
             return "Tax";
         }
@@ -22,6 +25,9 @@ public class ActionControl {
         }
         if (squareType instanceof Start) {
             return "Start";
+        }
+        if (squareType instanceof Parking){
+            return "Parking";
         }
         return null;
     }
