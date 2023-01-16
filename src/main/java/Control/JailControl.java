@@ -56,6 +56,10 @@ public class JailControl {
         Player player = gameControl.getGame().getCurrentPlayer();
 
         if (action.equals("Brug fængsels kort")) {
+            if (!hasJailCard()) {
+                gameControl.getUI().showMessage("Du har ikke et fængsels kort");
+                return controlAction();
+            }
             useJailCard();
         }
 
