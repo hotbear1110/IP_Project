@@ -12,6 +12,8 @@ public class Player {
 
     private Token token; //The token associated with the player
 
+    private boolean isJailed = false;
+
     /**
      * The constructor for the player
      * @param Name (String) The player name
@@ -112,6 +114,18 @@ public class Player {
 
     public boolean hasJailCard() {
         return account.hasJailCard();
+    }
+
+    public boolean isJailed() {
+        return isJailed;
+    }
+
+    public void jailPlayer() {
+        this.isJailed = true;
+    }
+
+    public void leaveJail() {
+        this.isJailed = false;
     }
 
     /**
