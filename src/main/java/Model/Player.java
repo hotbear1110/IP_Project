@@ -41,6 +41,10 @@ public class Player {
         account.removeProperty(property);
     }
 
+    public ArrayList<Lot> nextUpgrade() {
+        return account.nextUpgrade();
+    }
+
     /**
      * Sets the player name
      * @param name (String) The player name
@@ -150,5 +154,9 @@ public class Player {
 
     public boolean hasPassedStart() {
         return token.hasPassedStart();
+    }
+
+    public boolean hasColorSet(Lot activeLot) {
+       return account.hasColorSet(activeLot);
     }
 }
