@@ -2,8 +2,6 @@ package Model.Squares;
 
 import Model.Player;
 
-import java.awt.*;
-
 public class Ship extends Property{
     private final int[] rentTable;
     private int currentRent;
@@ -21,12 +19,15 @@ public class Ship extends Property{
     public int getMortgage(){
         return super.getMortgage();
     }
+    @Override
     public void setCurrentRent(int index){
         this.currentRent = rentTable[index];
     }
+    @Override
     public int getRent(){
         return this.currentRent;
     }
+
     @Override
     public void setAsMortgaged(){
         super.setAsMortgaged();

@@ -42,6 +42,7 @@ public class Lot extends Property {
     public void setAsNotMortgaged(){
         super.setAsNotMortgaged();
     }
+    @Override
     public void setCurrentRent(int index){
         this.currentRent = rentTable[index];
     }

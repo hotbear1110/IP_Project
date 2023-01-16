@@ -2,8 +2,6 @@ package Model.Squares;
 
 import Model.Player;
 
-import java.awt.*;
-
 public class Brewery extends Property{
     private final int[] rentTable;
     private int currentRent;
@@ -21,9 +19,12 @@ public class Brewery extends Property{
     public int getMortgage(){
         return super.getMortgage();
     }
-
     public int getRent(int diceSum){
         return currentRent * diceSum;
+    }
+    @Override
+    public void setCurrentRent(int index){
+        this.currentRent = rentTable[index];
     }
     @Override
     public void setAsMortgaged(){

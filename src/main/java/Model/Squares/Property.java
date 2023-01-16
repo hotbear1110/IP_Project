@@ -26,11 +26,11 @@ public abstract class Property extends Square{
     public int getPrice(){
         return this.price;
     }
-    abstract void setCurrentRent();
 
     public int getMortgage(){
         return this.mortgage;
     }
+    public abstract void setCurrentRent(int index);
     public void setAsMortgaged(){
         isMortgaged = true;
     }
