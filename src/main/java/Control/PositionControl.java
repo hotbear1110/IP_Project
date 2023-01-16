@@ -28,7 +28,7 @@ public class PositionControl {
         String metroName = gameControl.getGame().getBoard().getSquare(position).getName();
         Metro specificMetro = gameControl.getBoard().getMetro(metroName);
         int nearestMetro = specificMetro.getNearestMetroSquare();
-        controlAction(nearestMetro);
+        gameControl.getGame().getCurrentPlayer().setPlayerPosition(nearestMetro);
     }
 
     public void goToJail(){

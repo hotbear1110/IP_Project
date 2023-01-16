@@ -5,9 +5,11 @@ import Model.Board;
 import Model.Dice;
 import Model.FixedValues;
 import Model.Player;
+import Model.Squares.Lot;
 import gui_fields.GUI_Car;
 import gui_fields.GUI_Field;
 import gui_fields.GUI_Player;
+import gui_fields.GUI_Street;
 import gui_main.GUI;
 
 import java.awt.*;
@@ -36,6 +38,18 @@ public class UI {
         }
     }
 
+    public void updateBuildings(Board board){
+        for(int i = 0; i < board.getBoard().length; i++){
+            if (board.getBoard()[i] instanceof Lot lot){
+                int houses = lot.getNumberOfHouses();
+                boolean hotel = lot.getHotel();
+                GUI_Field square = this.ui.getFields()[i];
+                GUI_Street street = (GUI_Street) square;
+                street.setHouses(houses);
+                street.setHotel(hotel);
+            }
+        }
+    }
     //----------- GUI-Board methods --------\\
 
     public GUI createBoard(Board board){

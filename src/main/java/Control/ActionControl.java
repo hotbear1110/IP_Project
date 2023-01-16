@@ -11,7 +11,7 @@ public class ActionControl {
 
     public String controlAction(int position){
         Square squareType = gameControl.getGame().getBoard().getSquare(position);
-        if (squareType instanceof Lot){
+        if (squareType instanceof Property){
             return "Property";
         }
         if (squareType instanceof Chance){
