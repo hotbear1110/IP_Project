@@ -14,4 +14,5 @@ public class ControlMenus {
 
     public static String[] sellHotelUpgradesMenu = new String[]{"Sælg hotel", "Tilbage"};
     public static String[] sellHouseUpgradesMenu = new String[]{"Sælg et hus", "Tilbage"};
+    public static String[] taxOrCash = new String[]{"Betal 10% i skat", "Betal 4000kr."};
 }

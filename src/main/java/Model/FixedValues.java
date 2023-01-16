@@ -10,6 +10,7 @@ public class FixedValues {
 
     public static final int INCOME_TAX = 4000;
     public static final int EXTRA_TAX = 2000;
+    public static final int TAX_PERCENTAGE = 10;
 
     public static final int NUM_OF_DICE = 2;
     public static final int MIN_DICE_SUM = 2;

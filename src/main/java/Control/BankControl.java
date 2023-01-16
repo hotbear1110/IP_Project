@@ -105,6 +105,37 @@ public class BankControl {
         }
     }
 
+    public void payTax(int position) {
+
+        Player player = gameControl.getGame().getCurrentPlayer();
+
+        if (position == 4) {
+            String action = gameControl.getUI().getDropDown("Betal indkomst-skat 10%, eller betal 4000kr.", ControlMenus.taxOrCash);
+
+            switch (action) {
+                case "Betal 10% i skat" -> {
+                    int playerCash = player.getPlayerBalance();
+
+                    int payment = playerCash - Utility.addProcentToNumber(playerCash, FixedValues.TAX_PERCENTAGE);
+
+                    int roundedPayment = Utility.roundUpToHundred(payment);
+
+                    gameControl.getUI().showMessage("Du skal betale " + roundedPayment + "kr.");
+
+                    fromPlayerToBank(player, roundedPayment);
+
+                }
+                case "Betal 4000kr." -> {
+                    fromPlayerToBank(player, FixedValues.INCOME_TAX);
+                }
+            }
+        } else if (position == 38) {
+            fromPlayerToBank(player, FixedValues.EXTRA_TAX);
+        }
+
+
+    }
+
     // ------------ METHODS FOR BUYING AND SELLING ------------- \\
     public void buySellActions(Player player) {
         String action = gameControl.getUI().getDropDown("Vælg en handling fra listen", ControlMenus.buySellMenu);

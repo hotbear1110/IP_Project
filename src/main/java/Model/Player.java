@@ -102,6 +102,18 @@ public class Player {
         return token.getPosition();
     }
 
+    public void takeJailCard() {
+        account.takeJailCard();
+    }
+
+    public void giveJailCard() {
+        account.giveJailCard();
+    }
+
+    public boolean hasJailCard() {
+        return account.hasJailCard();
+    }
+
     /**
      * Checks of the player is bankrupt
      * @return (boolean) True if the player balance is 0
