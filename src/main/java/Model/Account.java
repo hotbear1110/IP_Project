@@ -132,7 +132,7 @@ public class Account {
             for (Lot property : propertyList ) {
                 int houseCount = property.getNumberOfHouses();
 
-                if (houseCount > maxHouses) {
+                if (houseCount < maxHouses) {
                     maxHouses = houseCount;
                     upgradableProperties.clear();
                     upgradableProperties.add(property);
@@ -141,9 +141,7 @@ public class Account {
                 }
             }
 
-            for (Lot property : upgradableProperties) {
-                finalProperties.add(property);
-            }
+            finalProperties.addAll(upgradableProperties);
 
         }
 
