@@ -177,6 +177,10 @@ public class Deck {
             case "giveJailCard" -> {
                 JailCard giveJailCard = (JailCard) card;
                 giveJailCard.giveJailCard(player);
+                /*
+                fjerne et jailkort fra bunken.
+                og så lave en ny metode jailcontrolleren kan kalde når kortet bruges, sådan at det kan blive føjet tilbage til bunken
+                 */
             }
         }
         return cardDescription;
