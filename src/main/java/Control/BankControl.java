@@ -122,7 +122,7 @@ public class BankControl {
             properties[i] = upgradableProperties[i].getName();
         }
         String[] menu = Utility.addElementToStringArray(properties, "Tilbage");
-        if(menu.length == 1){
+        if(menu.length > 3){
             gameControl.getUI().showMessage("Du ejer ikke tre grunde af samme farve, og kan derfor ikke købe opgraderinger");
             buySellActions(player);
         } else {
@@ -133,7 +133,23 @@ public class BankControl {
                 String action = gameControl.getUI().getUserButton("Vælg en handling: ", ControlMenus.upgradeMenu);
                 switch (action) {
                         case "Køb opgraderinger":
-                            buyUpgrades(player, activeLot);
+                            ArrayList<Lot> nextUpgradableProperties = player.nextUpgrade();
+
+                            boolean isNext = false;
+
+                            for (Lot lot : nextUpgradableProperties) {
+                                if (activeLot.equals(lot)) {
+                                    isNext = true;
+                                    break;
+                                }
+                            }
+
+                            if (isNext) {
+                                buyUpgrades(player, activeLot);
+                            } else {
+                                gameControl.getUI().showMessage("Du kan ikke opgradere denne grund, vælg end grund med færrest huse i farvegruppen");
+                                handleUpgrades(player);
+                            }
                         case "Sælg opgraderinger":
                             sellUpgrades(player, activeLot);
                         case "Tilbage":
