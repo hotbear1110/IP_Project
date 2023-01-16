@@ -76,8 +76,16 @@ public class Board {
     }
 
 
-    public String drawCard(Player currentPlayer, Player[] players){
-        return cardDeck.pullCard(currentPlayer, players);
+    public void drawCard(Player currentPlayer, Player[] players){
+        cardDeck.pullCard(currentPlayer, players);
+    }
+
+    public String getNextCard() {
+        return cardDeck.getNextCard();
+    }
+
+    public void addJailCard() {
+        cardDeck.addJailCard();
     }
 
     /*
