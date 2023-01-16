@@ -151,4 +151,8 @@ public class Account {
             return false;
         }
     }
+
+    public void setAsBankrupt(){
+        balance = 0;
+    }
 }

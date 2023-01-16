@@ -81,8 +81,10 @@ public class BankControl {
 
         gameControl.getUI().showMessage("Du er landet på " + property.getName() + " som er ejet af " + property.getOwner().getPlayerName() + ".\n Du skal derfor betale lejen på " + rent);
         if (!checkPlayerBalance(player, rent)) {
-            if (checkBankrupcy(player)) {
-                //gameControl.declarePlayerBankrupt();
+                //din balance er ..... og kan derfor ikke betale hele lejen på ... Du er derfor gået fallit.\n Det du kan betale af lejen bliver betalt, dine grunde og opgraderinger gives tilbage til banken.
+                //bankControl.playerToPlayer();
+                //reset property;
+                //gameControl.declarePlayerBankrupt(player);
             } /*else {
                 int totalWorth = getPlayersTotalWorth(player);
                 if (totalWorth >= rent) {

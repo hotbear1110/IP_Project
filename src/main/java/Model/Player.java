@@ -110,6 +110,10 @@ public class Player {
         return account.checkBankrupcy();
     }
 
+    public void setAsBankrupt(){
+        account.setAsBankrupt();
+    }
+
     /**
      * A toString method
      * @return (String) The player name and balance

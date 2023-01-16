@@ -149,6 +149,10 @@ public class GameControl {
         }
     }
 
+    public void declarePlayerBankrupt(Player player){
+        player.setAsBankrupt();
+    }
+
 
     private void setUpGame() {
         setUpPlayers(getNumberOfPlayers()); //Gets number of players, and gets the game model to create the player objects
