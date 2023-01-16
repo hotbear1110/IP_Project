@@ -12,23 +12,33 @@ public class MovePlayer extends Cards {
         fields = Fields;
     }
 
-    public void move(Player player) {
+    public int move(Player player) {
         player.movePlayerPosition(fields);
+
+        return fields;
     }
 
-    public void specific(Player player) {
-        player.setPlayerPosition(fields);
+    public int specific(Player player) {
+        int position = player.getPlayerPosition();
+
+        int newfields = (fields - position < 0) ? 39 + (fields - position) : fields - position;
+        player.movePlayerPosition(newfields);
+
+        return newfields;
     }
 
     public void jail(Player player) {
-        //Vi skal lige finde ud af en måde spilleren ikke får penge på
-        player.movePlayerPosition(fields);
-    }
-
-    public void moveToNext(Player player) {
-        int fields = (player.getPlayerPosition() > 15) ? 35 : 15;
-
         player.setPlayerPosition(fields);
     }
 
+    public int moveToNext(Player player) {
+        int newfields = (player.getPlayerPosition() > 15) ? 35 : 15;
+
+        int move = newfields - player.getPlayerPosition();
+
+        player.movePlayerPosition(move);
+        return move;
+    }
+
 }
+
