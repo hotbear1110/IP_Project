@@ -17,7 +17,7 @@ public class MovePlayer extends Cards {
     }
 
     public void specific(Player player) {
-        player.movePlayerPosition(fields);
+        player.setPlayerPosition(fields);
     }
 
     public void jail(Player player) {
