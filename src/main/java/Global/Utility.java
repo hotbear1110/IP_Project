@@ -44,8 +44,13 @@ public class Utility {
         list.set(index, temp);
     }
 
-    public static int addProcentToNumber(int basePrice, int markUp){
-        int finalResult = basePrice + (markUp * basePrice / 100);
+    public static int addProcentToNumber(int baseNumber, int markUp){
+        int finalResult = baseNumber + (markUp * baseNumber / 100);
+        return finalResult;
+    }
+
+    public static int removeProcentFromNumber(int baseNumber, int markUp){
+        int finalResult = baseNumber - (markUp * baseNumber / 100);
         return finalResult;
     }
 
