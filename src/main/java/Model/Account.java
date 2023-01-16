@@ -72,7 +72,8 @@ public class Account {
             if(j == null){
                 propertyCount.put(ownedLots.get(i).getColor(), 1);
             } else if (!ownedLots.get(i).isPropertyMortgaged()) {
-                propertyCount.put(ownedLots.get(i).getColor(), i + 1);
+                propertyCount.remove(ownedLots.get(i).getColor());
+                propertyCount.put(ownedLots.get(i).getColor(), j + 1);
             }
         }
 
