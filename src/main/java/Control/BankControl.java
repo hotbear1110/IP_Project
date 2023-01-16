@@ -81,7 +81,7 @@ public class BankControl {
             rent += activeSquare.getRent();
         }
         if (property instanceof Brewery) {
-            Brewery activeSquare = gameControl.getBoard().geBrewery(property.getName());
+            Brewery activeSquare = gameControl.getBoard().getBrewery(property.getName());
             rent += activeSquare.getRent(diceSum);
         }
 

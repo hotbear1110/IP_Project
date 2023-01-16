@@ -7,16 +7,6 @@ public class Board {
     private final Square[] squares;
     private final Deck cardDeck;
 
-    private final ColorGroup blue = new ColorGroup("Blue");
-    private final ColorGroup orange = new ColorGroup("Orange");
-    private final ColorGroup green = new ColorGroup("Green");
-    private final ColorGroup grey = new ColorGroup("Grey");
-    private final ColorGroup red = new ColorGroup("Red");
-    private final ColorGroup white = new ColorGroup("White");
-    private final ColorGroup yellow = new ColorGroup("Yellow");
-    private final ColorGroup purple = new ColorGroup("Purple");
-    private final ColorGroup black = new ColorGroup("Black");
-    private final ColorGroup brown = new ColorGroup("Brown");
 
     public Board(){
         //this.squares = demoBoard();
@@ -76,7 +66,7 @@ public class Board {
         return null;
     }
 
-    public Brewery geBrewery(String breweryName){
+    public Brewery getBrewery(String breweryName){
         for (Square square : getBoard()){
             if (square instanceof Brewery){
                 if (square.getName().equals(breweryName)){
@@ -86,8 +76,6 @@ public class Board {
         }
         return null;
     }
-
-
     public void drawCard(Player currentPlayer, Player[] players){
         cardDeck.pullCard(currentPlayer, players);
     }

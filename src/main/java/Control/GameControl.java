@@ -138,7 +138,7 @@ public class GameControl {
                 case "Tax":
                     bankControl.payTax(playerPosition);
                 case "Parking":
-                    //LANDED ON PARKING
+                    ui.showMessage("Du er landet på parkeringsfeltet, nyd en lille pause");
                 case "GoToJail":
                     ui.showMessage("Du er skal straks rykke i fængsel!\nDu modtager IKKE penge hvis du passerer start!");
                     positionControl.goToJail();
@@ -159,6 +159,7 @@ public class GameControl {
                 break;
             }
         }
+        endTurn(currentPlayer);
     }
 
     public void endTurn(Player player){
