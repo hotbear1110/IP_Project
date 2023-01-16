@@ -41,7 +41,7 @@ public class Utility {
             list.add(i, array[i]);
         }
         int n = list.size();
-        list.add(n + 1, element);
+        list.add(n, element);
         return parseListToArray(list);
     }
 
