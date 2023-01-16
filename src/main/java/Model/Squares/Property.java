@@ -2,6 +2,8 @@ package Model.Squares;
 
 import Model.Player;
 
+import java.util.ArrayList;
+
 public abstract class Property extends Square{
     private final int price;
     private final ColorGroup group;
@@ -55,11 +57,13 @@ public abstract class Property extends Square{
         return isMortgaged;
     }
 
+    public ArrayList<Property> getMembers(){
+        return group.getMembers();
+    }
+
     @Override
     public String toString(){
         return super.name;
     }
 
-    public void setCurrentRent(int doubleRentIndex) {
-    }
 }
