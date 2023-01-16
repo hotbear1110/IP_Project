@@ -1,5 +1,7 @@
 package Control;
 
+import Model.Squares.Metro;
+
 public class PositionControl {
     private GameControl gameControl;
     public PositionControl(GameControl gameControl){
@@ -19,5 +21,12 @@ public class PositionControl {
     }
     public boolean hasPassedStart(){
         return gameControl.getGame().getCurrentPlayer().hasPassedStart();
+    }
+
+    public void landsOnMetro(int position){
+        String metroName = gameControl.getGame().getBoard().getSquare(position).getName();
+        Metro specificMetro = gameControl.getBoard().getMetro(metroName);
+        int nearestMetro = specificMetro.getNearestMetroSquare();
+        controlAction(nearestMetro);
     }
 }

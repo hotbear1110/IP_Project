@@ -5,6 +5,7 @@ import Model.Board;
 import Model.FixedValues;
 import Model.Game;
 import Model.Player;
+import Model.Squares.Property;
 import View.UI;
 
 import java.util.ArrayList;
@@ -67,9 +68,9 @@ public class GameControl {
         String action = ui.getUserButton(currentPlayer.getPlayerName() + " " + Translator.getString("START_TURN"), ControlMenus.startMenu);
         while(!turnTaken){
             switch (action){
-                case "Rul med terningerne" -> {
-                    takeTurn();
+                case "Start tur" -> {
                     turnTaken = true;
+                    takeTurn(currentPlayer);
                 }
                 case "Administrer ejede grunde" -> {
                     bankControl.buySellActions(currentPlayer);
@@ -77,7 +78,55 @@ public class GameControl {
             }
         }
     }
-    private void takeTurn(){
+    private void takeTurn(Player currentPlayer){
+        while (true){
+            boolean doubleDice;
+            boolean passedStart;
+            int diceSum;
+            int playerPosition;
+            diceControl.controlAction();
+            diceSum = game.getDice().getSum();
+            doubleDice = diceControl.getDoubleDice();
+            positionControl.controlAction(diceSum);
+            passedStart = positionControl.hasPassedStart();
+            if (passedStart){
+                bankControl.getPassedStart();
+            }
+            playerPosition = game.getCurrentPlayer().getPlayerPosition();
+            String action = actionControl.controlAction(playerPosition);
+            switch (action){
+                case "Start":
+                    // DU ER LANDET PÅ START .... HVIS DOUBLE SLÅ IGEN
+                case "Property":
+                    boolean hasOwner;
+                    String lotName = game.getBoard().getSquare(playerPosition).getName();
+                    Property activeSquare = game.getBoard().getProperty(lotName);
+                    hasOwner = activeSquare.isPropertyOwned();
+                    if (hasOwner){
+                        bankControl.payRent(currentPlayer, activeSquare, diceSum);
+                    } else {
+                        bankControl.buyProperty(currentPlayer, activeSquare);
+                    }
+                case "Metro":
+                    positionControl.landsOnMetro(playerPosition);
+                case "Tax":
+                    //bankControl.payTax(int position);
+            }
+            if (doubleDice && diceControl.getDoubleDiceCounter() != 3){
+                ui.showMessage("Fordi du har slået dobbelt er det din tur igen");
+                continue;
+            } else {
+                endTurn(currentPlayer);
+            }
+        }
+    }
+
+    public void endTurn(Player player){
+        if (game.isAnyBankrupt()){
+            gameOver = game.isThereAWinner();
+        } else {
+            game.setCurrentPlayer();
+        }
     }
 
 

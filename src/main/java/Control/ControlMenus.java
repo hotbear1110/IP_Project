@@ -4,7 +4,7 @@ public class ControlMenus {
 
     public static String[] diceMenu = new String[]{Translator.getString("ROLL_DICE")};
 
-    public static String[] startMenu = new String[]{"Rul med terningerne", "Køb/Sælg", "Pantsæt/Ophæv pantsætning"};
+    public static String[] startMenu = new String[]{"Rul med terningerne", "Administrer ejede grunde"};
 
     public static String[] buySellMenu = new String[]{"Køb/Sælg opgraderinger", "Sælg grunde", "Tilbage"};
 

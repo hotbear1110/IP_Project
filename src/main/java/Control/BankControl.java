@@ -50,6 +50,7 @@ public class BankControl {
     public boolean checkBankrupcy(Player player){
         return player.isBankrupt();
     }
+
     // ------------ METHODS FOR BUYING PROPERTY ------------ \\
     public void buyProperty(Player player, Property property){
         String action = gameControl.getUI().getUserButton("Du er landet på " + property.getName() + ".", "Køb", "Spring over");
@@ -82,7 +83,7 @@ public class BankControl {
         if (!checkPlayerBalance(player, rent)) {
             if (checkBankrupcy(player)) {
                 //gameControl.declarePlayerBankrupt();
-            } else {
+            } /*else {
                 int totalWorth = getPlayersTotalWorth(player);
                 if (totalWorth >= rent) {
                     String action = gameControl.getUI().getUserButton("Med din nuværende balance har du ikke råd til at betale lejen.", "Sælg opgraderinger", "Pantsæt grunde", "Giv op");
@@ -98,7 +99,7 @@ public class BankControl {
                 } else if (totalWorth < rent) {
                     //gameControl.declarePlayerBankrupt();
                 }
-            }
+            } */
         }
     }
 
