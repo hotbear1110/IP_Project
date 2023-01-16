@@ -40,4 +40,8 @@ public class DiceControl{
     public void resetCounter(){
         doubleDiceCounter = 0;
     }
+
+    public void enabledDiceManipulation(){
+        diceManipulation = true;
+    }
 }
