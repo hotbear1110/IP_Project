@@ -76,6 +76,9 @@ public class Game {
         someoneIsBankrupt = true;
     }
 
+    public boolean isPlayerInJail(Player player){
+        return player.isJailed();
+    }
     public boolean isAnyBankrupt(){
         for (Player player : players) {
             if (player.isBankrupt()) {

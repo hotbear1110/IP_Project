@@ -22,6 +22,7 @@ public class GameControl {
     PositionControl positionControl;
     ActionControl actionControl;
     ChanceControl chanceControl;
+    JailControl jailControl;
 
     boolean gameOver = false;
 
@@ -33,6 +34,7 @@ public class GameControl {
         this.positionControl = new PositionControl(this);
         this.actionControl = new ActionControl(this);
         this.chanceControl = new ChanceControl(this);
+        this.jailControl = new JailControl(this);
         this.ui = new UI(board);
 
         gameStart();
@@ -68,6 +70,20 @@ public class GameControl {
     private void startTurn(){
         Player currentPlayer = game.getCurrentPlayer();
         boolean turnTaken = false;
+        if (game.isPlayerInJail(currentPlayer) && jailControl.isJailed()){
+            ui.showMessage("Du har været i fængels i tre runder og skal nu betale 1000kr for at komme ud");
+            bankControl.fromPlayerToBank(currentPlayer, FixedValues.JAIL_FEE);
+        } else if (game.isPlayerInJail(currentPlayer) && !jailControl.isJailed()){
+            String action;
+            switch(action){
+                case "Rul med terningerne":
+                    takeTurn(currentPlayer);
+                    turnTaken = true;
+                case "Betal 1000kr":
+                    bankControl.fromPlayerToBank(currentPlayer,);
+                case "Brug fængselskort":
+            }
+        }
         while(!turnTaken){
             String action = ui.getUserButton(currentPlayer.getPlayerName() + " " + Translator.getString("START_TURN"), ControlMenus.startMenu);
             switch (action){
@@ -117,6 +133,7 @@ public class GameControl {
                         bankControl.buyProperty(currentPlayer, activeSquare);
                     }
                 case "Chance":
+                    //chanceControl.controlAction(currentPlayer);
                 case "Metro":
                     positionControl.landsOnMetro(playerPosition);
                 case "Tax":
