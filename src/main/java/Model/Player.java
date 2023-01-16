@@ -36,6 +36,9 @@ public class Player {
     public Lot[] getUpgradableProperties(){
         return account.getUpgradableProperties();
     }
+    public void buyProperty(Property property){
+        account.addProperty(property);
+    }
 
     public void sellProperty(Property property){
         account.removeProperty(property);

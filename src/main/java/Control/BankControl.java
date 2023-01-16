@@ -58,6 +58,8 @@ public class BankControl {
             case "Køb":
                 int amount = property.getPrice();
                 fromPlayerToBank(player, amount);
+                property.setOwner(player);
+                player.buyProperty(property);
                 if (property instanceof Lot) {
                     Lot activeLot = gameControl.getBoard().getLot(property.getName());
                     if (player.hasColorSet(activeLot)) {

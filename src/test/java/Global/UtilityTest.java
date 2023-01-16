@@ -15,10 +15,15 @@ public class UtilityTest {
     }
 
     @Test
+    public void removeProcentFromNumber(){
+        assertEquals(27000, Utility.removeProcentFromNumber(30000, 10));
+    }
+    @Test
     public void roundUpToHundred() {
         assertEquals(300, Utility.roundUpToHundred(280));
         assertEquals(400, Utility.roundUpToHundred(305));
         assertEquals(100, Utility.roundUpToHundred(50));
         assertEquals(200, Utility.roundUpToHundred(145));
+        assertEquals(32000, Utility.roundUpToHundred(32000));
     }
 }

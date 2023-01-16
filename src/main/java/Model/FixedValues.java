@@ -21,9 +21,9 @@ public class FixedValues {
 
     public static final int NUM_OF_SQUARES = 40;
     public static final int START_SQUARE = 0;
-    public static final int PARKING_SQUARE = 21;
-    public static final int VISIT_JAIL = 11;
-    public static final int GO_TO_JAIL = 31;
+    public static final int PARKING_SQUARE = 20;
+    public static final int VISIT_JAIL = 10;
+    public static final int GO_TO_JAIL = 30;
     public static final int JAIL_FEE = 1000;
 
     public static final int MARK_UP_MORTGAGED = 10;
