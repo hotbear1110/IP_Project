@@ -172,7 +172,23 @@ public class BankControl {
                 String action = gameControl.getUI().getUserButton("Vælg en handling: ", ControlMenus.upgradeMenu);
                 switch (action) {
                         case "Køb opgraderinger":
-                            buyUpgrades(player, activeLot);
+                            ArrayList<Lot> nextUpgradableProperties = player.nextUpgrade();
+
+                            boolean isNext = false;
+
+                            for (Lot lot : nextUpgradableProperties) {
+                                if (activeLot.equals(lot)) {
+                                    isNext = true;
+                                    break;
+                                }
+                            }
+
+                            if (isNext) {
+                                buyUpgrades(player, activeLot);
+                            } else {
+                                gameControl.getUI().showMessage("Du kan ikke opgradere denne grund, vælg end grund med færrest huse i farvegruppen");
+                                handleUpgrades(player);
+                            }
                         case "Sælg opgraderinger":
                             sellUpgrades(player, activeLot);
                         case "Tilbage":
