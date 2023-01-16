@@ -1,10 +1,7 @@
 package Model;
 
 import Model.ChanceCards.Deck;
-import Model.Squares.Lot;
-import Model.Squares.Metro;
-import Model.Squares.Property;
-import Model.Squares.Square;
+import Model.Squares.*;
 
 public class Board {
     private final Square[] squares;
@@ -56,6 +53,28 @@ public class Board {
         }
         return null;
     }
+    public Ship getShip(String shipName){
+        for (Square square : getBoard()){
+            if (square instanceof Ship){
+                if (square.getName().equals(shipName)){
+                    return (Ship) square;
+                }
+            }
+        }
+        return null;
+    }
+
+    public Brewery geBrewery(String breweryName){
+        for (Square square : getBoard()){
+            if (square instanceof Brewery){
+                if (square.getName().equals(breweryName)){
+                    return (Brewery) square;
+                }
+            }
+        }
+        return null;
+    }
+
 
     public String drawCard(Player currentPlayer, Player[] players){
         return cardDeck.pullCard(currentPlayer, players);

@@ -69,6 +69,14 @@ public class Player {
         return account.getBalance();
     }
 
+    public boolean checkPlayerBalance(int amount){
+        return account.balanceCheck(amount);
+    }
+
+    public int getTotalWorth(){
+        return account.calculateTotalWorth();
+    }
+
     /**
      * Moves the player a given amount of fields
      * @param dice (int) the die sum
@@ -99,7 +107,7 @@ public class Player {
      * @return (boolean) True if the player balance is 0
      */
     public boolean isBankrupt() {
-        return account.getBalance() == 0;
+        return account.checkBankrupcy();
     }
 
     /**

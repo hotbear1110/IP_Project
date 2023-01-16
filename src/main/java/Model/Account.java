@@ -142,4 +142,13 @@ public class Account {
     public boolean balanceCheck(int amount) {
         return balance >= amount;
     }
+
+    public boolean checkBankrupcy(){
+        int totalworth = calculateTotalWorth();
+        if (totalworth == 0){
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
