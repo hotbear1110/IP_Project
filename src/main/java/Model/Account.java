@@ -1,5 +1,6 @@
 package Model;
 
+import Model.Squares.ColorGroup;
 import Model.Squares.Lot;
 import Model.Squares.Property;
 
@@ -173,23 +174,23 @@ public class Account {
     lav metode hasColorSet(Lot lot) der returnerer sandt hvis spilleren har alle lots i den farvegruppe
      */
 
-    public boolean hasColorSet(Lot lot) {
-        ArrayList<Lot> ownedLots = new ArrayList<>();
+    public boolean hasColorSet(Property property) {
+        ArrayList<Property> ownedProperties = new ArrayList<>();
         for (int i = 0; i < properties.size(); i++){
             if(properties.get(i) instanceof Lot){
-                ownedLots.add((Lot) properties.get(i));
+                ownedProperties.add((Lot) properties.get(i));
             }
         }
-        Color lotColor = lot.getColor();
+        ColorGroup lotColor = property.getGroup();
         int colorProperties = 0;
 
-        for (Lot colorLot : ownedLots) {
-            if (colorLot.getColor().equals(lotColor)) {
+        for (Property colorProperty : ownedProperties) {
+            if (colorProperty.getGroup().equals(lotColor)) {
                 colorProperties++;
             }
         }
 
-        int colorCount = lot.getMembers().size();
+        int colorCount = property.getMembers().size();
 
         return (colorProperties == colorCount);
     }

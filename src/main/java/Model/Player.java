@@ -156,7 +156,7 @@ public class Player {
         return token.hasPassedStart();
     }
 
-    public boolean hasColorSet(Lot activeLot) {
-       return account.hasColorSet(activeLot);
+    public boolean hasColorSet(Property activeProperty) {
+       return account.hasColorSet(activeProperty);
     }
 }
