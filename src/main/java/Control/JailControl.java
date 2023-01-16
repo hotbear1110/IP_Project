@@ -10,8 +10,6 @@ public class JailControl {
 
     GameControl gameControl;
 
-    ArrayList<Player> jailedPlayers;
-
     Map<Player, Integer> counter = new HashMap<Player, Integer>();
 
     public JailControl(GameControl gameControl) {
@@ -38,7 +36,7 @@ public class JailControl {
     public void jailPlayer() {
         Player player = gameControl.getGame().getCurrentPlayer();
 
-        jailedPlayers.add(player);
+        counter.put(player, 0);
     }
 
     public boolean hasJailCard() {
@@ -59,8 +57,6 @@ public class JailControl {
 
     public void leaveJail() {
         Player player = gameControl.getGame().getCurrentPlayer();
-
-        jailedPlayers.remove(player);
 
         counter.remove(player);
         counter.put(player, 0);
