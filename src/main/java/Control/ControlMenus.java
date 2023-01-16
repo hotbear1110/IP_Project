@@ -1,5 +1,7 @@
 package Control;
 
+import Model.FixedValues;
+
 public class ControlMenus {
 
     public static String[] diceMenu = new String[]{Translator.getString("ROLL_DICE")};
@@ -15,4 +17,6 @@ public class ControlMenus {
     public static String[] sellHotelUpgradesMenu = new String[]{"Sælg hotel", "Tilbage"};
     public static String[] sellHouseUpgradesMenu = new String[]{"Sælg et hus", "Tilbage"};
     public static String[] taxOrCash = new String[]{"Betal 10% i skat", "Betal 4000kr."};
+    public static String[] inJail = new String[]{"Rul med terningerne", "Betal 1000kr", "Brug fængselskort"};
+
 }
