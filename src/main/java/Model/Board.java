@@ -76,8 +76,8 @@ public class Board {
         }
         return null;
     }
-    public void drawCard(Player currentPlayer, Player[] players){
-        cardDeck.pullCard(currentPlayer, players);
+    public int drawCard(Player currentPlayer, Player[] players){
+        return cardDeck.pullCard(currentPlayer, players);
     }
 
     public String getNextCard() {

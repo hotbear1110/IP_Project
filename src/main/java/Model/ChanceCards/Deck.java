@@ -120,7 +120,7 @@ public class Deck {
         return card.getDescription();
     }
 
-    public void pullCard(Player player, Player[] players) {
+    public int pullCard(Player player, Player[] players) {
 
         Cards card = cards.get(0);
         ArrayList<Cards> tempCards = new ArrayList<Cards>();
@@ -132,6 +132,7 @@ public class Deck {
 
         String cardType = card.getType();
 
+        int move = 0;
         boolean addCard = true;
         switch (cardType) {
             case "payAmount" -> {
@@ -156,15 +157,15 @@ public class Deck {
             }
             case "specific" -> {
                 MovePlayer specificCard = (MovePlayer) card;
-                specificCard.specific(player);
+                move = specificCard.specific(player);
             }
             case "move" -> {
                 MovePlayer moveCard = (MovePlayer) card;
-                moveCard.move(player);
+                move = moveCard.move(player);
             }
             case "moveToNext" -> {
                 MovePlayer moveToNextCard = (MovePlayer) card;
-                moveToNextCard.moveToNext(player);
+                 move = moveToNextCard.moveToNext(player);
             }
             case "jail" -> {
                 MovePlayer jailCard = (MovePlayer) card;
@@ -181,6 +182,8 @@ public class Deck {
         }
 
         cards = tempCards;
+
+        return move;
     }
 
     public void addJailCard() {
