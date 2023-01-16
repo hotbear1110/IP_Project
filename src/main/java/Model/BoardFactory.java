@@ -13,7 +13,7 @@ public class BoardFactory {
         board[1] = new Lot(Translator.getString("SQUARE_1"), "", "", 1200, 0, PricesFactory.rentTable()[0], PricesFactory.upgradeTable()[0], Color.blue);
         board[2] = new Chance(Translator.getString("SQUARE_2"), "", "");
         board[3] = new Lot(Translator.getString("SQUARE_3"), "", "", 1200, 0, PricesFactory.rentTable()[1], PricesFactory.upgradeTable()[1], Color.blue);
-        board[4] = new DemoSquare(Translator.getString("SQUARE_4"),"","");
+        board[4] = new Tax(Translator.getString("SQUARE_4"),"","");
         board[5] = new Metro(Translator.getString("SQUARE_5"),"","", 17);
         board[6] = new Lot(Translator.getString("SQUARE_6"),"","", 2000, 0, PricesFactory.rentTable()[2], PricesFactory.upgradeTable()[2], Color.orange);
         board[7] = new Chance(Translator.getString("SQUARE_7"),"","");
@@ -47,7 +47,7 @@ public class BoardFactory {
         board[35] = new Ship(Translator.getString("SQUARE_35"),"","", 4000, 0, PricesFactory.rentTable()[23]);
         board[36] = new Metro(Translator.getString("SQUARE_36"),"","", 5);
         board[37] = new Lot(Translator.getString("SQUARE_37"),"","", 7000, 0, PricesFactory.rentTable()[24], PricesFactory.upgradeTable()[20], Color.magenta);
-        board[38] = new DemoSquare(Translator.getString("SQUARE_38"),"","");
+        board[38] = new Tax(Translator.getString("SQUARE_38"),"","");
         board[39] = new Lot(Translator.getString("SQUARE_39"),"","", 8000, 0, PricesFactory.rentTable()[25], PricesFactory.upgradeTable()[21], Color.magenta);
         return board;
     }
