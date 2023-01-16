@@ -8,7 +8,7 @@ public class ControlMenus {
 
     public static String[] startMenu = new String[]{"Start tur", "Administrer ejede grunde"};
 
-    public static String[] buySellMenu = new String[]{"Køb/Sælg opgraderinger", "Sælg grunde", "Tilbage"};
+    public static String[] buySellMenu = new String[]{"Køb/Sælg opgraderinger", "Pantsæt/Ophæv pantsætning", "Tilbage"};
 
     public static String[] upgradeMenu = new String[]{"Køb opgraderinger", "Sælg opgraderinger", "Tilbage"};
 
