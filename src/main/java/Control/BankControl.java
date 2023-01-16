@@ -147,12 +147,12 @@ public class BankControl {
         switch (action){
             case "Køb/Sælg opgraderinger":
                 handleUpgrades(player);
-                break;
+                return;
             case "Pantsæt/Ophæv pantsætning":
                 mortgagedActions(player);
-                break;
+                return;
             case "Tilbage":
-                break;
+                return;
         }
     }
 
@@ -165,6 +165,7 @@ public class BankControl {
         if (properties.length == 0) {
             gameControl.getUI().showMessage("Du ejer ingen grunde, og kan derfor ikke købe opgraderinger");
             buySellActions(player);
+            return;
         }
         String[] menu = Utility.addElementToStringArray(properties, "Tilbage");
         if(menu.length == 1){
@@ -292,6 +293,7 @@ public class BankControl {
         if (properties.length == 0) {
             gameControl.getUI().showMessage("Du ejer ingen grunde, og kan derfor ikke sælge noget");
             buySellActions(player);
+            return;
         }
 
         String[] menu = Utility.addElementToStringArray(properties, "Tilbage");
