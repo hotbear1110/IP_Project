@@ -60,6 +60,47 @@ public class Deck {
                 case "CHANCE22", "CHANCE23" -> {
                     newCard = new ChanceReceive(card, "steal", Translator.getString(card), 500);
                 }
+                case "CHANCE24" -> {
+                    newCard = new MovePlayer(card, "specific", Translator.getString(card), 0);
+                }
+                case "CHANCE25" -> {
+                    newCard = new MovePlayer(card, "move", Translator.getString(card), 3);
+                }
+                case "CHANCE26" -> {
+                    newCard = new MovePlayer(card, "move", Translator.getString(card), -3);
+                }
+                case "CHANCE27" -> {
+                    newCard = new MovePlayer(card, "specific", Translator.getString(card), 11);
+                }
+                case "CHANCE28" -> {
+                    //Ikke færdigt
+                    newCard = new MovePlayer(card, "moveToNext", Translator.getString(card), 0);
+                }
+                case "CHANCE29" -> {
+                    //Ikke færdigt
+                    newCard = new MovePlayer(card, "moveToNext", Translator.getString(card), 1);
+                }
+                case "CHANCE30" -> {
+                    newCard = new MovePlayer(card, "specific", Translator.getString(card), 24);
+                }
+                case "CHANCE31" -> {
+                    newCard = new MovePlayer(card, "specific", Translator.getString(card), 32);
+                }
+                case "CHANCE32" -> {
+                    newCard = new MovePlayer(card, "moveToNext", Translator.getString(card), 3);
+                }
+                case "CHANCE33" -> {
+                    newCard = new MovePlayer(card, "specific", Translator.getString(card), 19);
+                }
+                case "CHANCE34" -> {
+                    newCard = new MovePlayer(card, "specific", Translator.getString(card), 39);
+                }
+                case "CHANCE35" -> {
+                    newCard = new JailCard(card, "giveJailCard", Translator.getString(card));
+                }
+                case "CHANCE36" -> {
+                    newCard = new MovePlayer(card, "jail", Translator.getString(card), 30);
+                }
             }
             cards.add(newCard);
         }
@@ -79,7 +120,7 @@ public class Deck {
         return card.getDescription();
     }
 
-    public String pullCard(Player player, Player[] players) {
+    public void pullCard(Player player, Player[] players) {
 
         Cards card = cards.get(0);
         ArrayList<Cards> tempCards = new ArrayList<Cards>();
@@ -89,13 +130,9 @@ public class Deck {
             tempCards.add(cards.get(i));
         }
 
-        tempCards.add(card);
-
-        cards = tempCards;
-
         String cardType = card.getType();
-        String cardDescription = card.getDescription();
 
+        boolean addCard = true;
         switch (cardType) {
             case "payAmount" -> {
                 ChancePay payAmountCard = (ChancePay) card;
@@ -117,8 +154,38 @@ public class Deck {
                 ChanceReceive rarecieveCard = (ChanceReceive) card;
                 rarecieveCard.rarecieve(player);
             }
+            case "specific" -> {
+                MovePlayer specificCard = (MovePlayer) card;
+                specificCard.specific(player);
+            }
+            case "move" -> {
+                MovePlayer moveCard = (MovePlayer) card;
+                moveCard.move(player);
+            }
+            case "moveToNext" -> {
+                MovePlayer moveToNextCard = (MovePlayer) card;
+                moveToNextCard.moveToNext(player);
+            }
+            case "jail" -> {
+                MovePlayer jailCard = (MovePlayer) card;
+                jailCard.jail(player);
+            }
+            case "giveJailCard" -> {
+                JailCard giveJailCard = (JailCard) card;
+                giveJailCard.giveJailCard(player);
+                addCard = false;
+            }
         }
-        return cardDescription;
+        if (addCard) {
+            tempCards.add(card);
+        }
+
+        cards = tempCards;
+    }
+
+    public void addJailCard() {
+        Cards jailCard = new JailCard("CHANCE35", "giveJailCard", Translator.getString("CHANCE35"));
+        cards.add(jailCard);
     }
 
     public void demoCards() {
