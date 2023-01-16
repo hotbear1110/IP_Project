@@ -35,6 +35,10 @@ public class Player {
         return account.getUpgradableProperties();
     }
 
+    public ArrayList<Lot> nextUpgrade() {
+        return account.nextUpgrade();
+    }
+
     public void sellProperty(Property property){
         account.removeProperty(property);
     }
