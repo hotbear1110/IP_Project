@@ -99,7 +99,7 @@ public class Deck {
                     newCard = new JailCard(card, "giveJailCard", Translator.getString(card));
                 }
                 case "CHANCE36" -> {
-                    newCard = new MovePlayer(card, "jail", Translator.getString(card), 30);
+                    newCard = new MovePlayer(card, "jail", Translator.getString(card), 10);
                 }
             }
             cards.add(newCard);

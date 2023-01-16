@@ -16,9 +16,9 @@ public class ChanceReceive extends Cards {
 
     public void steal(Player player, Player[] players) {
         int amountOfPlayers = players.length;
-        player.setPlayerBalance(amount*amountOfPlayers+200);
+        player.setPlayerBalance(amount*amountOfPlayers);
         for (Player player1: players){
-            player1.setPlayerBalance(amount);
+            player1.setPlayerBalance(-amount);
         }
     }
 
