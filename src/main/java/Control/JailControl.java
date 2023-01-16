@@ -14,13 +14,6 @@ public class JailControl {
 
     public JailControl(GameControl gameControl) {
         this.gameControl = gameControl;
-
-        Player[] players = gameControl.getGame().getPlayers();
-
-        for (Player player : players) {
-            counter.put(player, 0);
-        }
-
     }
 
     public boolean isJailed() {
@@ -30,12 +23,13 @@ public class JailControl {
         counter.remove(player);
         counter.put(player, rounds);
 
-
         return (rounds >= 3);
     }
 
     public void jailPlayer() {
         Player player = gameControl.getGame().getCurrentPlayer();
+
+        counter.put(player, 0);
 
         player.jailPlayer();
     }
@@ -72,7 +66,6 @@ public class JailControl {
         Player player = gameControl.getGame().getCurrentPlayer();
 
         counter.remove(player);
-        counter.put(player, 0);
 
         player.leaveJail();
     }
