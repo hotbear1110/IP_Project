@@ -61,9 +61,9 @@ public class Account {
     public Lot[] getUpgradableProperties(){
         ArrayList<Lot> upgradables = new ArrayList<>();
         ArrayList<Lot> ownedLots = new ArrayList<>();
-        for (int i = 0; i < properties.size(); i++){
-            if(properties.get(i) instanceof Lot){
-                ownedLots.add((Lot) properties.get(i));
+        for (Property property : properties) {
+            if (property instanceof Lot) {
+                ownedLots.add((Lot) property);
             }
         }
         HashMap<Color, Integer> propertyCount = new HashMap<Color, Integer>();
@@ -71,10 +71,11 @@ public class Account {
             Integer j = propertyCount.get(ownedLots.get(i).getColor());
             if(j == null){
                 propertyCount.put(ownedLots.get(i).getColor(), 1);
-            } else {
+            } else if (!ownedLots.get(i).isPropertyMortgaged()) {
                 propertyCount.put(ownedLots.get(i).getColor(), i + 1);
             }
         }
+
         ArrayList<Color> color = new ArrayList<>();
         for(Map.Entry<Color, Integer> entry : propertyCount.entrySet()){
             Color key = entry.getKey();
@@ -96,6 +97,39 @@ public class Account {
         }
         return upgradableProperties;
     }
+
+    public Lot[] nextUpgrade() {
+        Lot[] ownedProperties = getUpgradableProperties();
+        HashMap<Color, ArrayList<Property>> sortedProperties = new HashMap<Color, ArrayList<Property>>();
+
+
+        for (Lot ownedProperty : ownedProperties) {
+            Color color = ownedProperty.getColor();
+
+            ArrayList<Property> j = sortedProperties.get(color);
+
+            if (j == null) {
+                ArrayList<Property> k = new ArrayList<>();
+                k.add(ownedProperty);
+                sortedProperties.put(color, k);
+            } else {
+                j.add(ownedProperty);
+                sortedProperties.put(color, j);
+            }
+        }
+
+        for(Map.Entry<Color, ArrayList<Property>> entry : sortedProperties.entrySet()) {
+            Color key = entry.getKey();
+            ArrayList<Property> propertyList = entry.getValue();
+
+            /*
+            iterate thru each colorgroup and count houses, then determine what properties should be upgraded next
+             */
+
+        }
+
+        }
+
     public Lot[] getPropertiesWithUpgrades(){
         ArrayList<Property> ownedProperties = properties;
         ArrayList<Lot> propertiesWithUpgrades = new ArrayList<>();
