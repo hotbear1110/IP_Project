@@ -29,6 +29,12 @@ public class ActionControl {
         if (squareType instanceof Parking){
             return "Parking";
         }
+        if (squareType instanceof GoToJail){
+            return "GoToJail";
+        }
+        if (squareType instanceof VisitJail){
+            return "VisitJail";
+        }
         return null;
     }
 

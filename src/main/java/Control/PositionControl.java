@@ -1,5 +1,6 @@
 package Control;
 
+import Model.FixedValues;
 import Model.Squares.Metro;
 
 public class PositionControl {
@@ -28,5 +29,9 @@ public class PositionControl {
         Metro specificMetro = gameControl.getBoard().getMetro(metroName);
         int nearestMetro = specificMetro.getNearestMetroSquare();
         controlAction(nearestMetro);
+    }
+
+    public void goToJail(){
+        gameControl.getGame().getCurrentPlayer().setPlayerPosition(FixedValues.VISIT_JAIL);
     }
 }

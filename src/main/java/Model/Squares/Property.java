@@ -4,17 +4,21 @@ import Model.Player;
 
 public abstract class Property extends Square{
     private final int price;
+    private final ColorGroup group;
     private Player owner;
     private boolean isOwned;
     private final int mortgage;
     private boolean isMortgaged = false;
 
-    public Property(String name, String subText, String description, int price, int mortgage){
+    public Property(String name, String subText, String description, int price, int mortgage, ColorGroup group){
         super(name, subText, description);
         this.price = price;
         this.mortgage = mortgage;
         this.owner = null;
         this.isOwned = false;
+        this.group = group;
+
+        group.addMember(this);
     }
 
     public int getPrice(){
@@ -54,5 +58,8 @@ public abstract class Property extends Square{
     @Override
     public String toString(){
         return super.name;
+    }
+
+    public void setCurrentRent(int doubleRentIndex) {
     }
 }

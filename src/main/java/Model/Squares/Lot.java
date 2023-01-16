@@ -15,8 +15,8 @@ public class Lot extends Property {
     private final int[] upgradePrice;
     private final Color color;
 
-    public Lot(String name, String subText, String description, int price, int mortgage, int[] rentTable, int[] upgradePrice, Color color) {
-        super(name, subText, description, price, mortgage);
+    public Lot(String name, String subText, String description, int price, int mortgage, int[] rentTable, int[] upgradePrice, ColorGroup group, Color color) {
+        super(name, subText, description, price, mortgage, group);
         this.rentTable = rentTable;
         this.upgradePrice = upgradePrice;
         this.hasUpgrades = false;

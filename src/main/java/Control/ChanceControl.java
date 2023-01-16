@@ -8,7 +8,7 @@ public class ChanceControl {
         this.gameControl = gameControl;
     }
 
-    public void landOnChance(Player player) {
+    public void controlAction(Player player) {
         Player[] players = gameControl.getGame().getPlayers();
         String description = gameControl.getGame().getBoard().getNextCard();
 

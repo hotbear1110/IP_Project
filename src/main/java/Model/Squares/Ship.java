@@ -2,12 +2,14 @@ package Model.Squares;
 
 import Model.Player;
 
+import java.awt.*;
+
 public class Ship extends Property{
     private final int[] rentTable;
     private int currentRent;
 
-    public Ship(String name, String subText, String description, int price, int mortgage, int[] rentTable) {
-        super(name, subText, description, price, mortgage);
+    public Ship(String name, String subText, String description, int price, int mortgage, int[] rentTable, ColorGroup group) {
+        super(name, subText, description, price, mortgage, group);
         this.rentTable = rentTable;
         this.currentRent = rentTable[0];
     }

@@ -27,4 +27,12 @@ public class FixedValues {
     public static final int JAIL_FEE = 1000;
 
     public static final int MARK_UP_MORTGAGED = 10;
+    public static final int DEFAULT_RENT_INDEX = 0;
+    public static final int DOUBLE_RENT_INDEX = 1;
+    public static final int ONE_HOUSE_RENT_INDEX = 2;
+    public static final int TWO_HOUSE_RENT_INDEX = 3;
+    public static final int THREE_HOUSE_RENT_INDEX = 4;
+    public static final int FOUR_HOUSE_RENT_INDEX = 5;
+    public static final int HOTEL_HOUSE_RENT_INDEX = 6;
+
 }

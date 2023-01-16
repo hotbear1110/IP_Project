@@ -7,8 +7,6 @@ import Model.Game;
 import Model.Player;
 import Model.Squares.Property;
 import View.UI;
-
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -74,14 +72,18 @@ public class GameControl {
             ui.showMessage("Du har været i fængels i tre runder og skal nu betale 1000kr for at komme ud");
             bankControl.fromPlayerToBank(currentPlayer, FixedValues.JAIL_FEE);
         } else if (game.isPlayerInJail(currentPlayer) && !jailControl.isJailed()){
-            String action;
+            String action = jailControl.controlAction();
             switch(action){
                 case "Rul med terningerne":
                     takeTurn(currentPlayer);
                     turnTaken = true;
                 case "Betal 1000kr":
-                    bankControl.fromPlayerToBank(currentPlayer,);
+                    bankControl.fromPlayerToBank(currentPlayer,FixedValues.JAIL_FEE);
+                    takeTurn(currentPlayer);
+                    turnTaken = true;
                 case "Brug fængselskort":
+                    takeTurn(currentPlayer);
+                    turnTaken = true;
             }
         }
         while(!turnTaken){
@@ -115,9 +117,6 @@ public class GameControl {
                 bankControl.getPassedStart();
             }
             playerPosition = game.getCurrentPlayer().getPlayerPosition();
-
-            updatePlayerInfo(game.getPlayers());
-
             String action = actionControl.controlAction(playerPosition);
             switch (action){
                 case "Start":
@@ -133,13 +132,19 @@ public class GameControl {
                         bankControl.buyProperty(currentPlayer, activeSquare);
                     }
                 case "Chance":
-                    //chanceControl.controlAction(currentPlayer);
+                    chanceControl.controlAction(currentPlayer);
                 case "Metro":
                     positionControl.landsOnMetro(playerPosition);
                 case "Tax":
                     bankControl.payTax(playerPosition);
                 case "Parking":
                     //LANDED ON PARKING
+                case "GoToJail":
+                    ui.showMessage("Du er skal straks rykke i fængsel!\nDu modtager IKKE penge hvis du passerer start!");
+                    positionControl.goToJail();
+                    jailControl.jailPlayer();
+                case "VisitJail":
+                    ui.showMessage("Nyd dit besøg i fængslet");
             }
 
             updatePlayerInfo(game.getPlayers());
@@ -147,12 +152,10 @@ public class GameControl {
             if (doubleDice && diceControl.getDoubleDiceCounter() != 3){
                 ui.showMessage("Fordi du har slået dobbelt er det din tur igen");
             } else if (doubleDice && diceControl.doubleDiceCounter == 3){
-                //jail
+                jailControl.jailPlayer();
                 diceControl.resetCounter();
-                endTurn(currentPlayer);
                 break;
             } else {
-                endTurn(currentPlayer);
                 break;
             }
         }

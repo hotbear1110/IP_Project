@@ -58,6 +58,12 @@ public class BankControl {
             case "Køb":
                 int amount = property.getPrice();
                 fromPlayerToBank(player, amount);
+                if (property instanceof Lot) {
+                    Lot activeLot = gameControl.getBoard().getLot(property.getName());
+                    if (player.hasColorSet(activeLot)) {
+                        activeLot.setCurrentRent(FixedValues.DOUBLE_RENT_INDEX);
+                    }
+                }
             case "Spring over":
                 break;
         }
@@ -82,10 +88,10 @@ public class BankControl {
         gameControl.getUI().showMessage("Du er landet på " + property.getName() + " som er ejet af " + property.getOwner().getPlayerName() + ".\n Du skal derfor betale lejen på " + rent);
         if (!checkPlayerBalance(player, rent)) {
                 //din balance er ..... og kan derfor ikke betale hele lejen på ... Du er derfor gået fallit.\n Det du kan betale af lejen bliver betalt, dine grunde og opgraderinger gives tilbage til banken.
-                //bankControl.playerToPlayer();
+            playerToPlayer(property.getOwner(), player, rent);
                 //reset property;
-                //gameControl.declarePlayerBankrupt(player);
-            } /*else {
+            gameControl.declarePlayerBankrupt(player);
+        } /*else {
                 int totalWorth = getPlayersTotalWorth(player);
                 if (totalWorth >= rent) {
                     String action = gameControl.getUI().getUserButton("Med din nuværende balance har du ikke råd til at betale lejen.", "Sælg opgraderinger", "Pantsæt grunde", "Giv op");
@@ -102,7 +108,6 @@ public class BankControl {
                     //gameControl.declarePlayerBankrupt();
                 }
             } */
-        }
     }
 
     public void payTax(int position) {
@@ -240,11 +245,18 @@ public class BankControl {
     private void sellHotel(Player player, Lot lot) {
         int sellAmount = lot.getHotelPrice();
         lot.removeHotel();
+        lot.setCurrentRent(FixedValues.FOUR_HOUSE_RENT_INDEX);
         fromBankToPlayer(player, sellAmount);
     }
     private void sellHouse(Player player, Lot lot){
         int sellAmount = lot.getHousePrice();
         lot.removeHouse(1);
+        switch (lot.getNumberOfHouses()) {
+            case 0: lot.setCurrentRent(FixedValues.DEFAULT_RENT_INDEX);
+            case 1: lot.setCurrentRent(FixedValues.ONE_HOUSE_RENT_INDEX);
+            case 2: lot.setCurrentRent(FixedValues.TWO_HOUSE_RENT_INDEX);
+            case 3: lot.setCurrentRent(FixedValues.THREE_HOUSE_RENT_INDEX);
+        }
         fromBankToPlayer(player, sellAmount);
     }
 
@@ -280,6 +292,9 @@ public class BankControl {
             case "Ja":
                 property.setAsNotMortgaged();
                 fromPlayerToBank(player, totaltAmount);
+                if (player.hasColorSet(property)) {
+                    property.setCurrentRent(FixedValues.DOUBLE_RENT_INDEX);
+                }
             case "Nej":
                 mortgagedActions(player);
         }
@@ -289,8 +304,12 @@ public class BankControl {
         String userSelection = gameControl.getUI().getUserButton("Denne ejendom er ikke pantsat, og du kan få " + propertyMortgagedValue + " for at pantsætte den.\n Vil du pantsætte grunden?", "Ja", "Nej");
         switch (userSelection){
             case "Ja":
+                if (player.hasColorSet(property)) {
+                    property.setCurrentRent(FixedValues.DEFAULT_RENT_INDEX);
+                }
                 property.setAsMortgaged();
                 fromBankToPlayer(player, propertyMortgagedValue);
+
             case "Nej":
                 mortgagedActions(player);
         }
