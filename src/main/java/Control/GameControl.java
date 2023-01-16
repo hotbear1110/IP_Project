@@ -47,6 +47,17 @@ public class GameControl {
     }
 
     private void gameStart() {
+        String language = ui.getUserButton("Choose language: ", ControlMenus.languages);
+
+        switch (language) {
+            case "English" -> {
+                Translator.initLanguage("en", "US");
+            }
+            case "Dansk" -> {
+                Translator.initLanguage("da", "DK");
+            }
+        }
+
         ui.showMessage(Translator.getString("START_MESSAGE")); // Shows start-up message
         /*
         String start = ui.getUserButton(Translator.getString("START_MESSAGE"), "Start spil", "Start demo");

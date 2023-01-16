@@ -19,4 +19,7 @@ public class ControlMenus {
     public static String[] taxOrCash = new String[]{"Betal 10% i skat", "Betal 4000kr."};
     public static String[] inJail = new String[]{"Rul med terningerne", "Betal 1000kr", "Brug fængselskort"};
 
+    public static String[] languages = new String[]{"Dansk", "English"};
+
+
 }
