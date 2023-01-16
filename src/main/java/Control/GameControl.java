@@ -121,6 +121,7 @@ public class GameControl {
             switch (action){
                 case "Start":
                     ui.showMessage("Du er landet på START og vil modtage start-penge i din næste tur");
+                    break;
                 case "Property":
                     boolean hasOwner;
                     String propertyName = game.getBoard().getSquare(playerPosition).getName();
