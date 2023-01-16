@@ -41,7 +41,7 @@ public class BoardFactory {
         board[19] = new Lot(Translator.getString("SQUARE_19"),"","", 4000, 0, PricesFactory.rentTable()[12], PricesFactory.upgradeTable()[10], grey, Color.gray);
         board[20] = new Parking(Translator.getString("SQUARE_20"),"","");
         board[21] = new Lot(Translator.getString("SQUARE_21"),"","", 4400, 0, PricesFactory.rentTable()[13], PricesFactory.upgradeTable()[11], red, Color.red);
-        board[22] = new Chance(Translator.getString("SQUARE_18"),"","");
+        board[22] = new Chance(Translator.getString("SQUARE_22"),"","");
         board[23] = new Lot(Translator.getString("SQUARE_23"),"","", 4400, 0, PricesFactory.rentTable()[14], PricesFactory.upgradeTable()[12], red, Color.red);
         board[24] = new Lot(Translator.getString("SQUARE_24"),"","", 4800, 0, PricesFactory.rentTable()[15], PricesFactory.upgradeTable()[13], red, Color.red);
         board[25] = new Metro(Translator.getString("SQUARE_25"),"","", 36);

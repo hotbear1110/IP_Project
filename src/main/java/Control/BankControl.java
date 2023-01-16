@@ -64,6 +64,7 @@ public class BankControl {
                         activeLot.setCurrentRent(FixedValues.DOUBLE_RENT_INDEX);
                     }
                 }
+                gameControl.getUI().showMessage("Tillykke! Du er nu ejeren af " + property.getName());
             case "Spring over":
                 break;
         }

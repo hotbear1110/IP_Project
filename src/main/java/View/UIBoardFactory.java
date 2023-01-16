@@ -24,8 +24,11 @@ public class UIBoardFactory {
             return new GUI_Jail("", square.getName(), square.getSubText(), square.getDescription(), Color.black, Color.WHITE);
         } else if (square instanceof VisitJail) {
             return new GUI_Jail("", square.getName(), square.getSubText(), square.getDescription(), Color.black, Color.WHITE);
-
+        } else if (square instanceof Metro) {
+            return new GUI_Street(square.getName(), square.getSubText(), square.getDescription(), "", Color.WHITE, Color.black);
+        } else if (square instanceof Parking) {
+            return new GUI_Refuge();
         }
-        return new GUI_Street(square.getName(), square.getSubText(), square.getDescription(), "", Color.WHITE, Color.black);
+        return null;
     }
 }

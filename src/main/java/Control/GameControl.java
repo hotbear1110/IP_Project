@@ -131,23 +131,32 @@ public class GameControl {
                     } else {
                         bankControl.buyProperty(currentPlayer, activeSquare);
                     }
+                    break;
                 case "Chance":
                     chanceControl.controlAction(currentPlayer);
+                    break;
                 case "Metro":
+                    ui.showMessage("Du er landet på en metro og tager den til næste stop");
                     positionControl.landsOnMetro(playerPosition);
+                    break;
                 case "Tax":
                     bankControl.payTax(playerPosition);
+                    break;
                 case "Parking":
                     ui.showMessage("Du er landet på parkeringsfeltet, nyd en lille pause");
+                    break;
                 case "GoToJail":
                     ui.showMessage("Du er skal straks rykke i fængsel!\nDu modtager IKKE penge hvis du passerer start!");
                     positionControl.goToJail();
                     jailControl.jailPlayer();
+                    break;
                 case "VisitJail":
                     ui.showMessage("Nyd dit besøg i fængslet");
+                    break;
             }
 
             updatePlayerInfo(game.getPlayers());
+            updateBoard(board);
 
             if (doubleDice && diceControl.getDoubleDiceCounter() != 3){
                 ui.showMessage("Fordi du har slået dobbelt er det din tur igen");
@@ -235,6 +244,10 @@ public class GameControl {
     }
     void updatePlayerInfo(Player[] players){
         ui.updatePlayers(players);
+    }
+
+    void updateBoard(Board board){
+        ui.updateBuildings(board);
     }
 
     public void forceEndGame(){
