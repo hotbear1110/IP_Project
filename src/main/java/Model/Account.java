@@ -150,6 +150,10 @@ public class Account {
 
     }
 
+    /*
+    lav metode hasColorSet(Lot lot) der returnerer sandt hvis spilleren har alle lots i den farvegruppe
+     */
+
     public Lot[] getPropertiesWithUpgrades(){
         ArrayList<Property> ownedProperties = properties;
         ArrayList<Lot> propertiesWithUpgrades = new ArrayList<>();
