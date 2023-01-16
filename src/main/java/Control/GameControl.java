@@ -120,7 +120,7 @@ public class GameControl {
                 case "Metro":
                     positionControl.landsOnMetro(playerPosition);
                 case "Tax":
-                    //bankControl.payTax(playerPosition);
+                    bankControl.payTax(playerPosition);
                 case "Parking":
                     //LANDED ON PARKING
             }
