@@ -12,6 +12,8 @@ public class Account {
     private int balance;
     private ArrayList<Property> properties;
 
+    private int JailCards = 0;
+
     // Constructor with a start balance set to any input.
 
     public Account(int StartMoney) {
@@ -133,6 +135,18 @@ public class Account {
      */
     public int getBalance(){
         return balance;
+    }
+
+    public void giveJailCard() {
+        this.JailCards++;
+    }
+
+    public void takeJailCard() {
+        this.JailCards--;
+    }
+
+    public boolean hasJailCard() {
+        return JailCards>0;
     }
 
     /**
