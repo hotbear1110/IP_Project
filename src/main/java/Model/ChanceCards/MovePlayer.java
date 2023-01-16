@@ -26,8 +26,9 @@ public class MovePlayer extends Cards {
     }
 
     public void moveToNext(Player player) {
-        //Vi skal lige finde ud af en måde at se hvilet redderi der er det næste
-        player.movePlayerPosition(fields);
+        int fields = (player.getPlayerPosition() > 15) ? 35 : 15;
+
+        player.setPlayerPosition(fields);
     }
 
 }
