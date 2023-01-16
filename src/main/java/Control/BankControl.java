@@ -124,7 +124,7 @@ public class BankControl {
                 case "Betal 10% i skat" -> {
                     int playerCash = player.getPlayerBalance();
 
-                    int payment = playerCash - Utility.addProcentToNumber(playerCash, FixedValues.TAX_PERCENTAGE);
+                    int payment = playerCash - Utility.removeProcentFromNumber(playerCash, FixedValues.TAX_PERCENTAGE);
 
                     int roundedPayment = Utility.roundUpToHundred(payment);
 
