@@ -23,7 +23,7 @@ public class Ship extends Property{
     public void setCurrentRent(int index){
         this.currentRent = rentTable[index];
     }
-    @Override
+
     public int getRent(){
         return this.currentRent;
     }
