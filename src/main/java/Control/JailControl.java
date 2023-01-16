@@ -52,8 +52,20 @@ public class JailControl {
         Player player = gameControl.getGame().getCurrentPlayer();
 
         player.takeJailCard();
+        gameControl.getGame().getBoard().addJailCard();
 
         leaveJail();
+    }
+
+    public String controlAction() {
+        String action = gameControl.getUI().getDropDown("Vælg action", ControlMenus.inJail);
+        Player player = gameControl.getGame().getCurrentPlayer();
+
+        if (action.equals("Brug fængsels kort")) {
+            useJailCard();
+        }
+
+        return action;
     }
 
     public void leaveJail() {
