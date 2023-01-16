@@ -26,7 +26,7 @@ public class Board {
 
     public Property getProperty(String propertyName){
         for (Square square : getBoard()){
-            if (square instanceof Lot){
+            if (square instanceof Property){
                 if (square.getName().equals(propertyName)){
                     return (Property) square;
                 }
