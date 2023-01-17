@@ -35,17 +35,17 @@ public class Dice {
     }
     public void isDouble() {
         if (dice[0] == dice[1]){
-                doubleDice = true;
+                this.doubleDice = true;
         } else {
-            doubleDice = false;
+            this.doubleDice = false;
         }
     }
 
     public boolean getDouble(){
-        return doubleDice;
+        return this.doubleDice;
     }
 
     public void resetDouble(){
-        doubleDice = false;
+        this.doubleDice = false;
     }
 }
