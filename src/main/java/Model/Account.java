@@ -141,6 +141,13 @@ public class Account {
 
             for (Lot property : propertyList ) {
                 int houseCount = property.getNumberOfHouses();
+                if (houseCount > maxHouses) {
+                    maxHouses = houseCount;
+                }
+            }
+
+            for (Lot property : propertyList ) {
+                int houseCount = property.getNumberOfHouses();
 
                 if (houseCount < maxHouses) {
                     maxHouses = houseCount;
