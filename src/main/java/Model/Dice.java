@@ -18,9 +18,11 @@ public class Dice {
             //Random number between 1 and 6 (including).
             dice[i] = randomObj.nextInt(6) + 1;
         }
+        isDouble();
     }
     public void setDicePair(int[] pair){
         dice = pair;
+        isDouble();
     }
     public int getSingleDice(int index) {
         return dice[index];

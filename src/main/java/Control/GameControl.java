@@ -27,9 +27,9 @@ public class GameControl {
 
     boolean gameOver = false;
 
-    public GameControl(Board board, String version) {
+    public GameControl(String version) {
         this.game = new Game();
-        this.board = board;
+        this.board = new Board(game);
         this.diceControl = new DiceControl(this);
         this.bankControl = new BankControl(this);
         this.positionControl = new PositionControl(this);
@@ -135,8 +135,10 @@ public class GameControl {
             updateDice();
 
             if (doubleDice && diceControl.doubleDiceCounter == 3){
+                ui.showMessage("Du har slået dobbelt 3 gange i træk og rykker derfor direkte i fængsel! Du vil IKKE modtage penge hvis du passere start!");
                 jailControl.jailPlayer();
                 diceControl.resetCounter();
+                updatePlayerInfo(game.getPlayers());
                 endTurn(currentPlayer);
                 break;
             }

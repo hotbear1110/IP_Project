@@ -27,6 +27,11 @@ public class UI {
         this.ui = createBoard(board);
     }
 
+    public void updateUI(int x, int y, Player[] players, Board board){
+        updateDice(x, y);
+        updatePlayers(players);
+        updateBuildings(board);
+    }
     public void updateDice(int x, int y){
         ui.setDice(x, y);
     }

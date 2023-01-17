@@ -129,6 +129,7 @@ public class Player {
 
     public void jailPlayer() {
         this.isJailed = true;
+        token.setPosition(FixedValues.IN_JAIL_SQUARE);
     }
 
     public void leaveJail() {

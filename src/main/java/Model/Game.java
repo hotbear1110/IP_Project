@@ -16,7 +16,7 @@ public class Game {
 
     public Game(){
         this.dice = new Dice();
-        this.board = new Board();
+        this.board = new Board(this);
         this.gameOver = false;
     }
 

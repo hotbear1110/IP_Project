@@ -1,6 +1,7 @@
 package Model.ChanceCards;
 
 import Control.Translator;
+import Model.Game;
 import Model.Player;
 
 import java.util.*;

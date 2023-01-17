@@ -40,7 +40,7 @@ public class DiceControl{
     }
 
     public boolean getDoubleDice(){
-        return doubleDice;
+        return gameControl.getGame().getDice().isDouble();
     }
 
     public int getDoubleDiceCounter(){

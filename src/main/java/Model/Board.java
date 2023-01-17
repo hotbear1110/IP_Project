@@ -2,6 +2,7 @@ package Model;
 
 import Model.ChanceCards.Deck;
 import Model.Squares.*;
+import Model.Game;
 
 public class Board {
     private final Square[] squares;
