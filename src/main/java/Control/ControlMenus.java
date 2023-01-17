@@ -10,7 +10,7 @@ public class ControlMenus {
 
     public static String[] buySellMenu = new String[]{Translator.getString("BUY_SELL_UPGRADES"), Translator.getString("PAWN_REMOVE_PAWN "), Translator.getString("BACK")};
 
-    public static String[] upgradeMenu = new String[]{Translator.getString("BUY_UPGRADES"), Translator.getString("SELL_UPGRADES"), Translator.getString("BACK"};
+    public static String[] upgradeMenu = new String[]{Translator.getString("BUY_UPGRADES"), Translator.getString("SELL_UPGRADES"), Translator.getString("BACK")};
 
     public static String[] buyUpgradeMenu = new String[]{Translator.getString("BUY_HOUSE"), Translator.getString("BUY HOTEL"), Translator.getString("BACK")};
 
