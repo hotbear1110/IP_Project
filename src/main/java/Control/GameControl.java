@@ -183,6 +183,7 @@ public class GameControl {
                 doubleDice = diceControl.getDoubleDice();
                 updateDice();
             }
+            doubleOutOfJail = false;
             if (doubleDice && diceControl.doubleDiceCounter == 3){
                 ui.showMessage("Du har slået dobbelt 3 gange i træk og rykker derfor direkte i fængsel! Du vil IKKE modtage penge hvis du passere start!");
                 jailControl.jailPlayer();
