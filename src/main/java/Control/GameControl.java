@@ -23,9 +23,7 @@ public class GameControl {
     ActionControl actionControl;
     ChanceControl chanceControl;
     JailControl jailControl;
-    boolean onePlayer = false;
-    boolean diceManipulation = false;
-
+    boolean manipulationPlayerAccount = false;
     boolean gameOver = false;
 
     public GameControl(Board board, String version) {
@@ -42,6 +40,9 @@ public class GameControl {
         switch (version){
             case "Matador" -> {
                 gameStart();
+            }
+            case "K8" -> {
+                k8();
             }
             case "K12/K13/K15" -> {
                 k12_k13_k15();
@@ -151,6 +152,12 @@ public class GameControl {
             }
         }
         while(!turnTaken){
+            if(manipulationPlayerAccount){
+                manipulatePlayerAccount();
+                updatePlayerInfo(game.getPlayers());
+                endTurn(currentPlayer);
+                break;
+            }
             String action = ui.getUserButton(currentPlayer.getPlayerName() + " " + Translator.getString("START_TURN"), ControlMenus.startMenu);
             switch (action){
                 case "Start tur" -> {
@@ -203,6 +210,9 @@ public class GameControl {
                         Property activeSquare = game.getBoard().getProperty(propertyName);
                         hasOwner = activeSquare.isPropertyOwned();
                         if (hasOwner && !activeSquare.getOwner().equals(currentPlayer)) {
+                            if (activeSquare.getOwner().hasColorSet(activeSquare)){
+                                bankControl.payRent(currentPlayer, activeSquare, diceSum, true);
+                            }
                             bankControl.payRent(currentPlayer, activeSquare, diceSum, false);
                         } else if (!hasOwner){
                             bankControl.buyProperty(currentPlayer, activeSquare);
@@ -260,13 +270,9 @@ public class GameControl {
                 bankControl.getPassedStart();
                 passedStart = false;
             }
-
-            doubleDice = diceControl.getDoubleDice();
-
             updatePlayerInfo(game.getPlayers());
-            updateBoard(board);
-
-            if (doubleDice && diceControl.getDoubleDiceCounter() != 3){
+            doubleDice = diceControl.getDoubleDice();
+            if (doubleDice && diceControl.getDoubleDiceCounter() != 3) {
                 ui.showMessage("Fordi du har slået dobbelt er det din tur igen");
             } else {
                 endTurn(currentPlayer);
@@ -278,8 +284,38 @@ public class GameControl {
     public void endTurn(Player player){
         if (game.isAnyBankrupt()){
             gameOver = game.isThereAWinner();
+            if(gameOver){
+                declareWinner();
+            }
         } else {
             game.setCurrentPlayer();
+        }
+    }
+
+    public void declareWinner(){
+        Player winner = game.getWinner();
+        ui.showMessage("Tillykke " + winner.getPlayerName() + "!\nDu har udkonkurreret alle dine modstandere og blevet den ægte Matador!");
+        playAgain();
+    }
+
+    public void playAgain(){
+        String action = ui.getUserButton("Vil I spille igen?", "Ja", "Nej");
+        switch (action){
+            case "Ja":
+                for (int i = 0; i < game.getBoard().getBoard().length; i++){
+                    if (game.getBoard().getBoard()[i] instanceof Property){
+                        ((Property) game.getBoard().getBoard()[i]).resetProperty();
+                    }
+                    if (game.getBoard().getBoard()[i] instanceof Lot){
+                        String lot = game.getBoard().getSquare(i).getName();
+                        ui.removeHouse(i, game.getBoard().getLot(lot).getNumberOfHouses());
+                        ui.removeHotel(i);
+                    }
+                }
+                ui.resetGUIPlayers();
+                gameStart();
+            case "Nej":
+                break;
         }
     }
 
@@ -350,12 +386,26 @@ public class GameControl {
         ui.updatePlayers(players);
     }
 
-    void updateBoard(Board board){
-        ui.updateBuildings(board);
-    }
-
     public void forceEndGame(){
         gameOver = true;
+    }
+
+    private void manipulatePlayerAccount(){
+        String s = ui.getUserButton("Skal den aktive spiller gøres fallit?", "Ja", "Nej");
+        switch (s){
+            case "Ja":
+                Player player1 = game.getPlayers()[0];
+                player1.setAsBankrupt();
+                break;
+            case "Nej":
+                break;
+        }
+    }
+    private void k8() {
+        setUpPlayers(2);
+        ui.setGUIPlayers(game.getPlayers());
+        manipulationPlayerAccount = true;
+        runGame();
     }
 
     private void k12_k13_k15() {

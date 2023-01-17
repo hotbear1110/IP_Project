@@ -308,21 +308,6 @@ public class Account {
         return hotelCount;
     }
 
-    public boolean canPropertyBeUpgraded(Lot lot) {
-        Lot[] upgradableProperties = getUpgradableProperties();
-        HashMap<Lot, Integer> numberOfUpgrades = new HashMap<>();
-        for (int i = 0; i < upgradableProperties.length; i++) {
-            if (upgradableProperties[i].equals(lot)) {
-                i++;
-            }
-            if (upgradableProperties[i].getHotel()) {
-                numberOfUpgrades.put(upgradableProperties[i], upgradableProperties[i].getNumberOfHouses() + 1);
-            } else {
-                numberOfUpgrades.put(upgradableProperties[i], upgradableProperties[i].getNumberOfHouses());
-            }
-        }
-        return false;
-    }
     /**
      * @return current balance
      */
@@ -350,9 +335,17 @@ public class Account {
         return balance >= amount;
     }
 
-    public boolean checkBankrupcy(){
+    /*public boolean checkBankrupcy(){
         int totalworth = calculateTotalWorth();
         if (totalworth == 0){
+            return true;
+        } else {
+            return false;
+        }
+    }*/
+
+    public boolean checkBankrupcy(){
+        if (balance == 0){
             return true;
         } else {
             return false;

@@ -97,28 +97,18 @@ public class BankControl {
         } else {
             gameControl.getUI().showMessage("Du er landet på " + property.getName() + " som er ejet af " + property.getOwner().getPlayerName() + ".\n Du skal derfor betale lejen på " + rent);
             if (!checkPlayerBalance(player, rent)) {
-                //din balance er ..... og kan derfor ikke betale hele lejen på ... Du er derfor gået fallit.\n Det du kan betale af lejen bliver betalt, dine grunde og opgraderinger gives tilbage til banken.
-            playerToPlayer(property.getOwner(), player, rent);
-                //reset property;
-            gameControl.declarePlayerBankrupt(player);
-            }
-        }/*else {
-                int totalWorth = getPlayersTotalWorth(player);
-                if (totalWorth >= rent) {
-                    String action = gameControl.getUI().getUserButton("Med din nuværende balance har du ikke råd til at betale lejen.", "Sælg opgraderinger", "Pantsæt grunde", "Giv op");
-                    switch (action) {
-                        case "Sælg opgraderinger":
-
-                        case "Pantsæt grunde":
-
-                        case "Giv op":
-                            //gameControl.declarePlayerBankrupt();
-                            break;
+                gameControl.getUI().showMessage("Din balance er " + player.getPlayerBalance() + "kr. og du kan derfor ikke betale hele lejen på " + rent + "kr.\nDu er derfor gået fallit.\n Det du kan betale af lejen bliver betalt, dine grunde og opgraderinger gives tilbage til banken.");
+                playerToPlayer(property.getOwner(), player, rent);
+                if(player.playerProperties().size() != 0){
+                    for(int i = 0; i < player.playerProperties().size(); i++){
+                        player.playerProperties().get(i).resetProperty();
                     }
-                } else if (totalWorth < rent) {
-                    //gameControl.declarePlayerBankrupt();
                 }
-            } */
+                gameControl.declarePlayerBankrupt(player);
+            } else {
+                playerToPlayer(property.getOwner(), player, rent);
+            }
+        }
     }
 
     public void payTax(int position) {
@@ -269,6 +259,7 @@ public class BankControl {
         }
         int buyAmount = lot.getHotelPrice();
         lot.addHotel();
+        gameControl.getUI().addHotel(gameControl.getGame().getBoard().getIndex(activeLot));
         fromPlayerToBank(player, buyAmount);
         gameControl.getUI().updatePlayers(gameControl.getGame().getPlayers());
     }
@@ -283,6 +274,7 @@ public class BankControl {
         }
         int buyAmount = lot.getHousePrice();
         lot.addHouse();
+        gameControl.getUI().addHouse(gameControl.getGame().getBoard().getIndex(activeLot), gameControl.getGame().getBoard().getLot(activeLot).getNumberOfHouses());
         fromPlayerToBank(player, buyAmount);
         gameControl.getUI().updatePlayers(gameControl.getGame().getPlayers());
     }
@@ -344,19 +336,31 @@ public class BankControl {
     }
     private void sellHotel(Player player, Lot lot) {
         int sellAmount = lot.getHotelPrice();
+        String activeLot = lot.getName();
         lot.removeHotel();
         lot.setCurrentRent(FixedValues.FOUR_HOUSE_RENT_INDEX);
         fromBankToPlayer(player, sellAmount);
+        
+        gameControl.getUI().removeHotel(gameControl.getGame().getBoard().getIndex(activeLot));
         gameControl.getUI().updatePlayers(gameControl.getGame().getPlayers());
     }
     private void sellHouse(Player player, Lot lot){
         int sellAmount = lot.getHousePrice();
+        String activeLot = lot.getName();
         lot.removeHouse(1);
         switch (lot.getNumberOfHouses()) {
             case 0: lot.setCurrentRent(FixedValues.DEFAULT_RENT_INDEX);
+                gameControl.getUI().removeHouse(gameControl.getGame().getBoard().getIndex(activeLot), gameControl.getGame().getBoard().getLot(activeLot).getNumberOfHouses());
+                break;
             case 1: lot.setCurrentRent(FixedValues.ONE_HOUSE_RENT_INDEX);
+                gameControl.getUI().removeHouse(gameControl.getGame().getBoard().getIndex(activeLot), gameControl.getGame().getBoard().getLot(activeLot).getNumberOfHouses());
+                break;
             case 2: lot.setCurrentRent(FixedValues.TWO_HOUSE_RENT_INDEX);
+                gameControl.getUI().removeHouse(gameControl.getGame().getBoard().getIndex(activeLot), gameControl.getGame().getBoard().getLot(activeLot).getNumberOfHouses());
+                break;
             case 3: lot.setCurrentRent(FixedValues.THREE_HOUSE_RENT_INDEX);
+                gameControl.getUI().removeHouse(gameControl.getGame().getBoard().getIndex(activeLot), gameControl.getGame().getBoard().getLot(activeLot).getNumberOfHouses());
+                break;
         }
         fromBankToPlayer(player, sellAmount);
         gameControl.getUI().updatePlayers(gameControl.getGame().getPlayers());

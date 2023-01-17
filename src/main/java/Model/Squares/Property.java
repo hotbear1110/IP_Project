@@ -65,6 +65,8 @@ public abstract class Property extends Square{
         return this.group;
     }
 
+    public abstract void resetProperty();
+
     @Override
     public String toString(){
         return super.name;

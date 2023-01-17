@@ -25,6 +25,15 @@ public class Board {
         return squares[index];
     }
 
+    public int getIndex(String squareName){
+        int index = 0;
+        for(int i = 0; i < getBoard().length; i++){
+            if (getBoard()[i].getName().equals(squareName)){
+                index = i;
+            }
+        }
+        return index;
+    }
     public Property getProperty(String propertyName){
         for (Square square : getBoard()){
             if (square instanceof Property){

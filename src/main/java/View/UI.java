@@ -6,6 +6,7 @@ import Model.Dice;
 import Model.FixedValues;
 import Model.Player;
 import Model.Squares.Lot;
+import Model.Squares.Property;
 import gui_fields.GUI_Car;
 import gui_fields.GUI_Field;
 import gui_fields.GUI_Player;
@@ -27,11 +28,6 @@ public class UI {
         this.ui = createBoard(board);
     }
 
-    public void updateUI(int x, int y, Player[] players, Board board){
-        updateDice(x, y);
-        updatePlayers(players);
-        updateBuildings(board);
-    }
     public void updateDice(int x, int y){
         ui.setDice(x, y);
     }
@@ -43,17 +39,27 @@ public class UI {
         }
     }
 
-    public void updateBuildings(Board board){
-        for(int i = 0; i < board.getBoard().length; i++){
-            if (board.getBoard()[i] instanceof Lot lot){
-                int houses = lot.getNumberOfHouses();
-                boolean hotel = lot.getHotel();
-                GUI_Field square = this.ui.getFields()[i];
-                GUI_Street street = (GUI_Street) square;
-                street.setHouses(houses);
-                street.setHotel(hotel);
-            }
-        }
+   public void addHouse(int index, int houseNumber){
+        GUI_Field field = guiBoard[index];
+        GUI_Street street = (GUI_Street) field;
+        street.setHouses(houseNumber);
+   }
+    public void removeHouse(int index, int newHouseNumber){
+        GUI_Field field = guiBoard[index];
+        GUI_Street street = (GUI_Street) field;
+        street.setHouses(newHouseNumber);
+    }
+
+    public void addHotel(int index){
+        GUI_Field field = guiBoard[index];
+        GUI_Street street = (GUI_Street) field;
+        street.setHotel(true);
+    }
+
+    public void removeHotel(int index){
+        GUI_Field field = guiBoard[index];
+        GUI_Street street = (GUI_Street) field;
+        street.setHotel(true);
     }
     //----------- GUI-Board methods --------\\
 
@@ -87,6 +93,9 @@ public class UI {
         }
     }
 
+    public void resetGUIPlayers(){
+        players.clear();
+    }
     public GUI_Player getGUIPlayer(Player player){
         return players.get(player);
     }
