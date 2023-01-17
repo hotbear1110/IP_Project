@@ -15,7 +15,6 @@ public class MovePlayer extends Cards {
     }
 
     public String[] move(Player player) {
-        player.movePlayerPosition(fields);
 
         return new String[]{"move", Integer.toString(fields)};
     }
@@ -24,7 +23,6 @@ public class MovePlayer extends Cards {
         int position = player.getPlayerPosition();
 
         int newfields = (fields - position < 0) ? 40 + (fields - position) : fields - position;
-        player.movePlayerPosition(newfields);
 
         return new String[]{"move", Integer.toString(newfields)};
     }
@@ -39,7 +37,6 @@ public class MovePlayer extends Cards {
 
         int move = newfields - player.getPlayerPosition();
 
-        player.movePlayerPosition(move);
         if (fields == 0) {
             return  new String[]{"double", Integer.toString(move)};
         }
