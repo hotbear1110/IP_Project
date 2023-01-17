@@ -9,19 +9,25 @@ public class PositionControl {
         this.gameControl = gameControl;
     }
 
-    public void controlAction(int sum){
+    public boolean controlAction(int sum){
+        boolean hasPassedStart = false;
+        int startPos = gameControl.getGame().getCurrentPlayer().getPlayerPosition();
         for (int i = 0; i < sum; i++) {
             gameControl.getGame().getCurrentPlayer().movePlayerPosition(1);
             try {
-                Thread.sleep(500);
+                Thread.sleep(300);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
             gameControl.updatePlayerInfo(gameControl.getGame().getPlayers());
+            
         }
-    }
-    public boolean hasPassedStart(){
-        return gameControl.getGame().getCurrentPlayer().hasPassedStart();
+        int endPos = gameControl.getGame().getCurrentPlayer().getPlayerPosition();
+
+        if (endPos < startPos) {
+            hasPassedStart = true;
+        }
+        return hasPassedStart;
     }
 
     public boolean landsOnMetro(int position){
