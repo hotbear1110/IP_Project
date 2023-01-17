@@ -19,11 +19,14 @@ public class JailControl {
     public boolean isJailed() {
         Player player = gameControl.getGame().getCurrentPlayer();
 
-        int rounds = counter.get(player) + 1;
-        counter.remove(player);
-        counter.put(player, rounds);
+        int rounds = 0;
+        if (gameControl.getGame().isPlayerInJail(player)) {
+            rounds = counter.get(player) + 1;
+            counter.remove(player);
+            counter.put(player, rounds);
+        }
 
-        return (rounds >= 3);
+        return (rounds == 3);
     }
 
     public void jailPlayer() {
