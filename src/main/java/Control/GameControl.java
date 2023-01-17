@@ -416,6 +416,7 @@ public class GameControl {
     private void k18_k19_k20(){
         setUpPlayers(2);
         ui.setGUIPlayers(game.getPlayers());
+        diceControl.enabledDiceManipulation();
         Player player1 = game.getSpecificPlayer(0);
         String a = game.getBoard().getSquare(11).getName();
         Lot greenOne = game.getBoard().getLot(a);
