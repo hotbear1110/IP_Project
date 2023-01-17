@@ -1,0 +1,18 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+!pragma useVerticalIf on
+start
+:Start Turn;
+repeat:Roll dice;
+if (Dice Double?) then (no)
+:Take Turn;
+:End Turn;
+stop
+(Yes)elseif (Third time a Double?) then (yes)
+:Go to Jail;
+:End Turn;
+stop
+endif
+repeat while (Take Turn)
+
+@enduml

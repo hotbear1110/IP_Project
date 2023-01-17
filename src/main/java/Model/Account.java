@@ -2,6 +2,7 @@ package Model;
 
 import Model.Squares.ColorGroup;
 import Model.Squares.Lot;
+import Model.Squares.Jail;
 import Model.Squares.Property;
 
 import java.awt.*;

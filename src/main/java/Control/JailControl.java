@@ -22,6 +22,7 @@ public class JailControl {
         int rounds =  counter.get(player) + 1;
 
         return (rounds == 4);
+
     }
 
     public void jailPlayer() {
@@ -30,6 +31,7 @@ public class JailControl {
         counter.put(player, 0);
 
         player.jailPlayer();
+
     }
 
     public boolean hasJailCard() {
