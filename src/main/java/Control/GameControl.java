@@ -99,31 +99,42 @@ public class GameControl {
         } else if (game.isPlayerInJail(currentPlayer) && !jailControl.isJailed()){
             jailControl.jailCount();
             ui.showMessage("Du er i fængsel!");
-            String action = jailControl.controlAction();
-            switch(action){
-                case "Rul med terningerne":
-                    diceControl.controlAction();
-                    updateDice();
-                    if (diceControl.getDoubleDice()){
-                        diceControl.resetCounter();
-                        diceControl.resetDouble();
+            boolean jail = true;
+            while(jail) {
+                String action = jailControl.controlAction();
+                switch (action) {
+                    case "Rul med terningerne" -> {
+                        diceControl.controlAction();
+                        updateDice();
+                        if (diceControl.getDoubleDice()) {
+                            diceControl.resetCounter();
+                            diceControl.resetDouble();
+                            takeTurn(currentPlayer);
+                            turnTaken = true;
+                        } else {
+                            ui.showMessage("Du slog ikke dobbelt og bliver i fængsel, forsøg igen næste tur");
+                            endTurn(currentPlayer);
+                            turnTaken = true;
+                        }
+                        jail = false;
+                    }
+                    case "Betal 1000kr" -> {
+                        bankControl.fromPlayerToBank(currentPlayer, FixedValues.JAIL_FEE);
                         takeTurn(currentPlayer);
                         turnTaken = true;
-                    } else {
-                        ui.showMessage("Du slog ikke dobbelt og bliver i fængsel, forsøg igen næste tur");
-                        endTurn(currentPlayer);
-                        turnTaken = true;
+                        jail = false;
                     }
-                    break;
-                case "Betal 1000kr":
-                    bankControl.fromPlayerToBank(currentPlayer,FixedValues.JAIL_FEE);
-                    takeTurn(currentPlayer);
-                    turnTaken = true;
-                    break;
-                case "Brug fængselskort":
-                    takeTurn(currentPlayer);
-                    turnTaken = true;
-                    break;
+                    case "Brug fængselskort" -> {
+                        if (jailControl.hasJailCard()) {
+                            jailControl.useJailCard();
+                            takeTurn(currentPlayer);
+                            turnTaken = true;
+                            jail = false;
+                        } else {
+                            ui.showMessage("Du har ikke et fængselskort");
+                        }
+                    }
+                }
             }
         }
         while(!turnTaken){
