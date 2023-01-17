@@ -53,7 +53,7 @@ public class BankControl {
 
     // ------------ METHODS FOR BUYING PROPERTY ------------ \\
     public void buyProperty(Player player, Property property){
-        String action = gameControl.getUI().getUserButton(Translator.getString("LAND_ON_PROPERTY") + property.getName() + ".", Translator.getString("BUY"), Translator.getString("SKIP_TURN"));
+        String action = gameControl.getUI().getUserButton(Translator.getString("LAND_ON_PROPERTY") + " " + property.getName() + ".", Translator.getString("BUY"), Translator.getString("SKIP_TURN"));
         switch (action){
             case "Køb", "Buy":
                 int amount = property.getPrice();
@@ -66,7 +66,7 @@ public class BankControl {
                         activeLot.setCurrentRent(FixedValues.DOUBLE_RENT_INDEX);
                     }
                 }
-                gameControl.getUI().showMessage(Translator.getString("OWNER_OF") + property.getName());
+                gameControl.getUI().showMessage(Translator.getString("OWNER_OF") + " " + property.getName());
             case "Spring over", "Skip":
                 break;
         }
@@ -89,13 +89,13 @@ public class BankControl {
         }
 
         if (property.isPropertyMortgaged()){
-            gameControl.getUI().showMessage(Translator.getString("LAND_ON") + property.getName() + Translator.getString("WHO_OWNS") + property.getOwner().getPlayerName() + Translator.getString("NO_RENT"));
+            gameControl.getUI().showMessage(Translator.getString("LAND_ON") + " " + property.getName() + " " + Translator.getString("WHO_OWNS") + " " + property.getOwner().getPlayerName() + " " + Translator.getString("NO_RENT"));
         } else if (player.isJailed()) {
-            gameControl.getUI().showMessage(Translator.getString("LAND_ON") + property.getName() + Translator.getString("WHO_OWNS") + property.getOwner().getPlayerName() + Translator.getString("JAIL_NO_RENT"));
+            gameControl.getUI().showMessage(Translator.getString("LAND_ON") + " " + property.getName() + " " + Translator.getString("WHO_OWNS") + " " + property.getOwner().getPlayerName() + " " + Translator.getString("JAIL_NO_RENT"));
         } else {
-            gameControl.getUI().showMessage(Translator.getString("LAND_ON") + property.getName() + Translator.getString("WHO_OWNS") + property.getOwner().getPlayerName() + Translator.getString("PAY_RENT_ON")+ rent);
+            gameControl.getUI().showMessage(Translator.getString("LAND_ON") + " " + property.getName() + " " + Translator.getString("WHO_OWNS") + " " + property.getOwner().getPlayerName() + " " + Translator.getString("PAY_RENT_ON")+ rent);
             if (!checkPlayerBalance(player, rent)) {
-                gameControl.getUI().showMessage(Translator.getString("YOUR_BALANCE") + player.getPlayerBalance() + Translator.getString("PAY_KR") + rent + Translator.getString("BROKE"));
+                gameControl.getUI().showMessage(Translator.getString("YOUR_BALANCE") + " " + player.getPlayerBalance() + " " + Translator.getString("PAY_KR") + " " + rent + " " + Translator.getString("BROKE"));
                 playerToPlayer(property.getOwner(), player, rent);
                 if(player.playerProperties().size() != 0){
                     for(int i = 0; i < player.playerProperties().size(); i++){
@@ -218,7 +218,7 @@ public class BankControl {
             }
         } else {
 
-            gameControl.getUI().showMessage(Translator.getString("PRIZE_HOUSE") + lot.getHousePrice() + Translator.getString("PRIZE_HOTEL") + lot.getHotelPrice() + Translator.getString("KR"));
+            gameControl.getUI().showMessage(Translator.getString("PRIZE_HOUSE") + " " + lot.getHousePrice() + " " + Translator.getString("PRIZE_HOTEL") + " " + lot.getHotelPrice() + Translator.getString("KR"));
             String action = gameControl.getUI().getDropDown(Translator.getString("CHOOSE_ACTION"), ControlMenus.buyUpgradeMenu);
             switch (action){
                 case "Køb hus", "Buy house":
@@ -413,7 +413,7 @@ public class BankControl {
     public void payMortgaged(Player player, Property property){
         int propertyMortgagedPrice = property.getMortgage();
         int totaltAmount = Utility.addProcentToNumber(propertyMortgagedPrice, FixedValues.MARK_UP_MORTGAGED);
-        String userSelection = gameControl.getUI().getUserButton(Translator.getString("PAWN_COST") + totaltAmount + Translator.getString("WANT_NO_PAWN"), Translator.getString("YES"), Translator.getString("NO"));
+        String userSelection = gameControl.getUI().getUserButton(Translator.getString("PAWN_COST") + " " + totaltAmount + Translator.getString("WANT_NO_PAWN"), Translator.getString("YES"), Translator.getString("NO"));
         switch (userSelection){
             case "Ja", "Yes":
                 if (player.getPlayerBalance() - totaltAmount <= 0) {
@@ -435,7 +435,7 @@ public class BankControl {
     }
     public void mortgagedProperty(Player player, Property property){
         int propertyMortgagedValue = property.getMortgage();
-        String userSelection = gameControl.getUI().getUserButton(Translator.getString("NO_PAWN") + propertyMortgagedValue + Translator.getString("WANT_PAWN"), Translator.getString("YES"), Translator.getString("NO"));
+        String userSelection = gameControl.getUI().getUserButton(Translator.getString("NO_PAWN") + " " + propertyMortgagedValue + " " + Translator.getString("WANT_PAWN"), Translator.getString("YES"), Translator.getString("NO"));
         switch (userSelection){
             case "Ja", "Yes":
                 if (player.hasColorSet(property)) {

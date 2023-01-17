@@ -216,7 +216,7 @@ public class GameControl {
                         } else if (!hasOwner){
                             bankControl.buyProperty(currentPlayer, activeSquare);
                         } else {
-                            ui.showMessage(Translator.getString("LAND_ON") + propertyName + Translator.getString("YOU_OWN"));
+                            ui.showMessage(Translator.getString("LAND_ON") + " " + propertyName + Translator.getString("YOU_OWN"));
                         }
                         chance = false;
                     }
