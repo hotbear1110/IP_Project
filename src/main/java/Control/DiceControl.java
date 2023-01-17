@@ -20,13 +20,16 @@ public class DiceControl{
                 doubleDiceCounter++;
             }
         } else {
-            String[] menu = new String[]{"1 + 1", "1 + 2", "3 + 4", "5 + 5", "6 + 6"};
-            String s = gameControl.getUI().getDropDown("Vælg et terningeslag", menu);
-            int x = Utility.parseFirstIntBeforePlus(s);
-            int y = Utility.parseSecondIntAfterPlus(s);
-            int[] dice = new int[]{x, y};
-            gameControl.getGame().getDice().setDicePair(dice);
+            loadedDice();
         }
+    }
+
+    public void loadedDice(){
+        String[] menu = new String[]{"1 & 1", "1 & 2", "3 & 4", "5 & 5", "4 & 6 ", "6 & 6"};
+        String s = gameControl.getUI().getDropDown("Vælg et terningeslag", menu);
+        int[] dicePair = Utility.parseTwoIntsToArray(s);
+        gameControl.getGame().getDice().setDicePair(dicePair);
+
     }
 
     public boolean getDoubleDice(){

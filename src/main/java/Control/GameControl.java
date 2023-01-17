@@ -21,10 +21,12 @@ public class GameControl {
     ActionControl actionControl;
     ChanceControl chanceControl;
     JailControl jailControl;
+    boolean onePlayer = false;
+    boolean diceManipulation = false;
 
     boolean gameOver = false;
 
-    public GameControl(Board board) {
+    public GameControl(Board board, String version) {
         this.game = new Game();
         this.board = board;
         this.diceControl = new DiceControl(this);
@@ -35,18 +37,28 @@ public class GameControl {
         this.jailControl = new JailControl(this);
         this.ui = new UI(board);
 
-        gameStart();
+        switch (version){
+            case "Matador" -> {
+                gameStart();
+            }
+            case "K12/K13/K15" -> {
+                k12_k13_k15();
+            }
+        }
+
     }
 
     public Game getGame() {
         return this.game;
     }
-
+    public GameControl getControl(){
+        return this;
+    }
     public Board getBoard(){
         return this.board;
     }
 
-    private void gameStart() {
+    public void gameStart() {
         String language = ui.getUserButton("Choose language: ", ControlMenus.languages);
 
         switch (language) {
@@ -265,5 +277,11 @@ public class GameControl {
 
     public void forceEndGame(){
         gameOver = true;
+    }
+
+    private void k12_k13_k15() {
+        setUpPlayers(2);
+        ui.setGUIPlayers(game.getPlayers());
+        diceControl.enabledDiceManipulation();
     }
 }
