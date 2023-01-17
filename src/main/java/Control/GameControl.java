@@ -238,7 +238,7 @@ public class GameControl {
                         }
                     }
                     case "Metro" -> {
-                        ui.showMessage(Translator.getString("PETRO"));
+                        ui.showMessage(Translator.getString("LAND_ON_METRO"));
                         if(positionControl.landsOnMetro(playerPosition)){
                             bankControl.getPassedStart();
                             passedStart = false;
@@ -393,11 +393,11 @@ public class GameControl {
     private void manipulatePlayerAccount(){
         String s = ui.getUserButton(Translator.getString("PLAYER_BROKE"), Translator.getString("YES"), Translator.getString("NO"));
         switch (s){
-            case "Ja":
+            case "Ja", "Yes":
                 Player player1 = game.getPlayers()[0];
                 player1.setAsBankrupt();
                 break;
-            case "Nej":
+            case "Nej", "No":
                 break;
         }
     }
