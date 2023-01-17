@@ -28,7 +28,7 @@ public class BoardFactory {
         board[7] = new Chance(Translator.getString("SQUARE_7"),"","SQUARE_7");
         board[8] = new Lot(Translator.getString("SQUARE_8"),"2000","SQUARE_8", 2000, 0, PricesFactory.rentTable()[3], PricesFactory.upgradeTable()[3], orange, Color.orange);
         board[9] = new Lot(Translator.getString("SQUARE_9"),"2400","SQUARE_9", 2400, 0, PricesFactory.rentTable()[4], PricesFactory.upgradeTable()[4], orange, Color.orange);
-        board[10] = new DemoSquare(Translator.getString("SQUARE_10"),"","SQUARE_10");
+        board[10] = new VisitJail(Translator.getString("SQUARE_10"),"","SQUARE_10");
         board[11] = new Lot(Translator.getString("SQUARE_11"),"2800","SQUARE_11", 2800, 0, PricesFactory.rentTable()[5], PricesFactory.upgradeTable()[5], green, Color.green);
         board[12] = new Brewery(Translator.getString("SQUARE_12"),"3000","SQUARE_12", 3000, 0, PricesFactory.rentTable()[6], brown);
         board[13] = new Lot(Translator.getString("SQUARE_13"),"2800","SQUARE_13", 2800, 0, PricesFactory.rentTable()[7], PricesFactory.upgradeTable()[6], green, Color.green);
@@ -48,7 +48,7 @@ public class BoardFactory {
         board[27] = new Lot(Translator.getString("SQUARE_27"),"5200","SQUARE_27", 5200, 0, PricesFactory.rentTable()[17], PricesFactory.upgradeTable()[15], white, Color.white);
         board[28] = new Brewery(Translator.getString("SQUARE_28"),"3000","SQUARE_28", 3000, 0, PricesFactory.rentTable()[18], brown);
         board[29] = new Lot(Translator.getString("SQUARE_29"),"5600","SQUARE_29", 5600, 0, PricesFactory.rentTable()[19], PricesFactory.upgradeTable()[16], white, Color.white);
-        board[30] = new DemoSquare(Translator.getString("SQUARE_30"),"","SQUARE_30");
+        board[30] = new GoToJail(Translator.getString("SQUARE_30"),"","SQUARE_30");
         board[31] = new Lot(Translator.getString("SQUARE_31"),"6000","SQUARE_31", 6000, 0, PricesFactory.rentTable()[20], PricesFactory.upgradeTable()[17], yellow, Color.yellow);
         board[32] = new Lot(Translator.getString("SQUARE_32"),"6000","SQUARE_32", 6000, 0, PricesFactory.rentTable()[21], PricesFactory.upgradeTable()[18], yellow, Color.yellow);
         board[33] = new Chance(Translator.getString("SQUARE_33"),"","SQUARE_33");
