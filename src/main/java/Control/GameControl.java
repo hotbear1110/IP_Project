@@ -5,6 +5,7 @@ import Model.Board;
 import Model.FixedValues;
 import Model.Game;
 import Model.Player;
+import Model.Squares.Lot;
 import Model.Squares.Property;
 import View.UI;
 import java.util.Arrays;
@@ -44,6 +45,9 @@ public class GameControl {
             }
             case "K12/K13/K15" -> {
                 k12_k13_k15();
+            }
+            case "K18/K19/K20" -> {
+                k18_k19_k20();
             }
         }
 
@@ -302,5 +306,36 @@ public class GameControl {
         setUpPlayers(2);
         ui.setGUIPlayers(game.getPlayers());
         diceControl.enabledDiceManipulation();
+    }
+    private void k18_k19_k20(){
+        setUpPlayers(2);
+        ui.setGUIPlayers(game.getPlayers());
+        Player player1 = game.getSpecificPlayer(0);
+        Player player2 = game.getSpecificPlayer(1);
+        String s = game.getBoard().getSquare(11).getName();
+        Lot f = game.getBoard().getLot(s);
+        f.setOwner(player1);
+        player1.buyProperty((Property) f);
+        String g = game.getBoard().getSquare(13).getName();
+        Lot b = game.getBoard().getLot(g);
+        b.setOwner(player1);
+        player1.buyProperty((Property) b);
+        String h = game.getBoard().getSquare(14).getName();
+        Lot t = game.getBoard().getLot(h);
+        t.setOwner(player1);
+        player1.buyProperty((Property) t);
+        String j = game.getBoard().getSquare(21).getName();
+        Lot z = game.getBoard().getLot(j);
+        z.setOwner(player2);
+        player2.buyProperty((Property) z);
+        String q = game.getBoard().getSquare(23).getName();
+        Lot w = game.getBoard().getLot(q);
+        w.setOwner(player2);
+        player2.buyProperty((Property) w);
+        String x = game.getBoard().getSquare(24).getName();
+        Lot e = game.getBoard().getLot(x);
+        e.setOwner(player2);
+        player2.buyProperty((Property) e);
+        runGame();
     }
 }
