@@ -257,6 +257,7 @@ public class BankControl {
         }
         int buyAmount = lot.getHotelPrice();
         lot.addHotel();
+        lot.setCurrentRent(FixedValues.HOTEL_HOUSE_RENT_INDEX);
         gameControl.getUI().addHotel(gameControl.getGame().getBoard().getIndex(activeLot));
         fromPlayerToBank(player, buyAmount);
         gameControl.getUI().updatePlayers(gameControl.getGame().getPlayers());
@@ -272,6 +273,8 @@ public class BankControl {
         }
         int buyAmount = lot.getHousePrice();
         lot.addHouse();
+        int n = lot.getNumberOfHouses();
+        lot.setCurrentRent(n+1);
         gameControl.getUI().addHouse(gameControl.getGame().getBoard().getIndex(activeLot), gameControl.getGame().getBoard().getLot(activeLot).getNumberOfHouses());
         fromPlayerToBank(player, buyAmount);
         gameControl.getUI().updatePlayers(gameControl.getGame().getPlayers());

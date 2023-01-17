@@ -13,12 +13,12 @@ public class DiceControl{
     }
 
     public void controlAction(){
-        if (!gameControl.getGame().getDice().isDouble()){
+        if (!gameControl.getGame().getDice().getDouble()){
             resetCounter();
         }
         if(!diceManipulation) {
             gameControl.getGame().getDice().rollDice();
-            doubleDice = gameControl.getGame().getDice().isDouble();
+            doubleDice = gameControl.getGame().getDice().getDouble();
             if (doubleDice) {
                 doubleDiceCounter++;
             }
@@ -32,7 +32,7 @@ public class DiceControl{
         String s = gameControl.getUI().getDropDown("Vælg et terningeslag", menu);
         int[] dicePair = Utility.parseTwoIntsToArray(s);
         gameControl.getGame().getDice().setDicePair(dicePair);
-        doubleDice = gameControl.getGame().getDice().isDouble();
+        doubleDice = gameControl.getGame().getDice().getDouble();
         if (doubleDice) {
             doubleDiceCounter++;
         }
@@ -40,7 +40,7 @@ public class DiceControl{
     }
 
     public boolean getDoubleDice(){
-        return gameControl.getGame().getDice().isDouble();
+        return gameControl.getGame().getDice().getDouble();
     }
 
     public int getDoubleDiceCounter(){

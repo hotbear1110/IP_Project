@@ -33,12 +33,15 @@ public class Dice {
     public int[] getPair(){
         return dice;
     }
-    public boolean isDouble() {
+    public void isDouble() {
         if (dice[0] == dice[1]){
                 doubleDice = true;
         } else {
             doubleDice = false;
         }
+    }
+
+    public boolean getDouble(){
         return doubleDice;
     }
 
