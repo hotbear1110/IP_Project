@@ -54,6 +54,9 @@ public class GameControl {
             }
             case "K7/K17" -> {
                 k7_k17();
+                }
+            case "K3/K4/K5/K6/K9/K16/K24" -> {
+                k3_k4_k5_k6_k9_k16_k24();
             }
         }
 
@@ -409,6 +412,7 @@ public class GameControl {
         player1.buyProperty((Property) q);
         runGame();
     }
+    
     private void k7_k17(){
         setUpPlayers(2);
         ui.setGUIPlayers(game.getPlayers());
@@ -430,6 +434,13 @@ public class GameControl {
         String e = game.getBoard().getSquare(9).getName();
         Lot orangeThree = game.getBoard().getLot(e);
         orangeThree.setOwner(player2);
+        runGame();
+        }
+
+    private void k3_k4_k5_k6_k9_k16_k24(){
+        setUpPlayers(1);
+        ui.setGUIPlayers(game.getPlayers());
+        diceControl.enabledDiceManipulation();
         runGame();
     }
 }
