@@ -107,7 +107,7 @@ public class GameControl {
         Player currentPlayer = game.getCurrentPlayer();
         boolean turnTaken = false;
         if (game.isPlayerInJail(currentPlayer) && jailControl.isJailed()){
-            ui.showMessage("Du har været i fængels i tre runder og skal nu betale 1000kr for at komme ud");
+            ui.showMessage(Translator.getString("3_ROUND_PRISON"));
             bankControl.fromPlayerToBank(currentPlayer, FixedValues.JAIL_FEE);
             jailControl. leaveJail();
         } else if (game.isPlayerInJail(currentPlayer) && !jailControl.isJailed()){

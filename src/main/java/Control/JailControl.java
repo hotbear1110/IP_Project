@@ -52,12 +52,12 @@ public class JailControl {
     }
 
     public String controlAction() {
-        String action = gameControl.getUI().getDropDown("Vælg action", ControlMenus.inJail);
+        String action = gameControl.getUI().getDropDown(Translator.getString("CHOOSE_ACTION"), ControlMenus.inJail);
         Player player = gameControl.getGame().getCurrentPlayer();
 
-        if (action.equals("Brug fængsels kort")) {
+        if (action.equals(Translator.getString("USE_PRISONCARD"))) {
             if (!hasJailCard()) {
-                gameControl.getUI().showMessage("Du har ikke et fængsels kort");
+                gameControl.getUI().showMessage(Translator.getString("NO_JAIL_CARD"));
                 return controlAction();
             }
             useJailCard();
