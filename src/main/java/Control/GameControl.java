@@ -142,56 +142,58 @@ public class GameControl {
             }
             playerPosition = game.getCurrentPlayer().getPlayerPosition();
             String action = actionControl.controlAction(playerPosition);
-            switch (action) {
-                case "Start" -> {
-                    ui.showMessage("Du er landet på START og vil modtage start-penge i din næste tur");
-                }
-                case "Property" -> {
-                    boolean hasOwner;
-                    String propertyName = game.getBoard().getSquare(playerPosition).getName();
-                    Property activeSquare = game.getBoard().getProperty(propertyName);
-                    hasOwner = activeSquare.isPropertyOwned();
-                    if (hasOwner) {
-                        bankControl.payRent(currentPlayer, activeSquare, diceSum, false);
-                    } else {
-                        bankControl.buyProperty(currentPlayer, activeSquare);
+            boolean chance = true;
+            while (chance) {
+                switch (action) {
+                    case "Start" -> {
+                        ui.showMessage("Du er landet på START og vil modtage start-penge i din næste tur");
+                        chance = false;
                     }
-                }
-                case "Chance" -> {
-                    String[] n = chanceControl.controlAction(currentPlayer);
-
-                    if (n[0].length() > 0) {
-                        positionControl.controlAction(Integer.parseInt(n[1]));
-
+                    case "Property" -> {
                         boolean hasOwner;
-                        playerPosition = getGame().getCurrentPlayer().getPlayerPosition();
                         String propertyName = game.getBoard().getSquare(playerPosition).getName();
                         Property activeSquare = game.getBoard().getProperty(propertyName);
                         hasOwner = activeSquare.isPropertyOwned();
                         if (hasOwner) {
-                            bankControl.payRent(currentPlayer, activeSquare, diceSum, (Objects.equals(n[0], "double")));
+                            bankControl.payRent(currentPlayer, activeSquare, diceSum, false);
                         } else {
                             bankControl.buyProperty(currentPlayer, activeSquare);
                         }
+                        chance = false;
                     }
-                }
-                case "Metro" -> {
-                    ui.showMessage("Du er landet på en metro og tager den til næste stop");
-                    positionControl.landsOnMetro(playerPosition);
-                }
-                case "Tax" -> {
-                    bankControl.payTax(playerPosition);
-                }
-                case "Parking" -> {
-                    ui.showMessage("Du er landet på parkeringsfeltet, nyd en lille pause");
-                }
-                case "GoToJail" -> {
-                    ui.showMessage("Du er skal straks rykke i fængsel!\nDu modtager IKKE penge hvis du passerer start!");
-                    positionControl.goToJail();
-                    jailControl.jailPlayer();
-                }
-                case "VisitJail" -> {
-                    ui.showMessage("Nyd dit besøg i fængslet");
+                    case "Chance" -> {
+                        String[] n = chanceControl.controlAction(currentPlayer);
+
+                        if (n[0].length() > 0) {
+                            positionControl.controlAction(Integer.parseInt(n[1]));
+
+                            playerPosition = getGame().getCurrentPlayer().getPlayerPosition();
+                            action = actionControl.controlAction(playerPosition);
+                        }
+                    }
+                    case "Metro" -> {
+                        ui.showMessage("Du er landet på en metro og tager den til næste stop");
+                        positionControl.landsOnMetro(playerPosition);
+                        chance = false;
+                    }
+                    case "Tax" -> {
+                        bankControl.payTax(playerPosition);
+                        chance = false;
+                    }
+                    case "Parking" -> {
+                        ui.showMessage("Du er landet på parkeringsfeltet, nyd en lille pause");
+                        chance = false;
+                    }
+                    case "GoToJail" -> {
+                        ui.showMessage("Du er skal straks rykke i fængsel!\nDu modtager IKKE penge hvis du passerer start!");
+                        positionControl.goToJail();
+                        jailControl.jailPlayer();
+                        chance = false;
+                    }
+                    case "VisitJail" -> {
+                        ui.showMessage("Nyd dit besøg i fængslet");
+                        chance = false;
+                    }
                 }
             }
 
