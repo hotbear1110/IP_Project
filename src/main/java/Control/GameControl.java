@@ -100,15 +100,28 @@ public class GameControl {
             String action = jailControl.controlAction();
             switch(action){
                 case "Rul med terningerne":
-                    takeTurn(currentPlayer);
-                    turnTaken = true;
+                    diceControl.controlAction();
+                    updateDice();
+                    if (diceControl.getDoubleDice()){
+                        diceControl.resetCounter();
+                        diceControl.resetDouble();
+                        takeTurn(currentPlayer);
+                        turnTaken = true;
+                    } else {
+                        ui.showMessage("Du slog ikke dobbelt og bliver i fængsel, forsøg igen næste tur");
+                        endTurn(currentPlayer);
+                        turnTaken = true;
+                    }
+                    break;
                 case "Betal 1000kr":
                     bankControl.fromPlayerToBank(currentPlayer,FixedValues.JAIL_FEE);
                     takeTurn(currentPlayer);
                     turnTaken = true;
+                    break;
                 case "Brug fængselskort":
                     takeTurn(currentPlayer);
                     turnTaken = true;
+                    break;
             }
         }
         while(!turnTaken){
@@ -214,6 +227,7 @@ public class GameControl {
                 ui.showMessage("Fordi du har slået dobbelt er det din tur igen");
             } else {
                 endTurn(currentPlayer);
+                break;
             }
         }
     }
