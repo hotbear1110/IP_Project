@@ -165,15 +165,12 @@ public class BankControl {
         for(int i = 0; i < upgradableProperties.length; i++){
             properties[i] = upgradableProperties[i].getName();
         }
-        if (properties.length == 0) {
-            gameControl.getUI().showMessage("Du ejer ingen grunde, og kan derfor ikke købe opgraderinger");
-            buySellActions(player);
-            return;
-        }
+
         String[] menu = Utility.addElementToStringArray(properties, "Tilbage");
         if(menu.length == 1){
             gameControl.getUI().showMessage("Du ejer ikke tre grunde af samme farve, og kan derfor ikke købe opgraderinger");
             buySellActions(player);
+            return;
         } else {
             String activeLot = gameControl.getUI().getDropDown("Hvilken grund vil du arbejde med?", menu);
             if (activeLot.equals("Tilbage")) {

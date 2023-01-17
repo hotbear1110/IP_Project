@@ -14,9 +14,11 @@ public class ChanceControl {
 
         gameControl.getUI().setChanceCard(description);
 
-        int move  = gameControl.getGame().getBoard().drawCard(player, players);
-
         gameControl.getUI().getChanceCard(description);
+
+        gameControl.getUI().showMessage("Du har trukket et chance kort");
+
+        int move  = gameControl.getGame().getBoard().drawCard(player, players);
 
         String nextDescription = gameControl.getGame().getBoard().getNextCard();
 
