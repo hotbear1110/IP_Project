@@ -169,6 +169,8 @@ public class GameControl {
 
                             playerPosition = getGame().getCurrentPlayer().getPlayerPosition();
                             action = actionControl.controlAction(playerPosition);
+                        } else {
+                            chance = false;
                         }
                     }
                     case "Metro" -> {
