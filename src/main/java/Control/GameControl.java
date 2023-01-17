@@ -112,7 +112,7 @@ public class GameControl {
             jailControl. leaveJail();
         } else if (game.isPlayerInJail(currentPlayer) && !jailControl.isJailed()){
             jailControl.jailCount();
-            ui.showMessage("Du er i fængsel!");
+            ui.showMessage(currentPlayer.getPlayerName() + " det er din tur, og du er i fængsel!");
             boolean jail = true;
             while(jail) {
                 String action = jailControl.controlAction();
@@ -468,23 +468,32 @@ public class GameControl {
         setUpPlayers(2);
         ui.setGUIPlayers(game.getPlayers());
         diceControl.enabledDiceManipulation();
-        Player player1 = game.getSpecificPlayer(0);
         Player player2 = game.getSpecificPlayer(1);
         String a = game.getBoard().getSquare(1).getName();
         Lot blueOne = game.getBoard().getLot(a);
         blueOne.setOwner(player2);
+        player2.buyProperty(blueOne);
+        blueOne.setCurrentRent(1);
         String b = game.getBoard().getSquare(3).getName();
         Lot blueTwo = game.getBoard().getLot(b);
         blueTwo.setOwner(player2);
+        player2.buyProperty(blueTwo);
+        blueTwo.setCurrentRent(1);
         String c = game.getBoard().getSquare(6).getName();
         Lot orangeOne = game.getBoard().getLot(c);
         orangeOne.setOwner(player2);
+        player2.buyProperty(orangeOne);
+        orangeOne.setCurrentRent(1);
         String d = game.getBoard().getSquare(8).getName();
         Lot orangeTwo = game.getBoard().getLot(d);
         orangeTwo.setOwner(player2);
+        player2.buyProperty(orangeTwo);
+        orangeTwo.setCurrentRent(1);
         String e = game.getBoard().getSquare(9).getName();
         Lot orangeThree = game.getBoard().getLot(e);
         orangeThree.setOwner(player2);
+        player2.buyProperty(orangeThree);
+        orangeThree.setCurrentRent(1);
         runGame();
         }
 
