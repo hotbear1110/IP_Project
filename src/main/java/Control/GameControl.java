@@ -49,6 +49,9 @@ public class GameControl {
             case "K18/K19/K20" -> {
                 k18_k19_k20();
             }
+            case "K21/K22"-> {
+                k21_k22();
+            }
         }
 
     }
@@ -378,6 +381,22 @@ public class GameControl {
         Lot redThree = game.getBoard().getLot(f);
         redThree.setOwner(player2);
         player2.buyProperty(redThree);
+        runGame();
+    }
+    private void k21_k22(){
+        setUpPlayers(2);
+        ui.setGUIPlayers(game.getPlayers());
+        diceControl.enabledDiceManipulation();
+        Player player1 = game.getSpecificPlayer(0);
+        Player player2 = game.getSpecificPlayer(1);
+        String h = game.getBoard().getSquare(6).getName();
+        Lot w = game.getBoard().getLot(h);
+        w.setOwner(player2);
+        player2.buyProperty((Property) w);
+        String t = game.getBoard().getSquare(3).getName();
+        Lot q = game.getBoard().getLot(t);
+        q.setOwner(player1);
+        player1.buyProperty((Property) q);
         runGame();
     }
 }
