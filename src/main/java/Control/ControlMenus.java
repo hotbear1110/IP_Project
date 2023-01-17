@@ -17,7 +17,7 @@ public class ControlMenus {
     public static String[] taxOrCash = new String[]{Translator.getString("PAY_10_IN_TAX"), Translator.getString("PAY_4000")};
     public static String[] inJail = new String[]{Translator.getString("ROLL_DICE"), Translator.getString("PAY_1000"), Translator.getString("USE_PRISONCARD")};
 
-    public static String[] languages = new String[]{Translator.getString("DANISH"), Translator.getString("ENGLISH")};
+    public static String[] languages = new String[]{"Dansk", "English"};
 
 
 }
