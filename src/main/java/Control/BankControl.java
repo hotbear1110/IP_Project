@@ -90,14 +90,17 @@ public class BankControl {
         if (Double) {
             rent = rent * 2;
         }
-
-        gameControl.getUI().showMessage("Du er landet på " + property.getName() + " som er ejet af " + property.getOwner().getPlayerName() + ".\n Du skal derfor betale lejen på " + rent);
-        if (!checkPlayerBalance(player, rent)) {
+        if (property.isPropertyMortgaged()){
+            gameControl.getUI().showMessage("Du er landet på " + property.getName() + " som er ejet af " + property.getOwner().getPlayerName() + ".\n Denne grund er pantsat og du skal derfor ikke betale leje!");
+        } else {
+            gameControl.getUI().showMessage("Du er landet på " + property.getName() + " som er ejet af " + property.getOwner().getPlayerName() + ".\n Du skal derfor betale lejen på " + rent);
+            if (!checkPlayerBalance(player, rent)) {
                 //din balance er ..... og kan derfor ikke betale hele lejen på ... Du er derfor gået fallit.\n Det du kan betale af lejen bliver betalt, dine grunde og opgraderinger gives tilbage til banken.
             playerToPlayer(property.getOwner(), player, rent);
                 //reset property;
             gameControl.declarePlayerBankrupt(player);
-        } /*else {
+            }
+        }/*else {
                 int totalWorth = getPlayersTotalWorth(player);
                 if (totalWorth >= rent) {
                     String action = gameControl.getUI().getUserButton("Med din nuværende balance har du ikke råd til at betale lejen.", "Sælg opgraderinger", "Pantsæt grunde", "Giv op");
@@ -294,9 +297,8 @@ public class BankControl {
         }
 
         if (properties.length == 0) {
-            gameControl.getUI().showMessage("Du ejer ingen grunde, og kan derfor ikke sælge noget");
+            gameControl.getUI().showMessage("Du ejer ingen grunde, og kan derfor ikke pantsætte noget");
             buySellActions(player);
-            return;
         }
 
         String[] menu = Utility.addElementToStringArray(properties, "Tilbage");
