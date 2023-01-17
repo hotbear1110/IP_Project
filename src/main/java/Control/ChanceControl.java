@@ -4,11 +4,13 @@ import Model.Player;
 
 public class ChanceControl {
     private GameControl gameControl;
+
+    private int amount = 0;
     public ChanceControl(GameControl gameControl){
         this.gameControl = gameControl;
     }
 
-    public int controlAction(Player player) {
+    public String controlAction(Player player) {
         Player[] players = gameControl.getGame().getPlayers();
         String description = gameControl.getGame().getBoard().getNextCard();
 

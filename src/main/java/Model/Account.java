@@ -195,6 +195,42 @@ public class Account {
         return (colorProperties == colorCount);
     }
 
+    public int getHouseCount() {
+        ArrayList<Lot> ownedLots = new ArrayList<>();
+
+        for (int i = 0; i < properties.size(); i++) {
+            if(properties.get(i) instanceof Lot){
+                ownedLots.add((Lot) properties.get(i));
+            }
+        }
+
+        int houseCount = 0;
+
+        for (Lot lot : ownedLots) {
+            houseCount += lot.getNumberOfHouses();
+        }
+
+        return houseCount;
+    }
+
+    public int getHotelCount() {
+        ArrayList<Lot> ownedLots = new ArrayList<>();
+
+        for (int i = 0; i < properties.size(); i++) {
+            if(properties.get(i) instanceof Lot){
+                ownedLots.add((Lot) properties.get(i));
+            }
+        }
+
+        int hotelCount = 0;
+
+        for (Lot lot : ownedLots) {
+            hotelCount += (lot.getHotel()) ? 1 : 0;
+        }
+
+        return hotelCount;
+    }
+
     public boolean canPropertyBeUpgraded(Lot lot) {
         Lot[] upgradableProperties = getUpgradableProperties();
         HashMap<Lot, Integer> numberOfUpgrades = new HashMap<>();

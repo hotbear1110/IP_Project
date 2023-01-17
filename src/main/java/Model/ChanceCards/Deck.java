@@ -77,8 +77,7 @@ public class Deck {
                     newCard = new MovePlayer(card, "moveToNext", Translator.getString(card), 0);
                 }
                 case "CHANCE29" -> {
-                    //Ikke færdigt
-                    newCard = new MovePlayer(card, "moveToNext", Translator.getString(card), 1);
+                    newCard = new MovePlayer(card, "specific", Translator.getString(card), 15);
                 }
                 case "CHANCE30" -> {
                     newCard = new MovePlayer(card, "specific", Translator.getString(card), 24);
