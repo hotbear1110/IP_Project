@@ -69,22 +69,28 @@ public class Account {
                 ownedLots.add((Lot) property);
             }
         }
-        HashMap<Lot, Integer> propertyCount = new HashMap<Lot, Integer>();
+        HashMap<Color, Integer> colorCount = new HashMap<Color, Integer>();
         for (Lot lot : ownedLots) {
-            Integer j = propertyCount.get(lot);
+            Integer j = colorCount.get(lot.getColor());
             if (j == null) {
-                propertyCount.put(lot, 1);
+                colorCount.put(lot.getColor(), 1);
             } else if (!lot.isPropertyMortgaged()) {
-                propertyCount.put(lot, j + 1);
+                colorCount.put(lot.getColor(), j + 1);
             }
         }
+        HashMap<Color, Integer> maxLots = new HashMap<Color, Integer>();
+        for (Lot lot : ownedLots) {
+            Integer j = maxLots.get(lot.getColor());
+            maxLots.put(lot.getColor(), lot.getMembers().size());
+
+        }
+
         ArrayList<Color> color = new ArrayList<>();
-        for(Map.Entry<Lot, Integer> entry : propertyCount.entrySet()){
-            Lot currentLot = entry.getKey();
-            Color key = entry.getKey().getColor();
+        for(Map.Entry<Color, Integer> entry : colorCount.entrySet()){
+            Color key = entry.getKey();
             Integer value = entry.getValue();
-            int colorCount = currentLot.getMembers().size();
-            if(value == colorCount){
+            int maxLotsCount = maxLots.get(key);
+            if(value == maxLotsCount){
                 color.add(key);
             }
         }
