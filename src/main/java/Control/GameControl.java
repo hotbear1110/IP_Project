@@ -95,7 +95,9 @@ public class GameControl {
         if (game.isPlayerInJail(currentPlayer) && jailControl.isJailed()){
             ui.showMessage("Du har været i fængels i tre runder og skal nu betale 1000kr for at komme ud");
             bankControl.fromPlayerToBank(currentPlayer, FixedValues.JAIL_FEE);
+            jailControl. leaveJail();
         } else if (game.isPlayerInJail(currentPlayer) && !jailControl.isJailed()){
+            jailControl.jailCount();
             ui.showMessage("Du er i fængsel!");
             String action = jailControl.controlAction();
             switch(action){
@@ -219,6 +221,7 @@ public class GameControl {
                     }
                 }
             }
+            doubleDice = diceControl.getDoubleDice();
 
             updatePlayerInfo(game.getPlayers());
             updateBoard(board);

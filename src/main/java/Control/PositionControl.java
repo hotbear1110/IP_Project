@@ -33,5 +33,6 @@ public class PositionControl {
 
     public void goToJail(){
         gameControl.getGame().getCurrentPlayer().setPlayerPosition(FixedValues.VISIT_JAIL);
+        gameControl.getGame().getDice().resetDouble();
     }
 }
