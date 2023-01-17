@@ -156,6 +156,7 @@ public class GameControl {
                 manipulatePlayerAccount();
                 updatePlayerInfo(game.getPlayers());
                 endTurn(currentPlayer);
+                turnTaken = true;
                 break;
             }
             String action = ui.getUserButton(currentPlayer.getPlayerName() + " " + Translator.getString("START_TURN"), ControlMenus.startMenu);
