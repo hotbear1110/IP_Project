@@ -109,7 +109,7 @@ public class GameControl {
                         if (diceControl.getDoubleDice()) {
                             diceControl.resetCounter();
                             diceControl.resetDouble();
-                            takeTurn(currentPlayer);
+                            takeTurn(currentPlayer, true);
                             turnTaken = true;
                         } else {
                             ui.showMessage("Du slog ikke dobbelt og bliver i fængsel, forsøg igen næste tur");
@@ -120,14 +120,14 @@ public class GameControl {
                     }
                     case "Betal 1000kr" -> {
                         bankControl.fromPlayerToBank(currentPlayer, FixedValues.JAIL_FEE);
-                        takeTurn(currentPlayer);
+                        takeTurn(currentPlayer, false);
                         turnTaken = true;
                         jail = false;
                     }
                     case "Brug fængselskort" -> {
                         if (jailControl.hasJailCard()) {
                             jailControl.useJailCard();
-                            takeTurn(currentPlayer);
+                            takeTurn(currentPlayer, false);
                             turnTaken = true;
                             jail = false;
                         } else {
@@ -141,7 +141,7 @@ public class GameControl {
             String action = ui.getUserButton(currentPlayer.getPlayerName() + " " + Translator.getString("START_TURN"), ControlMenus.startMenu);
             switch (action){
                 case "Start tur" -> {
-                    takeTurn(currentPlayer);
+                    takeTurn(currentPlayer, false);
                     turnTaken = true;
                 }
                 case "Administrer ejede grunde" -> {
@@ -150,17 +150,18 @@ public class GameControl {
             }
         }
     }
-    private void takeTurn(Player currentPlayer){
+    private void takeTurn(Player currentPlayer, boolean doubleOutOfJail){
         while (true){
-            boolean doubleDice;
-            boolean passedStart;
-            int diceSum;
+            boolean doubleDice = false;
+            boolean passedStart = false;
+            int diceSum = game.getDice().getSum();
             int playerPosition;
-            diceControl.controlAction();
-            diceSum = game.getDice().getSum();
-            doubleDice = diceControl.getDoubleDice();
-            updateDice();
-
+            if (!doubleOutOfJail){
+                diceControl.controlAction();
+                diceSum = game.getDice().getSum();
+                doubleDice = diceControl.getDoubleDice();
+                updateDice();
+            }
             if (doubleDice && diceControl.doubleDiceCounter == 3){
                 ui.showMessage("Du har slået dobbelt 3 gange i træk og rykker derfor direkte i fængsel! Du vil IKKE modtage penge hvis du passere start!");
                 jailControl.jailPlayer();
@@ -209,7 +210,9 @@ public class GameControl {
                     }
                     case "Metro" -> {
                         ui.showMessage("Du er landet på en metro og tager den til næste stop");
-                        positionControl.landsOnMetro(playerPosition);
+                        if(positionControl.landsOnMetro(playerPosition)){
+                            bankControl.getPassedStart();
+                        }
                         chance = false;
                     }
                     case "Tax" -> {
@@ -232,6 +235,11 @@ public class GameControl {
                     }
                 }
             }
+            passedStart = positionControl.hasPassedStart();
+            if (passedStart){
+                bankControl.getPassedStart();
+            }
+
             doubleDice = diceControl.getDoubleDice();
 
             updatePlayerInfo(game.getPlayers());

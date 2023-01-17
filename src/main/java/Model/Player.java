@@ -40,10 +40,6 @@ public class Player {
         account.addProperty(property);
     }
 
-    public void sellProperty(Property property){
-        account.removeProperty(property);
-    }
-
     public ArrayList<Lot> nextUpgrade() {
         return account.nextUpgrade();
     }
@@ -52,9 +48,6 @@ public class Player {
      * Sets the player name
      * @param name (String) The player name
      */
-    public void setPlayerName(String name) {
-        playerName = name;
-    }
 
     /**
      * @return (String) The player name

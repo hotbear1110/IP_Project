@@ -24,11 +24,16 @@ public class PositionControl {
         return gameControl.getGame().getCurrentPlayer().hasPassedStart();
     }
 
-    public void landsOnMetro(int position){
+    public boolean landsOnMetro(int position){
         String metroName = gameControl.getGame().getBoard().getSquare(position).getName();
         Metro specificMetro = gameControl.getBoard().getMetro(metroName);
         int nearestMetro = specificMetro.getNearestMetroSquare();
         gameControl.getGame().getCurrentPlayer().setPlayerPosition(nearestMetro);
+        int newPosition = gameControl.getGame().getCurrentPlayer().getPlayerPosition();
+        if(newPosition < position){
+            return true;
+        }
+        return false;
     }
 
     public void goToJail(){
