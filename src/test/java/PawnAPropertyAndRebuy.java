@@ -4,8 +4,7 @@ import Model.Game;
 
 public class PawnAPropertyAndRebuy {
     public static void main(String[] args ){
-        Game game = new Game();
-        Board board = new Board(game);
-        GameControl gameControl = new GameControl("K21/K22");
+        Board board = new Board();
+        GameControl gameControl = new GameControl(board,"K21/K22");
     }
 }
