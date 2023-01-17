@@ -8,10 +8,10 @@ public class Board {
     private final Deck cardDeck;
 
 
-    public Board(){
+    public Board(Game game){
         //this.squares = demoBoard();
         this.squares = makeBoard();
-        this.cardDeck = new Deck();
+        this.cardDeck = new Deck(game);
 
     }
     private Square[] makeBoard(){

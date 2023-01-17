@@ -7,8 +7,11 @@ import java.util.*;
 
 public class Deck {
     private ArrayList<Cards> cards;
-    public Deck(){
+    private Game game;
+    public Deck(Game game){
         this.cards = new ArrayList<Cards>();
+
+        this.game = game;
         createCards();
         shuffle();
     }
@@ -169,6 +172,7 @@ public class Deck {
             case "jail" -> {
                 MovePlayer jailCard = (MovePlayer) card;
                 jailCard.jail(player);
+
             }
             case "giveJailCard" -> {
                 JailCard giveJailCard = (JailCard) card;
