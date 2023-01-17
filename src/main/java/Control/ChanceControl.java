@@ -5,12 +5,11 @@ import Model.Player;
 public class ChanceControl {
     private GameControl gameControl;
 
-    private int amount = 0;
     public ChanceControl(GameControl gameControl){
         this.gameControl = gameControl;
     }
 
-    public String controlAction(Player player) {
+    public String[] controlAction(Player player) {
         Player[] players = gameControl.getGame().getPlayers();
         String description = gameControl.getGame().getBoard().getNextCard();
 
@@ -20,7 +19,7 @@ public class ChanceControl {
 
         gameControl.getUI().showMessage("Du har trukket et chance kort");
 
-        int move  = gameControl.getGame().getBoard().drawCard(player, players);
+        String[] move  = gameControl.getGame().getBoard().drawCard(player, players);
 
         String nextDescription = gameControl.getGame().getBoard().getNextCard();
 
