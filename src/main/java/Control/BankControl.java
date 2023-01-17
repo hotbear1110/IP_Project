@@ -270,6 +270,7 @@ public class BankControl {
         int buyAmount = lot.getHotelPrice();
         lot.addHotel();
         fromPlayerToBank(player, buyAmount);
+        gameControl.getUI().updatePlayers(gameControl.getGame().getPlayers());
     }
 
     private void buyHouses(Player player, String activeLot) {
@@ -283,6 +284,7 @@ public class BankControl {
         int buyAmount = lot.getHousePrice();
         lot.addHouse();
         fromPlayerToBank(player, buyAmount);
+        gameControl.getUI().updatePlayers(gameControl.getGame().getPlayers());
     }
 
     private void sellUpgrades(Player player, String activeLot){
@@ -333,8 +335,10 @@ public class BankControl {
                     }
                     sellHouse(player, lot);
                     handleUpgrades(player);
+                    break;
                 case "Tilbage":
                     handleUpgrades(player);
+                    break;
             }
         }
     }
@@ -343,6 +347,7 @@ public class BankControl {
         lot.removeHotel();
         lot.setCurrentRent(FixedValues.FOUR_HOUSE_RENT_INDEX);
         fromBankToPlayer(player, sellAmount);
+        gameControl.getUI().updatePlayers(gameControl.getGame().getPlayers());
     }
     private void sellHouse(Player player, Lot lot){
         int sellAmount = lot.getHousePrice();
@@ -354,6 +359,7 @@ public class BankControl {
             case 3: lot.setCurrentRent(FixedValues.THREE_HOUSE_RENT_INDEX);
         }
         fromBankToPlayer(player, sellAmount);
+        gameControl.getUI().updatePlayers(gameControl.getGame().getPlayers());
     }
 
     public void mortgagedActions(Player player) {
@@ -394,6 +400,7 @@ public class BankControl {
             case "Ja":
                 property.setAsNotMortgaged();
                 fromPlayerToBank(player, totaltAmount);
+                gameControl.getUI().updatePlayers(gameControl.getGame().getPlayers());
                 if (player.hasColorSet(property)) {
                     property.setCurrentRent(FixedValues.DOUBLE_RENT_INDEX);
                 }
@@ -411,7 +418,7 @@ public class BankControl {
                 }
                 property.setAsMortgaged();
                 fromBankToPlayer(player, propertyMortgagedValue);
-
+                gameControl.getUI().updatePlayers(gameControl.getGame().getPlayers());
             case "Nej":
                 mortgagedActions(player);
         }
