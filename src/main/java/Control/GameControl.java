@@ -80,7 +80,7 @@ public class GameControl {
         Player currentPlayer = game.getCurrentPlayer();
         boolean turnTaken = false;
         if (game.isPlayerInJail(currentPlayer) && jailControl.isJailed()){
-            ui.showMessage("Du har været i fængels i tre runder og skal nu betale 1000kr for at komme ud");
+            ui.showMessage(Translator.getString("3_ROUND_PRISON"));
             bankControl.fromPlayerToBank(currentPlayer, FixedValues.JAIL_FEE);
         } else if (game.isPlayerInJail(currentPlayer) && !jailControl.isJailed()){
             String action = jailControl.controlAction();
@@ -131,7 +131,7 @@ public class GameControl {
             String action = actionControl.controlAction(playerPosition);
             switch (action){
                 case "Start":
-                    ui.showMessage("Du er landet på START og vil modtage start-penge i din næste tur");
+                    ui.showMessage(Translator.getString("PASSED_START"));
                     break;
                 case "Property":
                     boolean hasOwner;
@@ -149,22 +149,22 @@ public class GameControl {
                     positionControl.controlAction(n);
                     break;
                 case "Metro":
-                    ui.showMessage("Du er landet på en metro og tager den til næste stop");
+                    ui.showMessage(Translator.getString("LAND_ON_METRO"));
                     positionControl.landsOnMetro(playerPosition);
                     break;
                 case "Tax":
                     bankControl.payTax(playerPosition);
                     break;
                 case "Parking":
-                    ui.showMessage("Du er landet på parkeringsfeltet, nyd en lille pause");
+                    ui.showMessage(Translator.getString("LAND_ON_PARKING"));
                     break;
                 case "GoToJail":
-                    ui.showMessage("Du er skal straks rykke i fængsel!\nDu modtager IKKE penge hvis du passerer start!");
+                    ui.showMessage(Translator.getString("GO_TO_JAIL"));
                     positionControl.goToJail();
                     jailControl.jailPlayer();
                     break;
                 case "VisitJail":
-                    ui.showMessage("Nyd dit besøg i fængslet");
+                    ui.showMessage(Translator.getString("LAND_ON_VISIT"));
                     break;
             }
 
@@ -172,7 +172,7 @@ public class GameControl {
             updateBoard(board);
 
             if (doubleDice && diceControl.getDoubleDiceCounter() != 3){
-                ui.showMessage("Fordi du har slået dobbelt er det din tur igen");
+                ui.showMessage(Translator.getString("DOUBLE_DICE"));
             } else if (doubleDice && diceControl.doubleDiceCounter == 3){
                 jailControl.jailPlayer();
                 diceControl.resetCounter();
