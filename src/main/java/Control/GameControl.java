@@ -210,10 +210,7 @@ public class GameControl {
                         Property activeSquare = game.getBoard().getProperty(propertyName);
                         hasOwner = activeSquare.isPropertyOwned();
                         if (hasOwner && !activeSquare.getOwner().equals(currentPlayer)) {
-                            if (activeSquare.getOwner().hasColorSet(activeSquare)){
-                                bankControl.payRent(currentPlayer, activeSquare, diceSum, true);
-                            }
-                            bankControl.payRent(currentPlayer, activeSquare, diceSum, false);
+                            bankControl.payRent(currentPlayer, activeSquare, diceSum);
                         } else if (!hasOwner){
                             bankControl.buyProperty(currentPlayer, activeSquare);
                         } else {
@@ -258,6 +255,7 @@ public class GameControl {
                         ui.showMessage("Du er skal straks rykke i fængsel!\nDu modtager IKKE penge hvis du passerer start!");
                         positionControl.goToJail();
                         jailControl.jailPlayer();
+                        diceControl.resetDouble();
                         chance = false;
                     }
                     case "VisitJail" -> {
