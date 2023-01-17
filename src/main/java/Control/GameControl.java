@@ -112,7 +112,7 @@ public class GameControl {
             jailControl. leaveJail();
         } else if (game.isPlayerInJail(currentPlayer) && !jailControl.isJailed()){
             jailControl.jailCount();
-            ui.showMessage(currentPlayer.getPlayerName() + " det er din tur, og du er i fængsel!");
+            ui.showMessage(Translator.getString("YOU_IN_JAIL"));
             boolean jail = true;
             while(jail) {
                 String action = jailControl.controlAction();
@@ -126,7 +126,7 @@ public class GameControl {
                             takeTurn(currentPlayer, true);
                             turnTaken = true;
                         } else {
-                            ui.showMessage("Du slog ikke dobbelt og bliver i fængsel, forsøg igen næste tur");
+                            ui.showMessage(Translator.getString("NO_DOUBLE"));
                             endTurn(currentPlayer);
                             turnTaken = true;
                         }
@@ -145,7 +145,7 @@ public class GameControl {
                             turnTaken = true;
                             jail = false;
                         } else {
-                            ui.showMessage("Du har ikke et fængselskort");
+                            ui.showMessage(Translator.getString("NO_JAILCARD"));
                         }
                     }
                 }
@@ -185,7 +185,7 @@ public class GameControl {
             }
             doubleOutOfJail = false;
             if (doubleDice && diceControl.doubleDiceCounter == 3){
-                ui.showMessage("Du har slået dobbelt 3 gange i træk og rykker derfor direkte i fængsel! Du vil IKKE modtage penge hvis du passere start!");
+                ui.showMessage(Translator.getString("THREE_DOUBLE"));
                 jailControl.jailPlayer();
                 diceControl.resetCounter();
                 updatePlayerInfo(game.getPlayers());
@@ -203,7 +203,7 @@ public class GameControl {
             while (chance) {
                 switch (action) {
                     case "Start" -> {
-                        ui.showMessage("Du er landet på START og vil modtage start-penge i din næste tur");
+                        ui.showMessage(Translator.getString("START_NEXT_TURN"));
                         chance = false;
                     }
                     case "Property" -> {
@@ -216,7 +216,7 @@ public class GameControl {
                         } else if (!hasOwner){
                             bankControl.buyProperty(currentPlayer, activeSquare);
                         } else {
-                            ui.showMessage("Du er landet på " + propertyName + ".\nDu ejer selv denne grund");
+                            ui.showMessage(Translator.getString("LAND_ON") + propertyName + Translator.getString("YOU_OWN"));
                         }
                         chance = false;
                     }
@@ -238,7 +238,7 @@ public class GameControl {
                         }
                     }
                     case "Metro" -> {
-                        ui.showMessage("Du er landet på en metro og tager den til næste stop");
+                        ui.showMessage(Translator.getString("PETRO"));
                         if(positionControl.landsOnMetro(playerPosition)){
                             bankControl.getPassedStart();
                             passedStart = false;
@@ -250,18 +250,18 @@ public class GameControl {
                         chance = false;
                     }
                     case "Parking" -> {
-                        ui.showMessage("Du er landet på parkeringsfeltet, nyd en lille pause");
+                        ui.showMessage(Translator.getString("LAND_ON_PARKING"));
                         chance = false;
                     }
                     case "GoToJail" -> {
-                        ui.showMessage("Du er skal straks rykke i fængsel!\nDu modtager IKKE penge hvis du passerer start!");
+                        ui.showMessage(Translator.getString("GO_TO_JAIL"));
                         positionControl.goToJail();
                         jailControl.jailPlayer();
                         diceControl.resetDouble();
                         chance = false;
                     }
                     case "VisitJail" -> {
-                        ui.showMessage("Nyd dit besøg i fængslet");
+                        ui.showMessage(Translator.getString("VISIT_JAIL"));
                         chance = false;
                     }
                 }
@@ -273,7 +273,7 @@ public class GameControl {
             updatePlayerInfo(game.getPlayers());
             doubleDice = diceControl.getDoubleDice();
             if (doubleDice && diceControl.getDoubleDiceCounter() != 3) {
-                ui.showMessage("Fordi du har slået dobbelt er det din tur igen");
+                ui.showMessage(Translator.getString("DOUBLE_DICE"));
             } else {
                 endTurn(currentPlayer);
                 break;
@@ -294,12 +294,12 @@ public class GameControl {
 
     public void declareWinner(){
         Player winner = game.getWinner();
-        ui.showMessage("Tillykke " + winner.getPlayerName() + "!\nDu har udkonkurreret alle dine modstandere og blevet den ægte Matador!");
+        ui.showMessage(Translator.getString("CONGRATS") + winner.getPlayerName() + Translator.getString("REAL_MATADOR"));
         playAgain();
     }
 
     public void playAgain(){
-        String action = ui.getUserButton("Vil I spille igen?", "Ja", "Nej");
+        String action = ui.getUserButton(Translator.getString("PLAY_AGAIN"), Translator.getString("YES"), Translator.getString("NO"));
         switch (action){
             case "Ja":
                 for (int i = 0; i < game.getBoard().getBoard().length; i++){
@@ -391,7 +391,7 @@ public class GameControl {
     }
 
     private void manipulatePlayerAccount(){
-        String s = ui.getUserButton("Skal den aktive spiller gøres fallit?", "Ja", "Nej");
+        String s = ui.getUserButton(Translator.getString("PLAYER_BROKE"), Translator.getString("YES"), Translator.getString("NO"));
         switch (s){
             case "Ja":
                 Player player1 = game.getPlayers()[0];
@@ -468,32 +468,23 @@ public class GameControl {
         setUpPlayers(2);
         ui.setGUIPlayers(game.getPlayers());
         diceControl.enabledDiceManipulation();
+        Player player1 = game.getSpecificPlayer(0);
         Player player2 = game.getSpecificPlayer(1);
         String a = game.getBoard().getSquare(1).getName();
         Lot blueOne = game.getBoard().getLot(a);
         blueOne.setOwner(player2);
-        player2.buyProperty(blueOne);
-        blueOne.setCurrentRent(1);
         String b = game.getBoard().getSquare(3).getName();
         Lot blueTwo = game.getBoard().getLot(b);
         blueTwo.setOwner(player2);
-        player2.buyProperty(blueTwo);
-        blueTwo.setCurrentRent(1);
         String c = game.getBoard().getSquare(6).getName();
         Lot orangeOne = game.getBoard().getLot(c);
         orangeOne.setOwner(player2);
-        player2.buyProperty(orangeOne);
-        orangeOne.setCurrentRent(1);
         String d = game.getBoard().getSquare(8).getName();
         Lot orangeTwo = game.getBoard().getLot(d);
         orangeTwo.setOwner(player2);
-        player2.buyProperty(orangeTwo);
-        orangeTwo.setCurrentRent(1);
         String e = game.getBoard().getSquare(9).getName();
         Lot orangeThree = game.getBoard().getLot(e);
         orangeThree.setOwner(player2);
-        player2.buyProperty(orangeThree);
-        orangeThree.setCurrentRent(1);
         runGame();
         }
 

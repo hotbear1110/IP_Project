@@ -89,13 +89,13 @@ public class BankControl {
         }
 
         if (property.isPropertyMortgaged()){
-            gameControl.getUI().showMessage("Du er landet på " + property.getName() + " som er ejet af " + property.getOwner().getPlayerName() + ".\n Denne grund er pantsat og du skal derfor ikke betale leje!");
+            gameControl.getUI().showMessage(Translator.getString("LAND_ON") + property.getName() + Translator.getString("WHO_OWNS") + property.getOwner().getPlayerName() + Translator.getString("NO_RENT"));
         } else if (player.isJailed()) {
-            gameControl.getUI().showMessage("Du er landet på " + property.getName() + " som er ejet af " + property.getOwner().getPlayerName() + ".\n Denne spiller er i fængsel og du skal derfor ikke betale leje!");
+            gameControl.getUI().showMessage(Translator.getString("LAND_ON") + property.getName() + Translator.getString("WHO_OWNS") + property.getOwner().getPlayerName() + Translator.getString("JAIL_NO_RENT"));
         } else {
-            gameControl.getUI().showMessage("Du er landet på " + property.getName() + " som er ejet af " + property.getOwner().getPlayerName() + ".\n Du skal derfor betale lejen på " + rent);
+            gameControl.getUI().showMessage(Translator.getString("LAND_ON") + property.getName() + Translator.getString("WHO_OWNS") + property.getOwner().getPlayerName() + Translator.getString("PAY_RENT_ON")+ rent);
             if (!checkPlayerBalance(player, rent)) {
-                gameControl.getUI().showMessage("Din balance er " + player.getPlayerBalance() + "kr. og du kan derfor ikke betale hele lejen på " + rent + "kr.\nDu er derfor gået fallit.\n Det du kan betale af lejen bliver betalt, dine grunde og opgraderinger gives tilbage til banken.");
+                gameControl.getUI().showMessage(Translator.getString("YOUR_BALANCE") + player.getPlayerBalance() + Translator.getString("PAY_KR") + rent + Translator.getString("BROKE"));
                 playerToPlayer(property.getOwner(), player, rent);
                 if(player.playerProperties().size() != 0){
                     for(int i = 0; i < player.playerProperties().size(); i++){
@@ -218,7 +218,7 @@ public class BankControl {
             }
         } else {
 
-            gameControl.getUI().showMessage("Prisen for et hus er " + lot.getHousePrice() + "kr.\nPrisen for et hotel er " + lot.getHotelPrice() + "kr.");
+            gameControl.getUI().showMessage(Translator.getString("PRIZE_HOUSE") + lot.getHousePrice() + Translator.getString("PRIZE_HOTEL") + lot.getHotelPrice() + Translator.getString("KR"));
             String action = gameControl.getUI().getDropDown(Translator.getString("CHOOSE_ACTION"), ControlMenus.buyUpgradeMenu);
             switch (action){
                 case "Køb hus":
@@ -239,7 +239,7 @@ public class BankControl {
         Lot lot = gameControl.getBoard().getLot(activeLot);
 
         if (lot.getHotel()) {
-            gameControl.getUI().showMessage("Du kan ikke købe flere end et hotel pr. grund");
+            gameControl.getUI().showMessage(Translator.getString("ONE_HOTEL"));
             buyUpgrades(player, activeLot);
             return;
         }
@@ -253,13 +253,13 @@ public class BankControl {
             }
         }
         if (!canBuyHotel) {
-            gameControl.getUI().showMessage("Du kan ikke købe hotel, da du ikke har nok huse på alle grundene");
+            gameControl.getUI().showMessage(Translator.getString("NOT_ENOUGH_HOUSE"));
             buyUpgrades(player, activeLot);
             return;
         }
         int buyAmount = lot.getHotelPrice();
         if (player.getPlayerBalance() - buyAmount <= 0) {
-            gameControl.getUI().showMessage("Du har ikke råd til at købe et hotel");
+            gameControl.getUI().showMessage(Translator.getString("NO_HOTEL"));
             buyUpgrades(player, activeLot);
             return;
         }
@@ -274,13 +274,13 @@ public class BankControl {
         Lot lot = gameControl.getBoard().getLot(activeLot);
 
         if (lot.getNumberOfHouses() == 4) {
-            gameControl.getUI().showMessage("Du kan ikke købe flere huse på denne grund");
+            gameControl.getUI().showMessage(Translator.getString("NO_MORE_HOUSE"));
             buyUpgrades(player, activeLot);
             return;
         }
         int buyAmount = lot.getHousePrice();
         if (player.getPlayerBalance() - buyAmount <= 0) {
-            gameControl.getUI().showMessage("Du har ikke råd til at købe et hus");
+            gameControl.getUI().showMessage(Translator.getString("CANT_AFFORD_HOUSE"));
             buyUpgrades(player, activeLot);
             return;
         }
@@ -296,7 +296,7 @@ public class BankControl {
         Lot lot = gameControl.getBoard().getLot(activeLot);
         int houses = lot.getNumberOfHouses();
         if (houses == 0) {
-            gameControl.getUI().showMessage("Du har ikke nogle huse på denne grund");
+            gameControl.getUI().showMessage(Translator.getString("NO_HOUSE"));
             buyUpgrades(player, activeLot);
             return;
         }
@@ -334,7 +334,7 @@ public class BankControl {
                         }
                     }
                     if (!isEven) {
-                        gameControl.getUI().showMessage("Du skal sælge et hus/hotel fra en af dine andre grunde med samme farvegruppe først");
+                        gameControl.getUI().showMessage(Translator.getString("MUST_SELL"));
                         buyUpgrades(player, activeLot);
                         return;
                     }
@@ -417,7 +417,7 @@ public class BankControl {
         switch (userSelection){
             case "Ja":
                 if (player.getPlayerBalance() - totaltAmount <= 0) {
-                    gameControl.getUI().showMessage("Du har ikke råd til at købe denne ejndom tilbage");
+                    gameControl.getUI().showMessage(Translator.getString("CANT_AFFORD_PROPERTY"));
                     mortgagedActions(player);
                     break;
                 }

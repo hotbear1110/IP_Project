@@ -106,7 +106,7 @@ public class UI {
     }
 
     public boolean getYesNoAnswer(String message){
-        return ui.getUserLeftButtonPressed(message, "Ja", "Nej");
+        return ui.getUserLeftButtonPressed(message, Translator.getString("YES"),Translator.getString("NO");
     }
     public int getNumber(String message, int min, int max){
         return ui.getUserInteger(message, min , max);
