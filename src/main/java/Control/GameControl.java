@@ -52,6 +52,9 @@ public class GameControl {
             case "K21/K22"-> {
                 k21_k22();
             }
+            case "K3/K4/K5/K6/K9/K16/K24" ->{
+                k3_k4_k5_k6_k9_k16_k24();
+            }
         }
 
     }
@@ -404,6 +407,12 @@ public class GameControl {
         Lot q = game.getBoard().getLot(t);
         q.setOwner(player1);
         player1.buyProperty((Property) q);
+        runGame();
+    }
+    private void k3_k4_k5_k6_k9_k16_k24(){
+        setUpPlayers(1);
+        ui.setGUIPlayers(game.getPlayers());
+        diceControl.enabledDiceManipulation();
         runGame();
     }
 }
