@@ -170,10 +170,10 @@ public class GameControl {
                 endTurn(currentPlayer);
                 break;
             }
-            positionControl.controlAction(diceSum);
-            passedStart = positionControl.hasPassedStart();
+            passedStart = positionControl.controlAction(diceSum);
             if (passedStart){
                 bankControl.getPassedStart();
+                passedStart = false;
             }
             playerPosition = game.getCurrentPlayer().getPlayerPosition();
             String action = actionControl.controlAction(playerPosition);
@@ -200,7 +200,7 @@ public class GameControl {
                         String[] n = chanceControl.controlAction(currentPlayer);
 
                         if (n[0].length() > 0) {
-                            positionControl.controlAction(Integer.parseInt(n[1]));
+                            passedStart = positionControl.controlAction(Integer.parseInt(n[1]));
 
                             playerPosition = getGame().getCurrentPlayer().getPlayerPosition();
                             action = actionControl.controlAction(playerPosition);
@@ -212,6 +212,7 @@ public class GameControl {
                         ui.showMessage("Du er landet på en metro og tager den til næste stop");
                         if(positionControl.landsOnMetro(playerPosition)){
                             bankControl.getPassedStart();
+                            passedStart = false;
                         }
                         chance = false;
                     }
@@ -235,9 +236,9 @@ public class GameControl {
                     }
                 }
             }
-            passedStart = positionControl.hasPassedStart();
             if (passedStart){
                 bankControl.getPassedStart();
+                passedStart = false;
             }
 
             doubleDice = diceControl.getDoubleDice();

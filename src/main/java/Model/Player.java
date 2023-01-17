@@ -157,10 +157,6 @@ public class Player {
         return playerName + " " + account.getBalance();
     }
 
-    public boolean hasPassedStart() {
-        return token.hasPassedStart();
-    }
-
     public boolean hasColorSet(Property activeProperty) {
        return account.hasColorSet(activeProperty);
     }
