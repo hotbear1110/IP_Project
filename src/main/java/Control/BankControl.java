@@ -176,7 +176,7 @@ public class BankControl {
             if (activeLot.equals(Translator.getString("BACK"))) {
                     buySellActions(player);
             } else {
-                String action = gameControl.getUI().getUserButton(Translator.getString("CHOOSE_ACTION"), ControlMenus.upgradeMenu);
+                String action = gameControl.getUI().getUserButton(Translator.getString("CHOOSE"), ControlMenus.upgradeMenu);
                 switch (action) {
                         case "Køb opgraderinger":
                             ArrayList<Lot> nextUpgradableProperties = player.nextUpgrade();
