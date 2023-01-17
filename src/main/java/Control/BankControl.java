@@ -97,10 +97,16 @@ public class BankControl {
         } else {
             gameControl.getUI().showMessage("Du er landet på " + property.getName() + " som er ejet af " + property.getOwner().getPlayerName() + ".\n Du skal derfor betale lejen på " + rent);
             if (!checkPlayerBalance(player, rent)) {
-                //din balance er ..... og kan derfor ikke betale hele lejen på ... Du er derfor gået fallit.\n Det du kan betale af lejen bliver betalt, dine grunde og opgraderinger gives tilbage til banken.
-            playerToPlayer(property.getOwner(), player, rent);
-                //reset property;
-            gameControl.declarePlayerBankrupt(player);
+                gameControl.getUI().showMessage("Din balance er " + player.getPlayerBalance() + "kr. og du kan derfor ikke betale hele lejen på " + rent + "kr.\nDu er derfor gået fallit.\n Det du kan betale af lejen bliver betalt, dine grunde og opgraderinger gives tilbage til banken.");
+                playerToPlayer(property.getOwner(), player, rent);
+                if(player.playerProperties().size() != 0){
+                    for(int i = 0; i < player.playerProperties().size(); i++){
+                        player.playerProperties().get(i).resetProperty();
+                    }
+                }
+                gameControl.declarePlayerBankrupt(player);
+            } else {
+                playerToPlayer(property.getOwner(), player, rent);
             }
         }/*else {
                 int totalWorth = getPlayersTotalWorth(player);
