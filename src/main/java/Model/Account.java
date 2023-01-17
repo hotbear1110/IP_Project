@@ -169,6 +169,67 @@ public class Account {
 
     }
 
+    public Lot[] nextDowngrade() {
+        Lot[] ownedProperties = getUpgradableProperties();
+        HashMap<Color, ArrayList<Lot>> sortedProperties = new HashMap<Color, ArrayList<Lot>>();
+
+        ArrayList<Lot> finalProperties = new ArrayList<>();
+
+
+
+        for (Lot ownedProperty : ownedProperties) {
+            Color color = ownedProperty.getColor();
+
+            ArrayList<Lot> j = sortedProperties.get(color);
+
+            if (j == null) {
+                ArrayList<Lot> k = new ArrayList<>();
+                k.add(ownedProperty);
+                sortedProperties.put(color, k);
+            } else {
+                j.add(ownedProperty);
+                sortedProperties.put(color, j);
+            }
+        }
+
+        for(Map.Entry<Color, ArrayList<Lot>> entry : sortedProperties.entrySet()) {
+            Color key = entry.getKey();
+            ArrayList<Lot> propertyList = entry.getValue();
+
+            ArrayList<Lot> upgradableProperties = new ArrayList<>();
+
+            int maxHouses = 0;
+
+            for (Lot property : propertyList ) {
+                int houseCount = property.getNumberOfHouses();
+                if (houseCount > maxHouses) {
+                    maxHouses = houseCount;
+                }
+            }
+
+            for (Lot property : propertyList ) {
+                int houseCount = property.getNumberOfHouses();
+
+                if (houseCount > maxHouses) {
+                    maxHouses = houseCount;
+                    upgradableProperties.clear();
+                    upgradableProperties.add(property);
+                } else if (houseCount == maxHouses) {
+                    upgradableProperties.add(property);
+                }
+            }
+
+            finalProperties.addAll(upgradableProperties);
+
+        }
+        Lot[] upgradableProperties = new Lot[finalProperties.size()];
+        for(int i = 0; i < finalProperties.size(); i++){
+            upgradableProperties[i] = finalProperties.get(i);
+        }
+        return upgradableProperties;
+
+    }
+
     public Lot[] getPropertiesWithUpgrades(){
         ArrayList<Property> ownedProperties = properties;
         ArrayList<Lot> propertiesWithUpgrades = new ArrayList<>();
