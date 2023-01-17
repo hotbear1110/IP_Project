@@ -302,7 +302,13 @@ public class GameControl {
                     if (game.getBoard().getBoard()[i] instanceof Property){
                         ((Property) game.getBoard().getBoard()[i]).resetProperty();
                     }
+                    if (game.getBoard().getBoard()[i] instanceof Lot){
+                        String lot = game.getBoard().getSquare(i).getName();
+                        ui.removeHouse(i, game.getBoard().getLot(lot).getNumberOfHouses());
+                        ui.removeHotel(i);
+                    }
                 }
+                ui.resetGUIPlayers();
                 gameStart();
             case "Nej":
                 break;
