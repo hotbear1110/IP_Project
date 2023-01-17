@@ -4,8 +4,6 @@ import Model.FixedValues;
 
 public class ControlMenus {
 
-    public static String[] diceMenu = new String[]{Translator.getString("ROLL_DICE")};
-
     public static String[] startMenu = new String[]{Translator.getString("TURN_START"), Translator.getString("SEE_OWNED_PROP")};
 
     public static String[] buySellMenu = new String[]{Translator.getString("BUY_SELL_UPGRADES"), Translator.getString("PAWN_REMOVE_PAWN"), Translator.getString("BACK")};
@@ -19,7 +17,7 @@ public class ControlMenus {
     public static String[] taxOrCash = new String[]{Translator.getString("PAY_10_IN_TAX"), Translator.getString("PAY_4000")};
     public static String[] inJail = new String[]{Translator.getString("ROLL_DICE"), Translator.getString("PAY_1000"), Translator.getString("USE_PRISONCARD")};
 
-    public static String[] languages = new String[]{Translator.getString("DANISH"), Translator.getString("ENGLISH")};
+    public static String[] languages = new String[]{"Dansk", "English"};
 
 
 }
