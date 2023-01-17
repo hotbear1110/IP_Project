@@ -47,6 +47,17 @@ public class GameControl {
     }
 
     private void gameStart() {
+        String language = ui.getUserButton("Choose language: ", ControlMenus.languages);
+
+        switch (language) {
+            case "English" -> {
+                Translator.initLanguage("en", "US");
+            }
+            case "Dansk" -> {
+                Translator.initLanguage("da", "DK");
+            }
+        }
+
         ui.showMessage(Translator.getString("START_MESSAGE")); // Shows start-up message
         /*
         String start = ui.getUserButton(Translator.getString("START_MESSAGE"), "Start spil", "Start demo");
@@ -121,10 +132,11 @@ public class GameControl {
             switch (action){
                 case "Start":
                     ui.showMessage("Du er landet på START og vil modtage start-penge i din næste tur");
+                    break;
                 case "Property":
                     boolean hasOwner;
-                    String lotName = game.getBoard().getSquare(playerPosition).getName();
-                    Property activeSquare = game.getBoard().getProperty(lotName);
+                    String propertyName = game.getBoard().getSquare(playerPosition).getName();
+                    Property activeSquare = game.getBoard().getProperty(propertyName);
                     hasOwner = activeSquare.isPropertyOwned();
                     if (hasOwner){
                         bankControl.payRent(currentPlayer, activeSquare, diceSum);
@@ -133,7 +145,8 @@ public class GameControl {
                     }
                     break;
                 case "Chance":
-                    chanceControl.controlAction(currentPlayer);
+                    int n = chanceControl.controlAction(currentPlayer);
+                    positionControl.controlAction(n);
                     break;
                 case "Metro":
                     ui.showMessage("Du er landet på en metro og tager den til næste stop");

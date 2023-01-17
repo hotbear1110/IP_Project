@@ -8,6 +8,13 @@ public class Utility {
         return Integer.parseInt(s.split("\\.")[0]);
     }
 
+    public static int parseFirstIntBeforePlus(String s){
+        return Integer.parseInt(s.split("\\+")[1]);
+    }
+    public static int parseSecondIntAfterPlus(String s){
+        return Integer.parseInt(s.split("\\+")[1]);
+    }
+
     public static String parseIntToString(int n){
         return Integer.toString(n);
     }
@@ -34,7 +41,7 @@ public class Utility {
             list.add(i, array[i]);
         }
         int n = list.size();
-        list.add(n + 1, element);
+        list.add(n, element);
         return parseListToArray(list);
     }
 

@@ -21,7 +21,7 @@ public class MovePlayer extends Cards {
     public int specific(Player player) {
         int position = player.getPlayerPosition();
 
-        int newfields = (fields - position < 0) ? 39 + (fields - position) : fields - position;
+        int newfields = (fields - position < 0) ? 40 + (fields - position) : fields - position;
         player.movePlayerPosition(newfields);
 
         return newfields;
