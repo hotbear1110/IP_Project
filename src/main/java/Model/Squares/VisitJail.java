@@ -5,8 +5,4 @@ public class VisitJail extends Square{
         super(name, subText, description);
     }
 
-    @Override
-    public String[] getSquareInfo() {
-        return super.getSquareInfo();
-    }
 }

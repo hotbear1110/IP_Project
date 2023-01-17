@@ -14,29 +14,24 @@ public class JailControl {
 
     public JailControl(GameControl gameControl) {
         this.gameControl = gameControl;
-
-        Player[] players = gameControl.getGame().getPlayers();
-
-        for (Player player : players) {
-            counter.put(player, 0);
-        }
-
     }
 
-    public int isJailed() {
+    public boolean isJailed() {
         Player player = gameControl.getGame().getCurrentPlayer();
 
-        int rounds = counter.get(player) + 1;
-        counter.remove(player);
-        counter.put(player, rounds);
+        int rounds =  counter.get(player) + 1;
 
-        return rounds;
+        return (rounds == 4);
+
     }
 
     public void jailPlayer() {
         Player player = gameControl.getGame().getCurrentPlayer();
 
         counter.put(player, 0);
+
+        player.jailPlayer();
+
     }
 
     public boolean hasJailCard() {
@@ -51,14 +46,38 @@ public class JailControl {
         Player player = gameControl.getGame().getCurrentPlayer();
 
         player.takeJailCard();
+        gameControl.getGame().getBoard().addJailCard();
 
         leaveJail();
+    }
+
+    public String controlAction() {
+        String action = gameControl.getUI().getDropDown("Vælg action", ControlMenus.inJail);
+        Player player = gameControl.getGame().getCurrentPlayer();
+
+        if (action.equals("Brug fængsels kort")) {
+            if (!hasJailCard()) {
+                gameControl.getUI().showMessage("Du har ikke et fængsels kort");
+                return controlAction();
+            }
+            useJailCard();
+        }
+
+        return action;
     }
 
     public void leaveJail() {
         Player player = gameControl.getGame().getCurrentPlayer();
 
         counter.remove(player);
-        counter.put(player, 0);
+
+        player.leaveJail();
+    }
+
+    public void jailCount() {
+        Player player = gameControl.getGame().getCurrentPlayer();
+        int rounds = counter.get(player) + 1;
+        counter.remove(player);
+        counter.put(player, rounds);
     }
 }

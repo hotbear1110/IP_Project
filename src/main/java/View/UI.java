@@ -5,9 +5,12 @@ import Model.Board;
 import Model.Dice;
 import Model.FixedValues;
 import Model.Player;
+import Model.Squares.Lot;
+import Model.Squares.Property;
 import gui_fields.GUI_Car;
 import gui_fields.GUI_Field;
 import gui_fields.GUI_Player;
+import gui_fields.GUI_Street;
 import gui_main.GUI;
 
 import java.awt.*;
@@ -22,8 +25,7 @@ public class UI {
 
     public UI(Board board){
         this.players = new HashMap<>();
-        this.ui = createDemoBoard(board);
-        //this.ui = createBoard(board);
+        this.ui = createBoard(board);
     }
 
     public void updateDice(int x, int y){
@@ -37,15 +39,29 @@ public class UI {
         }
     }
 
-    //----------- GUI-Board methods --------\\
-    public GUI createDemoBoard(Board board){
-        this.guiBoard = new GUI_Field[FixedValues.NUM_OF_SQUARES];
-
-        for (int i = 0; i < FixedValues.NUM_OF_SQUARES; i++){
-            guiBoard[i] = UIBoardFactory.demoBoardFactory(board.getSquare(i));
-        }
-        return this.ui = new GUI(guiBoard, FixedValues.BOARD_COLOR);
+   public void addHouse(int index, int houseNumber){
+        GUI_Field field = guiBoard[index];
+        GUI_Street street = (GUI_Street) field;
+        street.setHouses(houseNumber);
+   }
+    public void removeHouse(int index, int newHouseNumber){
+        GUI_Field field = guiBoard[index];
+        GUI_Street street = (GUI_Street) field;
+        street.setHouses(newHouseNumber);
     }
+
+    public void addHotel(int index){
+        GUI_Field field = guiBoard[index];
+        GUI_Street street = (GUI_Street) field;
+        street.setHotel(true);
+    }
+
+    public void removeHotel(int index){
+        GUI_Field field = guiBoard[index];
+        GUI_Street street = (GUI_Street) field;
+        street.setHotel(true);
+    }
+    //----------- GUI-Board methods --------\\
 
     public GUI createBoard(Board board){
         this.guiBoard = new GUI_Field[FixedValues.NUM_OF_SQUARES];
@@ -77,6 +93,9 @@ public class UI {
         }
     }
 
+    public void resetGUIPlayers(){
+        players.clear();
+    }
     public GUI_Player getGUIPlayer(Player player){
         return players.get(player);
     }
@@ -84,6 +103,10 @@ public class UI {
     //------------- INPUT & OUTPUT METHODS ------------\\
     public void showMessage(String message){
         ui.showMessage(message);
+    }
+
+    public boolean getYesNoAnswer(String message){
+        return ui.getUserLeftButtonPressed(message, "Ja", "Nej");
     }
     public int getNumber(String message, int min, int max){
         return ui.getUserInteger(message, min , max);

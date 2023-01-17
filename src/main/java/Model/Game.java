@@ -14,9 +14,9 @@ public class Game {
 
     private boolean gameOver;
 
-    public Game(){
+    public Game(Board board){
         this.dice = new Dice();
-        this.board = new Board();
+        this.board = board;
         this.gameOver = false;
     }
 
@@ -76,6 +76,9 @@ public class Game {
         someoneIsBankrupt = true;
     }
 
+    public boolean isPlayerInJail(Player player){
+        return player.isJailed();
+    }
     public boolean isAnyBankrupt(){
         for (Player player : players) {
             if (player.isBankrupt()) {

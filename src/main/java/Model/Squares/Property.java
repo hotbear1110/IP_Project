@@ -2,19 +2,25 @@ package Model.Squares;
 
 import Model.Player;
 
+import java.util.ArrayList;
+
 public abstract class Property extends Square{
     private final int price;
+    private final ColorGroup group;
     private Player owner;
     private boolean isOwned;
     private final int mortgage;
     private boolean isMortgaged = false;
 
-    public Property(String name, String subText, String description, int price, int mortgage){
+    public Property(String name, String subText, String description, int price, int mortgage, ColorGroup group){
         super(name, subText, description);
         this.price = price;
         this.mortgage = mortgage;
         this.owner = null;
         this.isOwned = false;
+        this.group = group;
+
+        group.addMember(this);
     }
 
     public int getPrice(){
@@ -24,6 +30,13 @@ public abstract class Property extends Square{
     public int getMortgage(){
         return this.mortgage;
     }
+    public abstract void setCurrentRent(int index);
+    public void setAsMortgaged(){
+        isMortgaged = true;
+    }
+    public void setAsNotMortgaged(){
+        isMortgaged = false;
+    }
 
     public Player getOwner(){
         return this.owner;
@@ -32,19 +45,31 @@ public abstract class Property extends Square{
         this.owner = player;
         this.isOwned = true;
     }
+    public void removeOwner(){
+        this.owner = null;
+        this.isOwned = false;
+    }
 
-    public boolean isOwned(){
+    public boolean isPropertyOwned(){
         return this.isOwned;
     }
 
-    public abstract int getRent();
-
-    public boolean isMortgaged(){
+    public boolean isPropertyMortgaged(){
         return isMortgaged;
     }
 
-
-    public Property getProperty(){
-        return this;
+    public ArrayList<Property> getMembers(){
+        return getGroup().getMembers();
     }
+    public ColorGroup getGroup(){
+        return this.group;
+    }
+
+    public abstract void resetProperty();
+
+    @Override
+    public String toString(){
+        return super.name;
+    }
+
 }

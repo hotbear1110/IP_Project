@@ -4,6 +4,7 @@ import java.util.Random;
 
 public class Dice {
     private int[] dice;
+    boolean doubleDice;
 
     public Dice() {
         dice = new int[FixedValues.NUM_OF_DICE];
@@ -17,9 +18,11 @@ public class Dice {
             //Random number between 1 and 6 (including).
             dice[i] = randomObj.nextInt(6) + 1;
         }
+        isDouble();
     }
     public void setDicePair(int[] pair){
         dice = pair;
+        isDouble();
     }
     public int getSingleDice(int index) {
         return dice[index];
@@ -30,7 +33,19 @@ public class Dice {
     public int[] getPair(){
         return dice;
     }
-    public boolean isDouble() {
-        return dice[0] == dice[1];
+    public void isDouble() {
+        if (dice[0] == dice[1]){
+                this.doubleDice = true;
+        } else {
+            this.doubleDice = false;
+        }
+    }
+
+    public boolean getDouble(){
+        return this.doubleDice;
+    }
+
+    public void resetDouble(){
+        this.doubleDice = false;
     }
 }

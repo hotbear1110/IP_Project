@@ -1,5 +1,6 @@
 package Model;
 
+import Model.Squares.Lot;
 import Model.Squares.Property;
 
 import java.util.ArrayList;
@@ -11,11 +12,8 @@ public class Player {
 
     private Token token; //The token associated with the player
 
+    private boolean isJailed = false;
 
-//metode der retunere arraylist og propeties
-    public ArrayList<Property> playerProperties(){
-        return account.getProperty();
-    }
     /**
      * The constructor for the player
      * @param Name (String) The player name
@@ -26,13 +24,34 @@ public class Player {
         token = new Token();
     }
 
+//metode der retunere arraylist og propeties
+    public ArrayList<Property> playerProperties(){
+        return account.getProperty();
+    }
+
+    public Lot[] getPropertiesWithUpgrades(){
+        return account.getPropertiesWithUpgrades();
+    }
+
+    public Lot[] getUpgradableProperties(){
+        return account.getUpgradableProperties();
+    }
+    public void buyProperty(Property property){
+        account.addProperty(property);
+    }
+
+    public Lot[] nextUpgrade() {
+        return account.nextUpgrade();
+    }
+
+    public Lot[] nextDowngrade() {
+        return account.nextDowngrade();
+    }
+
     /**
      * Sets the player name
      * @param name (String) The player name
      */
-    public void setPlayerName(String name) {
-        playerName = name;
-    }
 
     /**
      * @return (String) The player name
@@ -54,6 +73,14 @@ public class Player {
      */
     public int getPlayerBalance() {
         return account.getBalance();
+    }
+
+    public boolean checkPlayerBalance(int amount){
+        return account.balanceCheck(amount);
+    }
+
+    public int getTotalWorth(){
+        return account.calculateTotalWorth();
     }
 
     /**
@@ -93,12 +120,37 @@ public class Player {
         return account.hasJailCard();
     }
 
+    public boolean isJailed() {
+        return isJailed;
+    }
+
+    public void jailPlayer() {
+        this.isJailed = true;
+        token.setPosition(FixedValues.IN_JAIL_SQUARE);
+    }
+
+    public void leaveJail() {
+        this.isJailed = false;
+    }
+
+    public int getHouseCount() {
+        return account.getHouseCount();
+    }
+
+    public int getHotelCount() {
+        return account.getHotelCount();
+    }
+
     /**
      * Checks of the player is bankrupt
      * @return (boolean) True if the player balance is 0
      */
     public boolean isBankrupt() {
-        return account.getBalance() == 0;
+        return account.checkBankrupcy();
+    }
+
+    public void setAsBankrupt(){
+        account.setAsBankrupt();
     }
 
     /**
@@ -109,7 +161,7 @@ public class Player {
         return playerName + " " + account.getBalance();
     }
 
-    public boolean hasPassedStart() {
-        return token.hasPassedStart();
+    public boolean hasColorSet(Property activeProperty) {
+       return account.hasColorSet(activeProperty);
     }
 }

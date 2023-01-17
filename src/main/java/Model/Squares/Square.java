@@ -26,4 +26,9 @@ public abstract class Square {
     public String[] getSquareInfo(){
         return new String[]{name, subText, description};
     }
+
+    @Override
+    public String toString(){
+        return name;
+    }
 }

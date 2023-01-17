@@ -2,6 +2,8 @@ package Model.ChanceCards;
 
 import Model.Player;
 
+import java.util.ArrayList;
+
 public class MovePlayer extends Cards {
 
     private String description;
@@ -12,22 +14,36 @@ public class MovePlayer extends Cards {
         fields = Fields;
     }
 
-    public void move(Player player) {
-        player.movePlayerPosition(fields);
+    public String[] move(Player player) {
+
+        return new String[]{"move", Integer.toString(fields)};
     }
 
-    public void specific(Player player) {
-        player.movePlayerPosition(fields);
+    public String[] specific(Player player) {
+        int position = player.getPlayerPosition();
+
+        int newfields = (fields - position < 0) ? 40 + (fields - position) : fields - position;
+
+        return new String[]{"move", Integer.toString(newfields)};
     }
 
-    public void jail(Player player) {
-        //Vi skal lige finde ud af en måde spilleren ikke får penge på
-        player.movePlayerPosition(fields);
+    public String[] jail(Player player) {
+        player.setPlayerPosition(fields);
+
+        return new String[]{"jail", "0"};
     }
 
-    public void moveToNext(Player player) {
-        //Vi skal lige finde ud af en måde at se hvilet redderi der er det næste
-        player.movePlayerPosition(fields);
+    public String[] moveToNext(Player player) {
+
+        int newfields = (player.getPlayerPosition() > 15) ? 35 : 15;
+
+        int move = newfields - player.getPlayerPosition();
+
+        if (fields == 0) {
+            return  new String[]{"double", Integer.toString(move)};
+        }
+        return  new String[]{"move", Integer.toString(move)};
     }
 
 }
+
