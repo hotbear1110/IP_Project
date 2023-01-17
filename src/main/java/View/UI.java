@@ -59,7 +59,7 @@ public class UI {
     public void removeHotel(int index){
         GUI_Field field = guiBoard[index];
         GUI_Street street = (GUI_Street) field;
-        street.setHotel(true);
+        street.setHotel(false);
     }
     //----------- GUI-Board methods --------\\
 
