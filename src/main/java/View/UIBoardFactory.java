@@ -13,7 +13,7 @@ public class UIBoardFactory {
         } else if (square instanceof Lot){
             return new GUI_Street(square.getName(), square.getSubText(), square.getDescription(), Utility.parseIntToString(((Lot) square).getRent()) + "kr.", ((Lot) square).getColor(), Color.black);
         } else if(square instanceof Ship){
-            return new GUI_Shipping("",square.getName(), square.getSubText(), square.getDescription(),"",Color.WHITE, Color.black);
+            return new GUI_Shipping("",square.getName(), square.getSubText(), square.getDescription(), Utility.parseIntToString(((Ship) square).getRent()) + "kr.", Color.WHITE, Color.black);
         } else if (square instanceof Brewery) {
             return new GUI_Brewery("",square.getName(), square.getSubText(), square.getDescription(),"",Color.WHITE, Color.black);
         } else if (square instanceof Chance){

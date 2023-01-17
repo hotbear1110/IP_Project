@@ -13,24 +13,34 @@ public class DiceControl{
     }
 
     public void controlAction(){
+        if (!gameControl.getGame().getDice().getDouble()){
+            resetCounter();
+        }
         if(!diceManipulation) {
             gameControl.getGame().getDice().rollDice();
-            doubleDice = gameControl.getGame().getDice().isDouble();
+            doubleDice = gameControl.getGame().getDice().getDouble();
             if (doubleDice) {
                 doubleDiceCounter++;
             }
         } else {
-            String[] menu = new String[]{"1 + 1", "1 + 2", "3 + 4", "5 + 5", "6 + 6"};
-            String s = gameControl.getUI().getDropDown("Vælg et terningeslag", menu);
-            int x = Utility.parseFirstIntBeforePlus(s);
-            int y = Utility.parseSecondIntAfterPlus(s);
-            int[] dice = new int[]{x, y};
-            gameControl.getGame().getDice().setDicePair(dice);
+            loadedDice();
         }
     }
 
+    public void loadedDice(){
+        String[] menu = new String[]{"1 & 1", "1 & 2", "2 & 2", "2 & 3", "1 & 5", "3 & 4", "2 & 6", "4 & 5", "5 & 5", "4 & 6", "5 & 6", "6 & 6"};
+        String s = gameControl.getUI().getDropDown("Vælg et terningeslag", menu);
+        int[] dicePair = Utility.parseTwoIntsToArray(s);
+        gameControl.getGame().getDice().setDicePair(dicePair);
+        doubleDice = gameControl.getGame().getDice().getDouble();
+        if (doubleDice) {
+            doubleDiceCounter++;
+        }
+
+    }
+
     public boolean getDoubleDice(){
-        return doubleDice;
+        return gameControl.getGame().getDice().getDouble();
     }
 
     public int getDoubleDiceCounter(){
@@ -39,6 +49,9 @@ public class DiceControl{
 
     public void resetCounter(){
         doubleDiceCounter = 0;
+    }
+    public void resetDouble(){
+
     }
 
     public void enabledDiceManipulation(){

@@ -8,12 +8,13 @@ public class Utility {
         return Integer.parseInt(s.split("\\.")[0]);
     }
 
-    public static int parseFirstIntBeforePlus(String s){
-        return Integer.parseInt(s.split("\\+")[1]);
+    public static int[] parseTwoIntsToArray(String s){
+        int x = Integer.parseInt(s.split(" & ")[0]);
+        int y = Integer.parseInt(s.split(" & ")[1]);
+        int[] ints = new int[]{x, y};
+        return ints;
     }
-    public static int parseSecondIntAfterPlus(String s){
-        return Integer.parseInt(s.split("\\+")[1]);
-    }
+
 
     public static String parseIntToString(int n){
         return Integer.toString(n);

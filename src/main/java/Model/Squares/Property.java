@@ -59,11 +59,13 @@ public abstract class Property extends Square{
     }
 
     public ArrayList<Property> getMembers(){
-        return group.getMembers();
+        return getGroup().getMembers();
     }
     public ColorGroup getGroup(){
         return this.group;
     }
+
+    public abstract void resetProperty();
 
     @Override
     public String toString(){

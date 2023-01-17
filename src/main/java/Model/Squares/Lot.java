@@ -1,6 +1,5 @@
 package Model.Squares;
 
-import Global.Utility;
 import Model.Player;
 
 import java.awt.*;
@@ -110,13 +109,13 @@ public class Lot extends Property {
         return hotel;
     }
 
-    public void resetLot(){
+    @Override
+    public void resetProperty(){
         removeOwner();
         hasUpgrades = false;
         canBeUpgraded = true;
         hotel = false;
         currentRent = rentTable[0];
-
     }
     public Color getColor(){
         return color;

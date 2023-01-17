@@ -2,6 +2,7 @@ package Model;
 
 import Model.ChanceCards.Deck;
 import Model.Squares.*;
+import Model.Game;
 
 public class Board {
     private final Square[] squares;
@@ -24,6 +25,15 @@ public class Board {
         return squares[index];
     }
 
+    public int getIndex(String squareName){
+        int index = 0;
+        for(int i = 0; i < getBoard().length; i++){
+            if (getBoard()[i].getName().equals(squareName)){
+                index = i;
+            }
+        }
+        return index;
+    }
     public Property getProperty(String propertyName){
         for (Square square : getBoard()){
             if (square instanceof Property){
@@ -76,7 +86,7 @@ public class Board {
         }
         return null;
     }
-    public int drawCard(Player currentPlayer, Player[] players){
+    public String[] drawCard(Player currentPlayer, Player[] players){
         return cardDeck.pullCard(currentPlayer, players);
     }
 

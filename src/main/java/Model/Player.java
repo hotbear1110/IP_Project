@@ -40,21 +40,18 @@ public class Player {
         account.addProperty(property);
     }
 
-    public void sellProperty(Property property){
-        account.removeProperty(property);
+    public Lot[] nextUpgrade() {
+        return account.nextUpgrade();
     }
 
-    public ArrayList<Lot> nextUpgrade() {
-        return account.nextUpgrade();
+    public Lot[] nextDowngrade() {
+        return account.nextDowngrade();
     }
 
     /**
      * Sets the player name
      * @param name (String) The player name
      */
-    public void setPlayerName(String name) {
-        playerName = name;
-    }
 
     /**
      * @return (String) The player name
@@ -129,10 +126,19 @@ public class Player {
 
     public void jailPlayer() {
         this.isJailed = true;
+        token.setPosition(FixedValues.IN_JAIL_SQUARE);
     }
 
     public void leaveJail() {
         this.isJailed = false;
+    }
+
+    public int getHouseCount() {
+        return account.getHouseCount();
+    }
+
+    public int getHotelCount() {
+        return account.getHotelCount();
     }
 
     /**
@@ -153,10 +159,6 @@ public class Player {
      */
     public String toString() {
         return playerName + " " + account.getBalance();
-    }
-
-    public boolean hasPassedStart() {
-        return token.hasPassedStart();
     }
 
     public boolean hasColorSet(Property activeProperty) {

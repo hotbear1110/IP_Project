@@ -2,6 +2,7 @@ package Model;
 
 import Model.Squares.ColorGroup;
 import Model.Squares.Lot;
+import Model.Squares.Jail;
 import Model.Squares.Property;
 
 import java.awt.*;
@@ -69,22 +70,28 @@ public class Account {
                 ownedLots.add((Lot) property);
             }
         }
-        HashMap<Lot, Integer> propertyCount = new HashMap<Lot, Integer>();
+        HashMap<Color, Integer> colorCount = new HashMap<Color, Integer>();
         for (Lot lot : ownedLots) {
-            Integer j = propertyCount.get(lot);
+            Integer j = colorCount.get(lot.getColor());
             if (j == null) {
-                propertyCount.put(lot, 1);
+                colorCount.put(lot.getColor(), 1);
             } else if (!lot.isPropertyMortgaged()) {
-                propertyCount.put(lot, j + 1);
+                colorCount.put(lot.getColor(), j + 1);
             }
         }
+        HashMap<Color, Integer> maxLots = new HashMap<Color, Integer>();
+        for (Lot lot : ownedLots) {
+            Integer j = maxLots.get(lot.getColor());
+            maxLots.put(lot.getColor(), lot.getMembers().size());
+
+        }
+
         ArrayList<Color> color = new ArrayList<>();
-        for(Map.Entry<Lot, Integer> entry : propertyCount.entrySet()){
-            Lot currentLot = entry.getKey();
-            Color key = entry.getKey().getColor();
+        for(Map.Entry<Color, Integer> entry : colorCount.entrySet()){
+            Color key = entry.getKey();
             Integer value = entry.getValue();
-            int colorCount = currentLot.getMembers().size();
-            if(value == colorCount){
+            int maxLotsCount = maxLots.get(key);
+            if(value == maxLotsCount){
                 color.add(key);
             }
         }
@@ -102,7 +109,7 @@ public class Account {
         return upgradableProperties;
     }
 
-    public ArrayList<Lot> nextUpgrade() {
+    public Lot[] nextUpgrade() {
         Lot[] ownedProperties = getUpgradableProperties();
         HashMap<Color, ArrayList<Lot>> sortedProperties = new HashMap<Color, ArrayList<Lot>>();
 
@@ -135,6 +142,13 @@ public class Account {
 
             for (Lot property : propertyList ) {
                 int houseCount = property.getNumberOfHouses();
+                if (houseCount > maxHouses) {
+                    maxHouses = houseCount;
+                }
+            }
+
+            for (Lot property : propertyList ) {
+                int houseCount = property.getNumberOfHouses();
 
                 if (houseCount < maxHouses) {
                     maxHouses = houseCount;
@@ -148,8 +162,72 @@ public class Account {
             finalProperties.addAll(upgradableProperties);
 
         }
+        Lot[] upgradableProperties = new Lot[finalProperties.size()];
+        for(int i = 0; i < finalProperties.size(); i++){
+            upgradableProperties[i] = finalProperties.get(i);
+        }
+        return upgradableProperties;
 
-        return finalProperties;
+    }
+
+    public Lot[] nextDowngrade() {
+        Lot[] ownedProperties = getUpgradableProperties();
+        HashMap<Color, ArrayList<Lot>> sortedProperties = new HashMap<Color, ArrayList<Lot>>();
+
+        ArrayList<Lot> finalProperties = new ArrayList<>();
+
+
+
+        for (Lot ownedProperty : ownedProperties) {
+            Color color = ownedProperty.getColor();
+
+            ArrayList<Lot> j = sortedProperties.get(color);
+
+            if (j == null) {
+                ArrayList<Lot> k = new ArrayList<>();
+                k.add(ownedProperty);
+                sortedProperties.put(color, k);
+            } else {
+                j.add(ownedProperty);
+                sortedProperties.put(color, j);
+            }
+        }
+
+        for(Map.Entry<Color, ArrayList<Lot>> entry : sortedProperties.entrySet()) {
+            Color key = entry.getKey();
+            ArrayList<Lot> propertyList = entry.getValue();
+
+            ArrayList<Lot> upgradableProperties = new ArrayList<>();
+
+            int maxHouses = 0;
+
+            for (Lot property : propertyList ) {
+                int houseCount = property.getNumberOfHouses();
+                if (houseCount > maxHouses) {
+                    maxHouses = houseCount;
+                }
+            }
+
+            for (Lot property : propertyList ) {
+                int houseCount = property.getNumberOfHouses();
+
+                if (houseCount > maxHouses) {
+                    maxHouses = houseCount;
+                    upgradableProperties.clear();
+                    upgradableProperties.add(property);
+                } else if (houseCount == maxHouses) {
+                    upgradableProperties.add(property);
+                }
+            }
+
+            finalProperties.addAll(upgradableProperties);
+
+        }
+        Lot[] upgradableProperties = new Lot[finalProperties.size()];
+        for(int i = 0; i < finalProperties.size(); i++){
+            upgradableProperties[i] = finalProperties.get(i);
+        }
+        return upgradableProperties;
 
     }
 
@@ -195,21 +273,42 @@ public class Account {
         return (colorProperties == colorCount);
     }
 
-    public boolean canPropertyBeUpgraded(Lot lot) {
-        Lot[] upgradableProperties = getUpgradableProperties();
-        HashMap<Lot, Integer> numberOfUpgrades = new HashMap<>();
-        for (int i = 0; i < upgradableProperties.length; i++) {
-            if (upgradableProperties[i].equals(lot)) {
-                i++;
-            }
-            if (upgradableProperties[i].getHotel()) {
-                numberOfUpgrades.put(upgradableProperties[i], upgradableProperties[i].getNumberOfHouses() + 1);
-            } else {
-                numberOfUpgrades.put(upgradableProperties[i], upgradableProperties[i].getNumberOfHouses());
+    public int getHouseCount() {
+        ArrayList<Lot> ownedLots = new ArrayList<>();
+
+        for (int i = 0; i < properties.size(); i++) {
+            if(properties.get(i) instanceof Lot){
+                ownedLots.add((Lot) properties.get(i));
             }
         }
-        return false;
+
+        int houseCount = 0;
+
+        for (Lot lot : ownedLots) {
+            houseCount += lot.getNumberOfHouses();
+        }
+
+        return houseCount;
     }
+
+    public int getHotelCount() {
+        ArrayList<Lot> ownedLots = new ArrayList<>();
+
+        for (int i = 0; i < properties.size(); i++) {
+            if(properties.get(i) instanceof Lot){
+                ownedLots.add((Lot) properties.get(i));
+            }
+        }
+
+        int hotelCount = 0;
+
+        for (Lot lot : ownedLots) {
+            hotelCount += (lot.getHotel()) ? 1 : 0;
+        }
+
+        return hotelCount;
+    }
+
     /**
      * @return current balance
      */
@@ -237,9 +336,17 @@ public class Account {
         return balance >= amount;
     }
 
-    public boolean checkBankrupcy(){
+    /*public boolean checkBankrupcy(){
         int totalworth = calculateTotalWorth();
         if (totalworth == 0){
+            return true;
+        } else {
+            return false;
+        }
+    }*/
+
+    public boolean checkBankrupcy(){
+        if (balance == 0){
             return true;
         } else {
             return false;

@@ -21,21 +21,12 @@ public class ChancePay extends Cards{
         player.setPlayerBalance(-amount);
     }
 
-    /*public void payPerHouse(Player player) {
-        ArrayList<Model.Squares.Property> properties = player.playerProperties();
+    public void payPerHouse(Player player) {
 
-        int houseCount = 0;
-        int hotelCount = 0;
-
-        for (Property property : properties) {
-            if (gameControl.getGame().getBoard().getSquare(position) instanceof Lot)
-            int propertyHouses = property.getHouses().length;
-            int propertyHotels = property.getHotels().length;
-            houseCount += propertyHouses;
-            hotelCount += propertyHotels;
-        }
+        int houseCount = player.getHouseCount();
+        int hotelCount = player.getHotelCount();
 
         player.setPlayerBalance((amount * houseCount) + (hotelAmount * hotelCount));
-    }*/
+    }
 
 }

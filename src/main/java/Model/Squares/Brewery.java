@@ -56,6 +56,11 @@ public class Brewery extends Property{
     }
 
     @Override
+    public void resetProperty(){
+        removeOwner();
+        currentRent = rentTable[0];
+    }
+    @Override
     public String toString(){
         return super.name;
     }
