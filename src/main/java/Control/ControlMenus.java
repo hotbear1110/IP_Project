@@ -3,7 +3,7 @@ package Control;
 import Model.FixedValues;
 
 public class ControlMenus {
-    
+
     public static String[] startMenu = new String[]{Translator.getString("TURN_START"), Translator.getString("SEE_OWNED_PROP")};
 
     public static String[] buySellMenu = new String[]{Translator.getString("BUY_SELL_UPGRADES"), Translator.getString("PAWN_REMOVE_PAWN"), Translator.getString("BACK")};
