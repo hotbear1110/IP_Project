@@ -13,6 +13,9 @@ public class DiceControl{
     }
 
     public void controlAction(){
+        if (!gameControl.getGame().getDice().isDouble()){
+            resetCounter();
+        }
         if(!diceManipulation) {
             gameControl.getGame().getDice().rollDice();
             doubleDice = gameControl.getGame().getDice().isDouble();
@@ -25,10 +28,14 @@ public class DiceControl{
     }
 
     public void loadedDice(){
-        String[] menu = new String[]{"1 & 1", "1 & 2", "3 & 4", "5 & 5", "4 & 6 ", "6 & 6"};
+        String[] menu = new String[]{"1 & 1", "1 & 2", "3 & 4", "5 & 5", "4 & 6", "6 & 6"};
         String s = gameControl.getUI().getDropDown("Vælg et terningeslag", menu);
         int[] dicePair = Utility.parseTwoIntsToArray(s);
         gameControl.getGame().getDice().setDicePair(dicePair);
+        doubleDice = gameControl.getGame().getDice().isDouble();
+        if (doubleDice) {
+            doubleDiceCounter++;
+        }
 
     }
 

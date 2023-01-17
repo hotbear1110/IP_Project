@@ -132,9 +132,14 @@ public class GameControl {
             diceControl.controlAction();
             diceSum = game.getDice().getSum();
             doubleDice = diceControl.getDoubleDice();
-
             updateDice();
 
+            if (doubleDice && diceControl.doubleDiceCounter == 3){
+                jailControl.jailPlayer();
+                diceControl.resetCounter();
+                endTurn(currentPlayer);
+                break;
+            }
             positionControl.controlAction(diceSum);
             passedStart = positionControl.hasPassedStart();
             if (passedStart){
@@ -204,15 +209,10 @@ public class GameControl {
 
             if (doubleDice && diceControl.getDoubleDiceCounter() != 3){
                 ui.showMessage("Fordi du har slået dobbelt er det din tur igen");
-            } else if (doubleDice && diceControl.doubleDiceCounter == 3){
-                jailControl.jailPlayer();
-                diceControl.resetCounter();
-                break;
             } else {
-                break;
+                endTurn(currentPlayer);
             }
         }
-        endTurn(currentPlayer);
     }
 
     public void endTurn(Player player){
@@ -302,5 +302,6 @@ public class GameControl {
         setUpPlayers(2);
         ui.setGUIPlayers(game.getPlayers());
         diceControl.enabledDiceManipulation();
+        runGame();
     }
 }

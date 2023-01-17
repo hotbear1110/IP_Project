@@ -4,6 +4,7 @@ import java.util.Random;
 
 public class Dice {
     private int[] dice;
+    boolean doubleDice;
 
     public Dice() {
         dice = new int[FixedValues.NUM_OF_DICE];
@@ -31,6 +32,13 @@ public class Dice {
         return dice;
     }
     public boolean isDouble() {
-        return dice[0] == dice[1];
+        if (dice[0] == dice[1]){
+                doubleDice = true;
+        }
+        return doubleDice;
+    }
+
+    public void resetDouble(){
+        doubleDice = false;
     }
 }
