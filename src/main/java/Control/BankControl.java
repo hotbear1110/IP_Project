@@ -163,7 +163,7 @@ public class BankControl {
     }
 
     private void handleUpgrades(Player player) {
-        Lot[] upgradableProperties = player.getUpgradableProperties();
+        Lot[] upgradableProperties = player.nextUpgrade();
         String[] properties = new String[upgradableProperties.length];
         for(int i = 0; i < upgradableProperties.length; i++){
             properties[i] = upgradableProperties[i].getName();
@@ -182,7 +182,7 @@ public class BankControl {
                 String action = gameControl.getUI().getUserButton("Vælg en handling: ", ControlMenus.upgradeMenu);
                 switch (action) {
                         case "Køb opgraderinger":
-                            ArrayList<Lot> nextUpgradableProperties = player.nextUpgrade();
+                            Lot[] nextUpgradableProperties = player.nextUpgrade();
 
                             boolean isNext = false;
 

@@ -34,13 +34,13 @@ public class Player {
     }
 
     public Lot[] getUpgradableProperties(){
-        return account.getUpgradableProperties();
+        return account.nextUpgrade();
     }
     public void buyProperty(Property property){
         account.addProperty(property);
     }
 
-    public ArrayList<Lot> nextUpgrade() {
+    public Lot[] nextUpgrade() {
         return account.nextUpgrade();
     }
 

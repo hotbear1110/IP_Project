@@ -102,7 +102,7 @@ public class Account {
         return upgradableProperties;
     }
 
-    public ArrayList<Lot> nextUpgrade() {
+    public Lot[] nextUpgrade() {
         Lot[] ownedProperties = getUpgradableProperties();
         HashMap<Color, ArrayList<Lot>> sortedProperties = new HashMap<Color, ArrayList<Lot>>();
 
@@ -148,8 +148,11 @@ public class Account {
             finalProperties.addAll(upgradableProperties);
 
         }
-
-        return finalProperties;
+        Lot[] upgradableProperties = new Lot[finalProperties.size()];
+        for(int i = 0; i < finalProperties.size(); i++){
+            upgradableProperties[i] = finalProperties.get(i);
+        }
+        return upgradableProperties;
 
     }
 
