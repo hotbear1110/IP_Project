@@ -135,6 +135,14 @@ public class Player {
         this.isJailed = false;
     }
 
+    public int getHouseCount() {
+        return account.getHouseCount();
+    }
+
+    public int getHotelCount() {
+        return account.getHotelCount();
+    }
+
     /**
      * Checks of the player is bankrupt
      * @return (boolean) True if the player balance is 0

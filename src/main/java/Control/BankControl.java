@@ -73,7 +73,7 @@ public class BankControl {
     }
 
     // ------------ METHODS FOR PAYING RENT ---------------\\
-    public void payRent(Player player, Property property, int diceSum) {
+    public void payRent(Player player, Property property, int diceSum, boolean Double) {
         int rent = 0;
         if (property instanceof Lot) {
             Lot activeSquare = gameControl.getGame().getBoard().getLot(property.getName());
@@ -86,6 +86,9 @@ public class BankControl {
         if (property instanceof Brewery) {
             Brewery activeSquare = gameControl.getBoard().getBrewery(property.getName());
             rent += activeSquare.getRent(diceSum);
+        }
+        if (Double) {
+            rent = rent * 2;
         }
 
         gameControl.getUI().showMessage("Du er landet på " + property.getName() + " som er ejet af " + property.getOwner().getPlayerName() + ".\n Du skal derfor betale lejen på " + rent);

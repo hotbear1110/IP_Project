@@ -9,6 +9,7 @@ import Model.Squares.Property;
 import View.UI;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class GameControl {
     private Game game;
@@ -141,43 +142,57 @@ public class GameControl {
             }
             playerPosition = game.getCurrentPlayer().getPlayerPosition();
             String action = actionControl.controlAction(playerPosition);
-            switch (action){
-                case "Start":
+            switch (action) {
+                case "Start" -> {
                     ui.showMessage("Du er landet på START og vil modtage start-penge i din næste tur");
-                    break;
-                case "Property":
+                }
+                case "Property" -> {
                     boolean hasOwner;
                     String propertyName = game.getBoard().getSquare(playerPosition).getName();
                     Property activeSquare = game.getBoard().getProperty(propertyName);
                     hasOwner = activeSquare.isPropertyOwned();
-                    if (hasOwner){
-                        bankControl.payRent(currentPlayer, activeSquare, diceSum);
+                    if (hasOwner) {
+                        bankControl.payRent(currentPlayer, activeSquare, diceSum, false);
                     } else {
                         bankControl.buyProperty(currentPlayer, activeSquare);
                     }
-                    break;
-                case "Chance":
-                    int n = chanceControl.controlAction(currentPlayer);
-                    positionControl.controlAction(n);
-                    break;
-                case "Metro":
+                }
+                case "Chance" -> {
+                    String[] n = chanceControl.controlAction(currentPlayer);
+
+                    if (n[0].length() > 0) {
+                        positionControl.controlAction(Integer.parseInt(n[1]));
+
+                        boolean hasOwner;
+                        playerPosition = getGame().getCurrentPlayer().getPlayerPosition();
+                        String propertyName = game.getBoard().getSquare(playerPosition).getName();
+                        Property activeSquare = game.getBoard().getProperty(propertyName);
+                        hasOwner = activeSquare.isPropertyOwned();
+                        if (hasOwner) {
+                            bankControl.payRent(currentPlayer, activeSquare, diceSum, (Objects.equals(n[0], "double")));
+                        } else {
+                            bankControl.buyProperty(currentPlayer, activeSquare);
+                        }
+                    }
+                }
+                case "Metro" -> {
                     ui.showMessage("Du er landet på en metro og tager den til næste stop");
                     positionControl.landsOnMetro(playerPosition);
-                    break;
-                case "Tax":
+                }
+                case "Tax" -> {
                     bankControl.payTax(playerPosition);
-                    break;
-                case "Parking":
+                }
+                case "Parking" -> {
                     ui.showMessage("Du er landet på parkeringsfeltet, nyd en lille pause");
-                    break;
-                case "GoToJail":
+                }
+                case "GoToJail" -> {
                     ui.showMessage("Du er skal straks rykke i fængsel!\nDu modtager IKKE penge hvis du passerer start!");
                     positionControl.goToJail();
                     jailControl.jailPlayer();
-                    break;
-                case "VisitJail":
+                }
+                case "VisitJail" -> {
                     ui.showMessage("Nyd dit besøg i fængslet");
-                    break;
+                }
             }
 
             updatePlayerInfo(game.getPlayers());

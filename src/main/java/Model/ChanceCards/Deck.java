@@ -77,8 +77,7 @@ public class Deck {
                     newCard = new MovePlayer(card, "moveToNext", Translator.getString(card), 0);
                 }
                 case "CHANCE29" -> {
-                    //Ikke færdigt
-                    newCard = new MovePlayer(card, "moveToNext", Translator.getString(card), 1);
+                    newCard = new MovePlayer(card, "specific", Translator.getString(card), 15);
                 }
                 case "CHANCE30" -> {
                     newCard = new MovePlayer(card, "specific", Translator.getString(card), 24);
@@ -120,7 +119,7 @@ public class Deck {
         return card.getDescription();
     }
 
-    public int pullCard(Player player, Player[] players) {
+    public String[] pullCard(Player player, Player[] players) {
 
         Cards card = cards.get(0);
         ArrayList<Cards> tempCards = new ArrayList<Cards>();
@@ -132,17 +131,17 @@ public class Deck {
 
         String cardType = card.getType();
 
-        int move = 0;
+        String[] move = {"", "0"};
         boolean addCard = true;
         switch (cardType) {
             case "payAmount" -> {
                 ChancePay payAmountCard = (ChancePay) card;
                 payAmountCard.payAmount(player);
             }
-            /*case "payPerHouse" -> {
+            case "payPerHouse" -> {
                 ChancePay payPerHouseCard = (ChancePay) card;
                 payPerHouseCard.payPerHouse(player);
-            }*/
+            }
             case "recieve" -> {
                 ChanceReceive recieveCard = (ChanceReceive) card;
                 recieveCard.recieve(player);
