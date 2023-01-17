@@ -213,3 +213,4 @@ public class Deck {
  * Look at token, if the new position is passed start, then return some true boolean. Remake the current one to not return, but chance a private boolean.
  * The method that returns that boolean should be available both in token and in player. Call it hasPassedStart.
  */
+//:)
