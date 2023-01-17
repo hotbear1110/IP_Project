@@ -28,9 +28,9 @@ public class GameControl {
 
     boolean gameOver = false;
 
-    public GameControl(String version) {
-        this.game = new Game();
-        this.board = new Board(game);
+    public GameControl(Board board, String version) {
+        this.game = new Game(board);
+        this.board = board;
         this.diceControl = new DiceControl(this);
         this.bankControl = new BankControl(this);
         this.positionControl = new PositionControl(this);
@@ -196,10 +196,12 @@ public class GameControl {
                         String propertyName = game.getBoard().getSquare(playerPosition).getName();
                         Property activeSquare = game.getBoard().getProperty(propertyName);
                         hasOwner = activeSquare.isPropertyOwned();
-                        if (hasOwner) {
+                        if (hasOwner && !activeSquare.getOwner().equals(currentPlayer)) {
                             bankControl.payRent(currentPlayer, activeSquare, diceSum, false);
-                        } else {
+                        } else if (!hasOwner){
                             bankControl.buyProperty(currentPlayer, activeSquare);
+                        } else {
+                            ui.showMessage("Du er landet på " + propertyName + ".\nDu ejer selv denne grund");
                         }
                         chance = false;
                     }

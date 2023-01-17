@@ -8,11 +8,8 @@ import java.util.*;
 
 public class Deck {
     private ArrayList<Cards> cards;
-    private Game game;
-    public Deck(Game game){
+    public Deck(){
         this.cards = new ArrayList<Cards>();
-
-        this.game = game;
         createCards();
         shuffle();
     }
@@ -173,7 +170,6 @@ public class Deck {
             case "jail" -> {
                 MovePlayer jailCard = (MovePlayer) card;
                 jailCard.jail(player);
-                game.getDice().resetDouble();
             }
             case "giveJailCard" -> {
                 JailCard giveJailCard = (JailCard) card;

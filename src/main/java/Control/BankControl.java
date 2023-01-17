@@ -92,6 +92,8 @@ public class BankControl {
         }
         if (property.isPropertyMortgaged()){
             gameControl.getUI().showMessage("Du er landet på " + property.getName() + " som er ejet af " + property.getOwner().getPlayerName() + ".\n Denne grund er pantsat og du skal derfor ikke betale leje!");
+        } else if (player.isJailed()) {
+            gameControl.getUI().showMessage("Du er landet på " + property.getName() + " som er ejet af " + property.getOwner().getPlayerName() + ".\n Denne spiller er i fængsel og du skal derfor ikke betale leje!");
         } else {
             gameControl.getUI().showMessage("Du er landet på " + property.getName() + " som er ejet af " + property.getOwner().getPlayerName() + ".\n Du skal derfor betale lejen på " + rent);
             if (!checkPlayerBalance(player, rent)) {

@@ -3,6 +3,7 @@ import Model.Board;
 
 public class Main {
     public static void main(String [] args){
-        GameControl gameControl = new GameControl("Matador");
+        Board board = new Board();
+        GameControl gameControl = new GameControl(board,"Matador");
     }
 }
