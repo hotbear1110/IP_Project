@@ -192,7 +192,7 @@ public class BankControl {
                             boolean isNext = false;
 
                             for (Lot lot : nextUpgradableProperties) {
-                                if (activeLot.equals(lot)) {
+                                if (activeLot.equals(lot.getName())) {
                                     isNext = true;
                                     break;
                                 }
@@ -203,11 +203,16 @@ public class BankControl {
                             } else {
                                 gameControl.getUI().showMessage("Du kan ikke opgradere denne grund, vælg end grund med færrest huse i farvegruppen");
                                 handleUpgrades(player);
+                                break;
                             }
+                            buySellActions(player);
+                            break;
                         case "Sælg opgraderinger":
                             sellUpgrades(player, activeLot);
+                            break;
                         case "Tilbage":
                             handleUpgrades(player);
+                            break;
                     }
                 }
             }
@@ -228,10 +233,13 @@ public class BankControl {
             switch (action){
                 case "Køb hus":
                     buyHouses(player, activeLot);
+                    break;
                 case "Køb hotel":
                     buyHotel(player, activeLot);
+                    break;
                 case "Tilbage":
                     handleUpgrades(player);
+                    break;
             }
         }
     }
