@@ -36,6 +36,8 @@ public class Dice {
     public boolean isDouble() {
         if (dice[0] == dice[1]){
                 doubleDice = true;
+        } else {
+            doubleDice = false;
         }
         return doubleDice;
     }

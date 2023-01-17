@@ -96,6 +96,7 @@ public class GameControl {
             ui.showMessage("Du har været i fængels i tre runder og skal nu betale 1000kr for at komme ud");
             bankControl.fromPlayerToBank(currentPlayer, FixedValues.JAIL_FEE);
         } else if (game.isPlayerInJail(currentPlayer) && !jailControl.isJailed()){
+            ui.showMessage("Du er i fængsel!");
             String action = jailControl.controlAction();
             switch(action){
                 case "Rul med terningerne":
