@@ -14,11 +14,7 @@ public class UIBoardFactory {
         } else if (square instanceof Lot){
             return new GUI_Street(square.getName(), square.getSubText(), square.getDescription(), Utility.parseIntToString(((Lot) square).getRent()) + "kr.", ((Lot) square).getColor(), Color.black);
         } else if(square instanceof Ship){
-            GUI_Field ship = new GUI_Shipping();
-            ship.setTitle(square.getName());
-            ship.setSubText(square.getSubText());
-            ship.setDescription(square.getDescription());
-            return new GUI_Shipping();
+            return new GUI_Shipping("", square.getName(), square.getSubText(), square.getDescription(), Utility.parseIntToString(((Ship) square).getRent()) + "kr.", Color.white, Color.black);
         } else if (square instanceof Brewery) {
             return new GUI_Brewery("", square.getName(), square.getSubText(), square.getDescription(), Translator.getString("SQUARE_BREWERY_RENT"), Color.white, Color.black);
         } else if (square instanceof Chance){
