@@ -158,7 +158,7 @@ public class BankControl {
     }
 
     private void handleUpgrades(Player player) {
-        Lot[] upgradableProperties = player.nextUpgrade();
+        Lot[] upgradableProperties = player.getUpgradableProperties();
         String[] properties = new String[upgradableProperties.length];
         for(int i = 0; i < upgradableProperties.length; i++){
             properties[i] = upgradableProperties[i].getName();
@@ -235,24 +235,60 @@ public class BankControl {
     }
 
     private void buyHotel(Player player, String activeLot) {
+        Lot[] nextUpgradableProperties = player.nextUpgrade();
         Lot lot = gameControl.getBoard().getLot(activeLot);
+
+        if (lot.getHotel()) {
+            gameControl.getUI().showMessage("Du kan ikke købe flere end et hotel pr. grund");
+            buyUpgrades(player, activeLot);
+            return;
+        }
+        boolean canBuyHotel = true;
+        for (Lot thislot : nextUpgradableProperties) {
+            if (thislot.getColor() == lot.getColor()) {
+                if (thislot.getNumberOfHouses() != 4) {
+                    canBuyHotel = false;
+                    break;
+                }
+            }
+        }
+        if (!canBuyHotel) {
+            gameControl.getUI().showMessage("Du kan ikke købe hotel, da du ikke har nok huse på alle grundene");
+            buyUpgrades(player, activeLot);
+            return;
+        }
         int buyAmount = lot.getHotelPrice();
         lot.addHotel();
         gameControl.getUI().addHotel(gameControl.getGame().getBoard().getIndex(activeLot));
         fromPlayerToBank(player, buyAmount);
+        gameControl.getUI().updatePlayers(gameControl.getGame().getPlayers());
     }
 
     private void buyHouses(Player player, String activeLot) {
         Lot lot = gameControl.getBoard().getLot(activeLot);
+
+        if (lot.getNumberOfHouses() == 4) {
+            gameControl.getUI().showMessage("Du kan ikke købe flere huse på denne grund");
+            buyUpgrades(player, activeLot);
+            return;
+        }
         int buyAmount = lot.getHousePrice();
         lot.addHouse();
         gameControl.getUI().addHouse(gameControl.getGame().getBoard().getIndex(activeLot), gameControl.getGame().getBoard().getLot(activeLot).getNumberOfHouses());
         fromPlayerToBank(player, buyAmount);
+        gameControl.getUI().updatePlayers(gameControl.getGame().getPlayers());
     }
 
     private void sellUpgrades(Player player, String activeLot){
         Lot lot = gameControl.getBoard().getLot(activeLot);
         int houses = lot.getNumberOfHouses();
+        if (houses == 0) {
+            gameControl.getUI().showMessage("Du har ikke nogle huse på denne grund");
+            buyUpgrades(player, activeLot);
+            return;
+        }
+
+
         if (lot.getHotel()){
             String action = gameControl.getUI().getDropDown("Vælg handling", ControlMenus.sellHotelUpgradesMenu);
             switch (action){
@@ -266,10 +302,35 @@ public class BankControl {
             String action = gameControl.getUI().getDropDown("Vælg en handling" , ControlMenus.sellHouseUpgradesMenu);
             switch (action){
                 case "Sælg et hus":
+                    Lot[] upgradableProperties = player.nextDowngrade();
+
+                    boolean isEven = false;
+                    for (Lot thislot : upgradableProperties) {
+                        if (activeLot == thislot.getName()) {
+                            isEven = true;
+                            break;
+                        }
+                    }
+
+                    for (Lot thislot : player.getUpgradableProperties()) {
+                        if (thislot.getColor() == lot.getColor()) {
+                            if (thislot.getHotel()) {
+                                isEven = false;
+                                break;
+                            }
+                        }
+                    }
+                    if (!isEven) {
+                        gameControl.getUI().showMessage("Du skal sælge et hus/hotel fra en af dine andre grunde med samme farvegruppe først");
+                        buyUpgrades(player, activeLot);
+                        return;
+                    }
                     sellHouse(player, lot);
                     handleUpgrades(player);
+                    break;
                 case "Tilbage":
                     handleUpgrades(player);
+                    break;
             }
         }
     }
@@ -279,7 +340,9 @@ public class BankControl {
         lot.removeHotel();
         lot.setCurrentRent(FixedValues.FOUR_HOUSE_RENT_INDEX);
         fromBankToPlayer(player, sellAmount);
+        
         gameControl.getUI().removeHotel(gameControl.getGame().getBoard().getIndex(activeLot));
+        gameControl.getUI().updatePlayers(gameControl.getGame().getPlayers());
     }
     private void sellHouse(Player player, Lot lot){
         int sellAmount = lot.getHousePrice();
@@ -300,6 +363,7 @@ public class BankControl {
                 break;
         }
         fromBankToPlayer(player, sellAmount);
+        gameControl.getUI().updatePlayers(gameControl.getGame().getPlayers());
     }
 
     public void mortgagedActions(Player player) {
@@ -340,6 +404,7 @@ public class BankControl {
             case "Ja":
                 property.setAsNotMortgaged();
                 fromPlayerToBank(player, totaltAmount);
+                gameControl.getUI().updatePlayers(gameControl.getGame().getPlayers());
                 if (player.hasColorSet(property)) {
                     property.setCurrentRent(FixedValues.DOUBLE_RENT_INDEX);
                 }
@@ -357,7 +422,7 @@ public class BankControl {
                 }
                 property.setAsMortgaged();
                 fromBankToPlayer(player, propertyMortgagedValue);
-
+                gameControl.getUI().updatePlayers(gameControl.getGame().getPlayers());
             case "Nej":
                 mortgagedActions(player);
         }

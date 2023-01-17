@@ -53,6 +53,12 @@ public class GameControl {
             case "K21/K22"-> {
                 k21_k22();
             }
+            case "K7/K17" -> {
+                k7_k17();
+                }
+            case "K3/K4/K5/K6/K9/K16/K24" -> {
+                k3_k4_k5_k6_k9_k16_k24();
+            }
         }
 
     }
@@ -454,6 +460,37 @@ public class GameControl {
         Lot q = game.getBoard().getLot(t);
         q.setOwner(player1);
         player1.buyProperty((Property) q);
+        runGame();
+    }
+    
+    private void k7_k17(){
+        setUpPlayers(2);
+        ui.setGUIPlayers(game.getPlayers());
+        diceControl.enabledDiceManipulation();
+        Player player1 = game.getSpecificPlayer(0);
+        Player player2 = game.getSpecificPlayer(1);
+        String a = game.getBoard().getSquare(1).getName();
+        Lot blueOne = game.getBoard().getLot(a);
+        blueOne.setOwner(player2);
+        String b = game.getBoard().getSquare(3).getName();
+        Lot blueTwo = game.getBoard().getLot(b);
+        blueTwo.setOwner(player2);
+        String c = game.getBoard().getSquare(6).getName();
+        Lot orangeOne = game.getBoard().getLot(c);
+        orangeOne.setOwner(player2);
+        String d = game.getBoard().getSquare(8).getName();
+        Lot orangeTwo = game.getBoard().getLot(d);
+        orangeTwo.setOwner(player2);
+        String e = game.getBoard().getSquare(9).getName();
+        Lot orangeThree = game.getBoard().getLot(e);
+        orangeThree.setOwner(player2);
+        runGame();
+        }
+
+    private void k3_k4_k5_k6_k9_k16_k24(){
+        setUpPlayers(1);
+        ui.setGUIPlayers(game.getPlayers());
+        diceControl.enabledDiceManipulation();
         runGame();
     }
 }
