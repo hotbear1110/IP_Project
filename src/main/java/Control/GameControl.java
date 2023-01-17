@@ -208,6 +208,11 @@ public class GameControl {
                     case "Chance" -> {
                         String[] n = chanceControl.controlAction(currentPlayer);
 
+                        if (Objects.equals(n[0], "jail")) {
+                            getGame().getDice().resetDouble();
+                            chance = false;
+                        }
+
                         if (n[0].length() > 0) {
                             passedStart = positionControl.controlAction(Integer.parseInt(n[1]));
 

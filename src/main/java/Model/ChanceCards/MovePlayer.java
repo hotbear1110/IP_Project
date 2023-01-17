@@ -27,8 +27,10 @@ public class MovePlayer extends Cards {
         return new String[]{"move", Integer.toString(newfields)};
     }
 
-    public void jail(Player player) {
+    public String[] jail(Player player) {
         player.setPlayerPosition(fields);
+
+        return new String[]{"jail", "0"};
     }
 
     public String[] moveToNext(Player player) {

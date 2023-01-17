@@ -169,7 +169,7 @@ public class Deck {
             }
             case "jail" -> {
                 MovePlayer jailCard = (MovePlayer) card;
-                jailCard.jail(player);
+                move = jailCard.jail(player);
             }
             case "giveJailCard" -> {
                 JailCard giveJailCard = (JailCard) card;
