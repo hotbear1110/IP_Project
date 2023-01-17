@@ -264,9 +264,7 @@ public class GameControl {
                 bankControl.getPassedStart();
                 passedStart = false;
             }
-
             updatePlayerInfo(game.getPlayers());
-            updateBoard(board);
             doubleDice = diceControl.getDoubleDice();
             if (doubleDice && diceControl.getDoubleDiceCounter() != 3) {
                 ui.showMessage("Fordi du har slået dobbelt er det din tur igen");
@@ -380,10 +378,6 @@ public class GameControl {
     }
     void updatePlayerInfo(Player[] players){
         ui.updatePlayers(players);
-    }
-
-    void updateBoard(Board board){
-        ui.updateBuildings(board);
     }
 
     public void forceEndGame(){
