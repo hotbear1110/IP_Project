@@ -1,0 +1,29 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+!pragma useVerticalIf on
+start
+:Start Turn;
+:Roll dice;
+:Lands on Move to Jail;
+:Move to Jail;
+repeat :End Turn;
+
+:Start Turn;
+split
+    :Pay to get out of Jail;
+    :End turn;
+    stop
+    split again
+    :Use Jail Card;
+    :End Turn;
+    stop
+    split again
+        :Roll dice;
+        end split
+        repeat while (Did you hit double?) is (no)
+        :Get out of Jail;
+        :End Turn;
+stop
+@enduml
+

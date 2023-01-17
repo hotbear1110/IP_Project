@@ -1,0 +1,79 @@
+@startuml DomainModel_v1
+
+skinparam style strictuml
+hide empty members
+
+class "Matador" as Game{
+
+}
+
+class "Dice" as Dice{
+    faceValue
+}
+
+class "Player" as Player{
+    name
+    money
+}
+
+class "Piece" as Piece {
+    name
+}
+
+class "Board" as Board{
+
+}
+
+class "Square \n {abstract}" as Square{
+    name
+}
+
+class "Start Square" as Start {
+
+}
+
+class "Property square \n {abstract}" as Property{
+    Price
+}
+
+class "Lot square" as Lot{
+}
+
+class "Ship square" as ShippingCompany{
+}
+
+class "Brewery square" as Brewery{
+}
+
+class "Jail square" as Jail{
+}
+
+class "Tax square" as Tax {
+}
+
+class "Parking square" as Parking {
+}
+
+class "Chance square" as Card {
+}
+
+
+Game "1" *-d- "2..4" Player : Plays <
+Game "1" *-l- "2" Dice : Played with >
+Game "1" *-r- "1" Board : Played on >
+Board "1" *-d- "40" Square : Contains >
+Player "1" -r- "1" Piece : Owns
+Player "1" *-l- "1" Account : Owns
+Piece "0..4" -r- "1" Square : Is on >
+Square <|-r- Start
+Square <|-- Property
+Square <|-- Jail
+Square <|-- Parking
+Square <|-- Tax
+Square <|-- Card
+Property <|-- ShippingCompany
+Property <|-- Brewery
+Property <|-- Lot
+Player "1" -d-> "*" Property : Owns >
+
+@enduml

@@ -1,0 +1,23 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+!pragma useVerticalIf on
+start
+:Start Turn;
+repeat :Roll dice;
+  :Move token the result of dice;
+  :Token lands on a property;
+  if (Is the property owned?) then (Yes)
+    :Pay rent;
+    (No)elseif (Want to buy property?) then (No)
+
+
+   (Yes) elseif (Can you afford property?) then (No)
+
+    else (Yes)
+    :Buy property;
+    endif
+    repeat while (Did you hit double dice?) is (Yes)
+    :End Turn;
+stop
+
+@enduml
