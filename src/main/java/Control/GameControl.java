@@ -117,7 +117,7 @@ public class GameControl {
             while(jail) {
                 String action = jailControl.controlAction();
                 switch (action) {
-                    case "Rul med terningerne" -> {
+                    case "Rul med terningerne", "Roll the dice" -> {
                         diceControl.controlAction();
                         updateDice();
                         if (diceControl.getDoubleDice()) {
@@ -132,13 +132,13 @@ public class GameControl {
                         }
                         jail = false;
                     }
-                    case "Betal 1000kr" -> {
+                    case "Betal 1000kr", "Pay 1000kr" -> {
                         bankControl.fromPlayerToBank(currentPlayer, FixedValues.JAIL_FEE);
                         takeTurn(currentPlayer, false);
                         turnTaken = true;
                         jail = false;
                     }
-                    case "Brug fængselskort" -> {
+                    case "Brug fængselskort", "Use your prison card" -> {
                         if (jailControl.hasJailCard()) {
                             jailControl.useJailCard();
                             takeTurn(currentPlayer, false);
@@ -161,11 +161,11 @@ public class GameControl {
             }
             String action = ui.getUserButton(currentPlayer.getPlayerName() + " " + Translator.getString("START_TURN"), ControlMenus.startMenu);
             switch (action){
-                case "Start tur" -> {
+                case "Start tur", "Start turn" -> {
                     takeTurn(currentPlayer, false);
                     turnTaken = true;
                 }
-                case "Administrer ejede grunde" -> {
+                case "Administrer ejede grunde", "Manage owned properties" -> {
                     bankControl.buySellActions(currentPlayer);
                 }
             }

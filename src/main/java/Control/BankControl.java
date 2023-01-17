@@ -55,7 +55,7 @@ public class BankControl {
     public void buyProperty(Player player, Property property){
         String action = gameControl.getUI().getUserButton(Translator.getString("LAND_ON_PROPERTY") + property.getName() + ".", Translator.getString("BUY"), Translator.getString("SKIP_TURN"));
         switch (action){
-            case "Køb":
+            case "Køb", "Buy":
                 int amount = property.getPrice();
                 fromPlayerToBank(player, amount);
                 property.setOwner(player);
@@ -67,7 +67,7 @@ public class BankControl {
                     }
                 }
                 gameControl.getUI().showMessage(Translator.getString("OWNER_OF") + property.getName());
-            case "Spring over":
+            case "Spring over", "Skip":
                 break;
         }
     }
@@ -117,7 +117,7 @@ public class BankControl {
             String action = gameControl.getUI().getDropDown(Translator.getString("PAY_TAX"), ControlMenus.taxOrCash);
 
             switch (action) {
-                case "Betal 10% i skat" -> {
+                case "Betal 10% i skat", "Pay 10% in tax" -> {
                     int playerCash = player.getPlayerBalance();
 
                     int payment = playerCash - Utility.removeProcentFromNumber(playerCash, FixedValues.TAX_PERCENTAGE);
@@ -129,7 +129,7 @@ public class BankControl {
                     fromPlayerToBank(player, roundedPayment);
 
                 }
-                case "Betal 4000kr." -> {
+                case "Betal 4000kr.", "Pay 4000kr" -> {
                     fromPlayerToBank(player, FixedValues.INCOME_TAX);
                 }
             }
@@ -144,13 +144,13 @@ public class BankControl {
     public void buySellActions(Player player) {
         String action = gameControl.getUI().getDropDown(Translator.getString("CHOOSE_FROM_LIST"), ControlMenus.buySellMenu);
         switch (action){
-            case "Køb/Sælg opgraderinger":
+            case "Køb/Sælg opgraderinger", "Buy/sell upgrades":
                 handleUpgrades(player);
                 return;
-            case "Pantsæt/Ophæv pantsætning":
+            case "Pantsæt/Ophæv pantsætning", "Pawn/remove Pawn":
                 mortgagedActions(player);
                 return;
-            case "Tilbage":
+            case "Tilbage", "Back":
                 return;
         }
     }
@@ -174,7 +174,7 @@ public class BankControl {
             } else {
                 String action = gameControl.getUI().getUserButton(Translator.getString("CHOOSE"), ControlMenus.upgradeMenu);
                 switch (action) {
-                        case "Køb opgraderinger":
+                        case "Køb opgraderinger", "Buy upgrades":
                             Lot[] nextUpgradableProperties = player.nextUpgrade();
 
                             boolean isNext = false;
@@ -195,10 +195,10 @@ public class BankControl {
                             }
                             buySellActions(player);
                             break;
-                        case "Sælg opgraderinger":
+                        case "Sælg opgraderinger", "Sell upgrades":
                             sellUpgrades(player, activeLot);
                             break;
-                        case "Tilbage":
+                        case "Tilbage", "Back":
                             handleUpgrades(player);
                             break;
                     }
@@ -221,13 +221,13 @@ public class BankControl {
             gameControl.getUI().showMessage(Translator.getString("PRIZE_HOUSE") + lot.getHousePrice() + Translator.getString("PRIZE_HOTEL") + lot.getHotelPrice() + Translator.getString("KR"));
             String action = gameControl.getUI().getDropDown(Translator.getString("CHOOSE_ACTION"), ControlMenus.buyUpgradeMenu);
             switch (action){
-                case "Køb hus":
+                case "Køb hus", "Buy house":
                     buyHouses(player, activeLot);
                     break;
-                case "Køb hotel":
+                case "Køb hotel", "Buy hotel":
                     buyHotel(player, activeLot);
                     break;
-                case "Tilbage":
+                case "Tilbage", "Back":
                     handleUpgrades(player);
                     break;
             }
@@ -305,16 +305,16 @@ public class BankControl {
         if (lot.getHotel()){
             String action = gameControl.getUI().getDropDown(Translator.getString("CHOOSE"), ControlMenus.sellHotelUpgradesMenu);
             switch (action){
-                case "Sælg hotel":
+                case "Sælg hotel", "Sell hotel":
                     sellHotel(player, lot);
                     handleUpgrades(player);
-                case "Tilbage":
+                case "Tilbage", "Back":
                     handleUpgrades(player);
             }
         } else {
             String action = gameControl.getUI().getDropDown(Translator.getString("CHOOSE") , ControlMenus.sellHouseUpgradesMenu);
             switch (action){
-                case "Sælg et hus":
+                case "Sælg et hus", "Sell house":
                     Lot[] upgradableProperties = player.nextDowngrade();
 
                     boolean isEven = false;
@@ -341,7 +341,7 @@ public class BankControl {
                     sellHouse(player, lot);
                     handleUpgrades(player);
                     break;
-                case "Tilbage":
+                case "Tilbage", "Back":
                     handleUpgrades(player);
                     break;
             }
@@ -415,7 +415,7 @@ public class BankControl {
         int totaltAmount = Utility.addProcentToNumber(propertyMortgagedPrice, FixedValues.MARK_UP_MORTGAGED);
         String userSelection = gameControl.getUI().getUserButton(Translator.getString("PAWN_COST") + totaltAmount + Translator.getString("WANT_NO_PAWN"), Translator.getString("YES"), Translator.getString("NO"));
         switch (userSelection){
-            case "Ja":
+            case "Ja", "Yes":
                 if (player.getPlayerBalance() - totaltAmount <= 0) {
                     gameControl.getUI().showMessage(Translator.getString("CANT_AFFORD_PROPERTY"));
                     mortgagedActions(player);
@@ -429,7 +429,7 @@ public class BankControl {
                 }
                 mortgagedActions(player);
                 break;
-            case "Nej":
+            case "Nej", "No":
                 mortgagedActions(player);
         }
     }
@@ -437,14 +437,14 @@ public class BankControl {
         int propertyMortgagedValue = property.getMortgage();
         String userSelection = gameControl.getUI().getUserButton(Translator.getString("NO_PAWN") + propertyMortgagedValue + Translator.getString("WANT_PAWN"), Translator.getString("YES"), Translator.getString("NO"));
         switch (userSelection){
-            case "Ja":
+            case "Ja", "Yes":
                 if (player.hasColorSet(property)) {
                     property.setCurrentRent(FixedValues.DEFAULT_RENT_INDEX);
                 }
                 property.setAsMortgaged();
                 fromBankToPlayer(player, propertyMortgagedValue);
                 gameControl.getUI().updatePlayers(gameControl.getGame().getPlayers());
-            case "Nej":
+            case "Nej", "No":
                 mortgagedActions(player);
         }
     }
